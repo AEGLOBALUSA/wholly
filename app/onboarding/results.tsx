@@ -233,7 +233,7 @@ export default function ResultsPage() {
                 ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
               }}
             >
-              Upgrade to see profiles, photos, and express interest. No photos on the free tier — character comes first.
+              Upgrade to see full profiles, bigger photos, and express interest.
             </Text>
           </View>
           <Button
@@ -362,8 +362,7 @@ export default function ResultsPage() {
           const isExpanded = expandedId === profile.id;
           const familiarity = getProfileFamiliarity(profile.scores?.spiritual || 70);
           const isPremium = tier === 'premium';
-          // Standard = tiny thumbnail (32x32), Premium = full photo (64x64)
-          const photoSize = isPremium ? 64 : 32;
+          // Standard = bigger photo (48x48), Premium = full photo (64x64)
 
           return (
             <Pressable
@@ -376,7 +375,7 @@ export default function ResultsPage() {
             >
               {/* Avatar + Name Row */}
               <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 16, marginBottom: 14 }}>
-                {/* Photo — Standard=tiny thumbnail, Premium=full */}
+                {/* Photo — Standard=bigger photo, Premium=full reveal */}
                 <View style={{ alignItems: 'center', gap: 6 }}>
                   <View style={{
                     width: 64,
@@ -384,7 +383,7 @@ export default function ResultsPage() {
                     borderRadius: 32,
                     backgroundColor: colors.surfaceBorder,
                     borderWidth: 2,
-                    borderColor: 'rgba(255,255,255,0.1)',
+                    borderColor: isPremium ? colors.accent + '40' : 'rgba(255,255,255,0.1)',
                     overflow: 'hidden',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -396,17 +395,16 @@ export default function ResultsPage() {
                         style={{ width: 64, height: 64 }}
                       />
                     ) : (
-                      // Standard: tiny thumbnail centered in the circle
+                      // Standard: bigger photo (48px) centered in circle
                       <View style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: 16,
+                        width: 48,
+                        height: 48,
+                        borderRadius: 24,
                         overflow: 'hidden',
-                        opacity: 0.85,
                       }}>
                         <Image
                           source={{ uri: photoUrl }}
-                          style={{ width: 32, height: 32 }}
+                          style={{ width: 48, height: 48 }}
                         />
                       </View>
                     )}
@@ -637,6 +635,61 @@ export default function ResultsPage() {
         })}
       </View>
 
+      {/* Deep Insights CTA */}
+      <Pressable
+        onPress={() => router.push('/onboarding/deep-insights')}
+        style={[styles.deepInsightsCta, {
+          backgroundColor: colors.accentSubtle,
+          borderColor: colors.accentBorder,
+        }]}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+          <Text style={{ fontSize: 24 }}>{'🧠'}</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={{
+              fontSize: 16,
+              fontWeight: '600',
+              color: colors.text,
+              ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            }}>
+              Go Deeper
+            </Text>
+            <Text style={{
+              fontSize: 12,
+              color: colors.textSecondary,
+              marginTop: 2,
+              ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            }}>
+              Optional — 36 more questions for richer matches
+            </Text>
+          </View>
+        </View>
+        <Text style={{
+          fontSize: 12,
+          color: colors.textMuted,
+          lineHeight: 18,
+          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+        }}>
+          Explore your attachment style, emotional regulation patterns, and relational compatibility. Based on validated psychometric instruments (ECR-R, DERS, PREPARE/ENRICH) used by relationship researchers worldwide.
+        </Text>
+        <View style={{
+          marginTop: 12,
+          backgroundColor: colors.accent,
+          paddingVertical: 10,
+          borderRadius: 9999,
+          alignItems: 'center',
+        }}>
+          <Text style={{
+            fontSize: 13,
+            fontWeight: '600',
+            color: '#ffffff',
+            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+          }}>
+            Take the Deep Insights Questionnaire
+          </Text>
+        </View>
+      </Pressable>
+
       {/* Bottom Actions */}
       <View style={{ gap: 12, marginTop: 24 }}>
         <Button
@@ -692,6 +745,12 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 20,
     borderWidth: StyleSheet.hairlineWidth,
+  },
+  deepInsightsCta: {
+    borderRadius: 16,
+    padding: 20,
+    borderWidth: 1,
+    marginTop: 24,
   },
   freeTierBanner: {
     borderRadius: 12,
