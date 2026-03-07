@@ -1,0 +1,106 @@
+import { Question } from '../../types';
+
+export const LIFE_VISION_QUESTIONS: Question[] = [
+  {
+    id: 'lv1',
+    text: 'My timeline for marriage is:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv1d', label: "Open to God's timing", value: 'gods-timing' },
+      { id: 'lv1b', label: '2-4 years', value: '2-4-years' },
+      { id: 'lv1a', label: 'Within 1-2 years', value: '1-2-years' },
+      { id: 'lv1c', label: '4+ years or no rush', value: '4-plus' },
+    ],
+  },
+  {
+    id: 'lv2',
+    text: 'Regarding children, I:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv2a', label: 'Definitely want children', value: 'want' },
+      { id: 'lv2b', label: 'Probably want children', value: 'probably' },
+      { id: 'lv2c', label: 'Unsure', value: 'unsure' },
+      { id: 'lv2d', label: "Don't want children", value: 'dont-want' },
+      { id: 'lv2e', label: 'Already have children', value: 'already-have' },
+    ],
+  },
+  {
+    id: 'lv3',
+    text: 'My view on tithing is:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv3d', label: 'Growing in generosity', value: 'growing' },
+      { id: 'lv3a', label: 'Tithe consistently (10%+)', value: 'consistent' },
+      { id: 'lv3c', label: 'Give occasionally', value: 'occasional' },
+      { id: 'lv3b', label: 'Give regularly but not always 10%', value: 'regular' },
+    ],
+  },
+  {
+    id: 'lv4',
+    text: 'Regarding relocation for a relationship:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv4a', label: 'Open to relocating', value: 'open' },
+      { id: 'lv4b', label: 'Prefer to stay but would consider', value: 'consider' },
+      { id: 'lv4c', label: 'Committed to current city/church', value: 'committed' },
+    ],
+  },
+  {
+    id: 'lv5',
+    text: 'If your partner attended a different Spirit-filled denomination:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv5a', label: 'Want same church eventually', value: 'same-church' },
+      { id: 'lv5b', label: 'Flexible about different churches', value: 'flexible' },
+      { id: 'lv5c', label: 'Want them to join my church', value: 'join-mine' },
+    ],
+  },
+  {
+    id: 'lv6',
+    text: 'My approach to debt is:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv6b', label: 'Actively paying down debt', value: 'paying-down' },
+      { id: 'lv6d', label: 'Have significant debt', value: 'significant' },
+      { id: 'lv6a', label: 'Avoid debt, am debt-free', value: 'debt-free' },
+      { id: 'lv6c', label: 'Have some manageable debt', value: 'manageable' },
+    ],
+  },
+  {
+    id: 'lv7',
+    text: 'In terms of gender roles in marriage:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv7a', label: 'Traditional / complementarian roles', value: 'complementarian' },
+      { id: 'lv7b', label: 'Fully equal / egalitarian partnership', value: 'egalitarian' },
+      { id: 'lv7c', label: 'Roles based on individual strengths', value: 'strengths-based' },
+    ],
+  },
+  {
+    id: 'lv8',
+    text: 'Ministry involvement is:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv8c', label: 'Something I participate in when I can', value: 'participate' },
+      { id: 'lv8a', label: 'My full-time calling', value: 'full-time' },
+      { id: 'lv8d', label: 'I support ministry but prefer a secular career', value: 'secular' },
+      { id: 'lv8b', label: 'A significant part of my life', value: 'significant' },
+    ],
+  },
+];

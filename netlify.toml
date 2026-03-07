@@ -1,0 +1,11 @@
+[build]
+  command = "npx expo export --platform web && cp landing.html dist/index.html && mkdir -p dist/assets/carousel && cp assets/carousel/*.jpg dist/assets/carousel/"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

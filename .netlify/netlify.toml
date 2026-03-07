@@ -1,0 +1,40 @@
+redirectsOrigin = "config"
+plugins = []
+headers = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/sessions/upbeat-ecstatic-lovelace/wholly-app/dist"
+publishOrigin = "config"
+commandOrigin = "config"
+command = "npx expo export --platform web && cp landing.html dist/index.html && mkdir -p dist/assets/carousel && cp assets/carousel/*.jpg dist/assets/carousel/"
+
+[build.environment]
+NODE_VERSION = "20"
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

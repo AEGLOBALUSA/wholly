@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WHOLLY — Spirit. Soul. Body. Matched.</title>
+  <meta name="description" content="WHOLLY is a faith-first dating app that matches you on spiritual depth, emotional health, intellectual connection, and life vision — in that order. Photos come last." />
+  <meta name="theme-color" content="#1A1A1A" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      /* Hero accent colors (kept for hero only) */
+      --coral: #D79178;
+      --deep-coral: #BE6E55;
+      --accent: #6366f1;
+    }
+
+    /* ═══ DARK THEME (default) ═══ */
+    [data-theme="dark"] {
+      --bg: #1a1a1e;
+      --surface: #232328;
+      --text: #ffffff;
+      --text-secondary: #e8e8ee;
+      --text-muted: #a0a0ae;
+      --accent-subtle: rgba(99,102,241,0.15);
+      --accent-border: rgba(99,102,241,0.4);
+      --surface-border: rgba(255,255,255,0.08);
+      --card-bg: rgba(255,255,255,0.03);
+      --layer-card-bg: rgba(255,255,255,0.03);
+    }
+
+    /* ═══ LIGHT THEME ═══ */
+    [data-theme="light"] {
+      --bg: #FDFCFA;
+      --surface: #F7F5F2;
+      --text: #000000;
+      --text-secondary: #1a1a1e;
+      --text-muted: #3a3a44;
+      --accent-subtle: rgba(99,102,241,0.06);
+      --accent-border: rgba(99,102,241,0.25);
+      --surface-border: rgba(0,0,0,0.06);
+      --card-bg: #ffffff;
+      --layer-card-bg: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* ═══ Theme Toggle ═══ */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    [data-theme="light"] .theme-toggle {
+      background: rgba(255,255,255,0.7);
+      border-color: rgba(0,0,0,0.1);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    .theme-toggle-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.7);
+      user-select: none;
+    }
+
+    [data-theme="light"] .theme-toggle-label {
+      color: #4a4a52;
+    }
+
+    .theme-toggle-track {
+      width: 36px;
+      height: 20px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.2);
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    [data-theme="light"] .theme-toggle-track {
+      background: var(--accent);
+    }
+
+    .theme-toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    [data-theme="light"] .theme-toggle-thumb {
+      transform: translateX(16px);
+    }
+
+    .theme-icon {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    /* ═══════════════════════════════════════
+       HERO — Full-bleed photo, text overlay
+       ═══════════════════════════════════════ */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .hero-bg img.active {
+      opacity: 1;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg,
+          rgba(26, 26, 26, 0.55) 0%,
+          rgba(26, 26, 26, 0.15) 25%,
+          rgba(26, 26, 26, 0.0) 40%,
+          rgba(26, 26, 26, 0.0) 55%,
+          rgba(26, 26, 26, 0.2) 70%,
+          rgba(26, 26, 26, 0.7) 90%,
+          rgba(26, 26, 26, 0.85) 100%
+        );
+    }
+
+    .hero-center {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-title {
+      font-family: 'Italiana', serif;
+      font-size: clamp(60px, 14vw, 120px);
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      color: white;
+      text-shadow: 0 2px 40px rgba(0, 0, 0, 0.3);
+      margin-bottom: 8px;
+    }
+
+    .hero-tagline {
+      font-size: clamp(13px, 2.5vw, 17px);
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-bottom {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px 60px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 8px;
+    }
+
+    .hero-accent {
+      font-size: 16px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--coral);
+      margin-bottom: 32px;
+    }
+
+    /* Toned-down CTA button — frosted glass instead of solid white */
+    .cta-button {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      padding: 14px 40px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .cta-button:active {
+      transform: translateY(0);
+    }
+
+    .hero-micro {
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 16px;
+      letter-spacing: 0.03em;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      opacity: 0;
+      animation: fadeInUp 1s ease 2s forwards;
+    }
+
+    .scroll-hint span {
+      display: block;
+      width: 1px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.25);
+      margin: 0 auto;
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; }
+    }
+
+    /* ═══════════════════════════════════════
+       SECTIONS
+       ═══════════════════════════════════════ */
+    .section {
+      padding: 100px 24px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .section-light {
+      background: var(--bg);
+      transition: background 0.4s ease;
+    }
+
+    .section-dark {
+      background: var(--surface);
+      transition: background 0.4s ease;
+    }
+
+    .section-title {
+      font-family: 'Italiana', serif;
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      margin-bottom: 64px;
+      color: var(--text-secondary);
+    }
+
+    .approach-text {
+      max-width: 560px;
+      margin: 0 auto 64px;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .approach-text em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 48px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .step { padding: 0 16px; }
+
+    .step-number {
+      font-family: 'Italiana', serif;
+      font-size: 52px;
+      color: var(--accent);
+      opacity: 0.35;
+      margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-size: 17px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .step-desc {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* Four Layers */
+    .layers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 28px;
+      max-width: 940px;
+      margin: 0 auto;
+    }
+
+    .layer {
+      padding: 36px 24px;
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      background: var(--layer-card-bg);
+      text-align: left;
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .layer-icon { font-size: 28px; margin-bottom: 18px; color: var(--accent); }
+    .layer-name { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .layer-weight { font-size: 12px; color: var(--accent); opacity: 0.6; margin-bottom: 12px; }
+    .layer-desc { font-size: 13px; font-weight: 300; line-height: 1.6; color: var(--text-secondary); }
+
+    /* Covenant */
+    .covenant {
+      max-width: 580px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .covenant-item {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--surface-border);
+    }
+
+    .covenant-item:last-child { border-bottom: none; }
+
+    .covenant-check {
+      color: var(--accent);
+      margin-right: 12px;
+      font-weight: 500;
+    }
+
+    .covenant-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      padding-top: 4px;
+    }
+
+    .covenant-dot {
+      color: #3B82F6;
+      margin-right: 12px;
+      font-size: 12px;
+    }
+
+    .covenant-radio {
+      border-bottom: none;
+      padding: 10px 0;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .price-card {
+      border-radius: 16px;
+      padding: 40px 28px;
+      border: 1px solid var(--surface-border);
+      background: var(--card-bg);
+      text-align: left;
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .price-card.featured {
+      border-color: var(--accent-border);
+      background: var(--accent-subtle);
+      position: relative;
+    }
+
+    .price-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 18px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+    }
+
+    .price-tier {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .price-amount {
+      font-family: 'Italiana', serif;
+      font-size: 40px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .price-period {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .price-features { list-style: none; }
+
+    .price-features li {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      padding: 5px 0;
+    }
+
+    .price-features li::before {
+      content: '\2713';
+      color: var(--accent);
+      margin-right: 10px;
+      font-weight: 500;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      padding: 80px 24px;
+      text-align: center;
+      background: var(--surface);
+      transition: background 0.4s ease;
+    }
+
+    .cta-banner .section-title {
+      margin-bottom: 8px;
+    }
+
+    .cta-banner p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+    }
+
+    .cta-button-dark {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 16px 52px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button-dark:hover {
+      background: #5558e6;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 24px;
+      text-align: center;
+      background: var(--bg);
+      border-top: 1px solid var(--surface-border);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .footer-brand {
+      font-family: 'Italiana', serif;
+      font-size: 22px;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .hero {
+        height: 100vh;
+        height: 100dvh;
+        min-height: 580px;
+      }
+      .hero-bg img {
+        object-position: center top;
+      }
+      .hero-center {
+        padding-top: 20vh;
+      }
+      .hero-title {
+        font-size: clamp(48px, 12vw, 80px);
+        letter-spacing: 0.22em;
+      }
+      .hero-tagline {
+        font-size: clamp(11px, 2.8vw, 15px);
+      }
+      .hero-bottom {
+        padding: 0 20px 48px;
+      }
+      .hero-subtitle {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .hero-accent {
+        font-size: 15px;
+        margin-bottom: 24px;
+      }
+      .section { padding: 72px 20px; }
+      .section-title {
+        font-size: clamp(24px, 6vw, 36px);
+      }
+      .section-subtitle {
+        margin-bottom: 48px;
+      }
+      .layer { text-align: center; }
+      .layers {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .covenant-item {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 520px;
+      }
+      .hero-bg img {
+        object-position: center top;
+      }
+      .hero-center {
+        padding-top: 18vh;
+      }
+      .hero-title {
+        font-size: clamp(40px, 13vw, 64px);
+        letter-spacing: 0.18em;
+      }
+      .hero-tagline {
+        font-size: 11px;
+        letter-spacing: 0.15em;
+      }
+      .hero-bottom {
+        padding: 0 16px 36px;
+      }
+      .hero-subtitle {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .hero-accent {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+      .cta-button {
+        padding: 12px 32px;
+        font-size: 11px;
+      }
+      .hero-micro {
+        font-size: 11px;
+        margin-top: 12px;
+      }
+      .section { padding: 56px 16px; }
+      .approach-text {
+        font-size: 15px;
+        line-height: 1.7;
+      }
+      .layers {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .layer {
+        padding: 28px 20px;
+      }
+      .price-card {
+        padding: 32px 24px;
+      }
+      .cta-banner {
+        padding: 60px 16px;
+      }
+      .cta-button-dark {
+        font-size: 14px;
+        padding: 14px 44px;
+      }
+    }
+
+    /* iPhone SE and very small screens */
+    @media (max-width: 375px) {
+      .hero-center {
+        padding-top: 15vh;
+      }
+      .hero-title {
+        font-size: 38px;
+        letter-spacing: 0.15em;
+      }
+      .hero-bottom {
+        padding: 0 14px 32px;
+      }
+      .hero-subtitle {
+        font-size: 13px;
+      }
+      .section { padding: 48px 14px; }
+    }
+
+    /* ═══ PREMIUM LIGHT MODE ═══ */
+
+    /* Soft layered backgrounds with radial glows */
+    [data-theme="light"] .section-light {
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(99,102,241,0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 60% at 85% 60%, rgba(215,145,120,0.05) 0%, transparent 70%),
+        linear-gradient(180deg, #FDFCFA 0%, #F9F7F4 100%);
+    }
+
+    [data-theme="light"] .section-dark {
+      background:
+        radial-gradient(ellipse 70% 50% at 75% 30%, rgba(99,102,241,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 15% 70%, rgba(215,145,120,0.04) 0%, transparent 70%),
+        linear-gradient(180deg, #F5F3EF 0%, #F9F7F4 100%);
+    }
+
+    [data-theme="light"] .cta-banner {
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(99,102,241,0.06) 0%, transparent 70%),
+        linear-gradient(180deg, #F5F3EF 0%, #FDFCFA 100%);
+    }
+
+    [data-theme="light"] footer {
+      background: linear-gradient(180deg, #FDFCFA 0%, #F7F5F2 100%);
+    }
+
+    /* Elevated cards with layered shadows */
+    [data-theme="light"] .layer {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.04),
+        0 4px 16px rgba(0,0,0,0.06),
+        0 12px 40px rgba(0,0,0,0.03);
+    }
+
+    [data-theme="light"] .layer:hover {
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.04),
+        0 8px 24px rgba(0,0,0,0.08),
+        0 16px 48px rgba(0,0,0,0.04);
+      transform: translateY(-2px);
+    }
+
+    [data-theme="light"] .price-card {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.04),
+        0 4px 16px rgba(0,0,0,0.06),
+        0 12px 40px rgba(0,0,0,0.03);
+    }
+
+    [data-theme="light"] .price-card:hover {
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.04),
+        0 8px 24px rgba(0,0,0,0.08),
+        0 16px 48px rgba(0,0,0,0.04);
+      transform: translateY(-2px);
+    }
+
+    [data-theme="light"] .price-card.featured {
+      background: linear-gradient(135deg, rgba(99,102,241,0.04) 0%, rgba(99,102,241,0.08) 100%);
+      border-color: rgba(99,102,241,0.2);
+      box-shadow:
+        0 1px 2px rgba(99,102,241,0.06),
+        0 4px 16px rgba(99,102,241,0.1),
+        0 12px 40px rgba(99,102,241,0.06);
+    }
+
+    [data-theme="light"] .cta-button-dark {
+      box-shadow:
+        0 2px 8px rgba(99,102,241,0.2),
+        0 8px 32px rgba(99,102,241,0.15);
+    }
+
+    [data-theme="light"] .cta-button-dark:hover {
+      box-shadow:
+        0 2px 8px rgba(99,102,241,0.25),
+        0 12px 40px rgba(99,102,241,0.2);
+    }
+
+    /* Soft divider between sections */
+    [data-theme="light"] .section-dark::before {
+      content: '';
+      display: block;
+      height: 1px;
+      max-width: 200px;
+      margin: 0 auto 0;
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
+      position: relative;
+      top: -100px;
+    }
+
+    /* Covenant items get subtle left accent */
+    [data-theme="light"] .covenant-item {
+      border-bottom-color: rgba(0,0,0,0.05);
+    }
+
+    /* Step numbers get a soft glow */
+    [data-theme="light"] .step-number {
+      opacity: 0.5;
+    }
+
+    /* Footer top border softened */
+    [data-theme="light"] footer {
+      border-top-color: rgba(0,0,0,0.04);
+    }
+
+    /* Pastoral Tick / Verified */
+    .verified-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .verified-card {
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    .verified-icon-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #3B82F6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+    }
+
+    .verified-tick {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    [data-theme="light"] .verified-icon-wrap {
+      box-shadow: 0 4px 24px rgba(59,130,246,0.25), 0 8px 40px rgba(59,130,246,0.1);
+    }
+
+    /* Waitlist form */
+    .waitlist-form {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .waitlist-input-wrap {
+      display: flex;
+      gap: 0;
+      border-radius: 100px;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--surface-border);
+      transition: border-color 0.3s ease, background 0.4s ease;
+    }
+
+    .waitlist-input-wrap:focus-within {
+      border-color: var(--accent-border);
+    }
+
+    .waitlist-input {
+      flex: 1;
+      padding: 16px 24px;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .waitlist-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .waitlist-btn {
+      border-radius: 100px;
+      white-space: nowrap;
+      margin: 4px;
+      padding: 12px 28px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    .waitlist-msg {
+      font-size: 14px;
+      color: var(--accent);
+      margin-top: 16px;
+      min-height: 20px;
+      text-align: center;
+    }
+
+    [data-theme="light"] .waitlist-input-wrap {
+      background: #ffffff;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    @media (max-width: 480px) {
+      .waitlist-input-wrap {
+        flex-direction: column;
+        border-radius: 16px;
+      }
+      .waitlist-btn {
+        border-radius: 100px;
+        margin: 4px 4px 4px 4px;
+      }
+      .waitlist-input {
+        padding: 14px 20px;
+        text-align: center;
+      }
+    }
+
+    /* Fade-in animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode">
+    <span class="theme-icon">&#9790;</span>
+    <div class="theme-toggle-track">
+      <div class="theme-toggle-thumb"></div>
+    </div>
+    <span class="theme-icon">&#9788;</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img class="active" src="/assets/carousel/couple-1.jpg" alt="A couple reading together on a picnic blanket" />
+      <img src="/assets/carousel/couple-2.jpg" alt="A couple laughing while looking at a camera" />
+      <img src="/assets/carousel/couple-3.jpg" alt="A couple sharing a joyful moment together" />
+      <img src="/assets/carousel/couple-4.jpg" alt="A couple playing a board game on a blanket" />
+      <img src="/assets/carousel/couple-5.jpg" alt="A couple sharing fruit and laughing together" />
+      <img src="/assets/carousel/couple-6.jpg" alt="A couple sitting together on a rug in a meadow" />
+    </div>
+
+    <div class="hero-center">
+      <h1 class="hero-title">WHOLLY</h1>
+      <p class="hero-tagline">Spirit. &ensp;Soul. &ensp;Body. &ensp;Matched.</p>
+    </div>
+
+    <div class="hero-bottom">
+      <p class="hero-subtitle">
+        The dating app designed to match you on<br />
+        what actually matters.
+      </p>
+      <p class="hero-accent">Photos come last.</p>
+      <a href="/covenant" class="cta-button">GET STARTED</a>
+      <p class="hero-micro">Free during launch &ensp;&bull; &ensp;No card required</p>
+    </div>
+  </section>
+
+  <!-- OUR APPROACH -->
+  <section class="section section-light" id="approach">
+    <h2 class="section-title fade-in">OUR APPROACH</h2>
+    <p class="section-subtitle fade-in">Go on your last first date.</p>
+    <p class="approach-text fade-in">
+      WHOLLY is built on the belief that real connection starts from the inside out.
+      We match you on spiritual depth, emotional health, intellectual connection,
+      and life vision &mdash; in that order. <em>Photos come last.</em>
+    </p>
+    <div class="steps">
+      <div class="step fade-in">
+        <div class="step-number">01</div>
+        <h3 class="step-title">Tell Us Who You Are</h3>
+        <p class="step-desc">12 steps of thoughtful onboarding &mdash; your faith walk, theology, spiritual gifts, attachment style, and life vision.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">02</div>
+        <h3 class="step-title">We Match What Matters</h3>
+        <p class="step-desc">Our 4-layer algorithm scores spiritual depth first, then emotional health, intellectual connection, and life compatibility.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">03</div>
+        <h3 class="step-title">Connect Without Bias</h3>
+        <p class="step-desc">No photos until mutual match. You'll know their heart, theology, and vision before you ever see their face.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE FOUR LAYERS -->
+  <section class="section section-dark">
+    <h2 class="section-title fade-in">THE FOUR LAYERS</h2>
+    <p class="section-subtitle fade-in">What makes a WHOLLY match</p>
+    <div class="layers">
+      <div class="layer fade-in">
+        <div class="layer-icon">&#10022;</div>
+        <div class="layer-name">Spiritual Depth</div>
+        <div class="layer-weight">40% weight</div>
+        <p class="layer-desc">Faith walk alignment, theological conviction, and authentic Spirit-filled experience.</p>
+      </div>
+      <div class="layer fade-in">
+        <div class="layer-icon">&#9825;</div>
+        <div class="layer-name">Emotional Mapping</div>
+        <div class="layer-weight">25% weight</div>
+        <p class="layer-desc">Attachment style, conflict resolution, and emotional intelligence indicators.</p>
+      </div>
+      <div class="layer fade-in">
+        <div class="layer-icon">&#9672;</div>
+        <div class="layer-name">Intellectual</div>
+        <div class="layer-weight">20% weight</div>
+        <p class="layer-desc">How you think about faith, culture, ethics, and the questions that shape your worldview.</p>
+      </div>
+      <div class="layer fade-in">
+        <div class="layer-icon">&#8734;</div>
+        <div class="layer-name">Life Vision</div>
+        <div class="layer-weight">15% weight</div>
+        <p class="layer-desc">Ministry calling, family planning, financial philosophy, and where your life is heading.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASTORAL TICK -->
+  <section class="section section-light" id="verified">
+    <h2 class="section-title fade-in">THE PASTORAL TICK</h2>
+    <p class="section-subtitle fade-in">Know who you're talking to</p>
+    <p class="approach-text fade-in">
+      Every WHOLLY member can request a <span style="color: #3B82F6; font-weight: 500;">blue verification tick</span> from a leader in their church &mdash;
+      not just the senior pastor, but whoever knows them best. Youth pastor, young adults leader, kids ministry, worship, connect group host.
+      It means someone in real church leadership is willing to vouch for this person.
+    </p>
+    <div class="verified-features">
+      <div class="verified-card fade-in">
+        <div class="verified-icon-wrap">
+          <div class="verified-tick">&#10003;</div>
+        </div>
+        <h3 class="step-title">Verified by Leadership</h3>
+        <p class="step-desc">A pastor or department leader from your church confirms you're an active, genuine member of the community.</p>
+      </div>
+      <div class="verified-card fade-in">
+        <div class="verified-icon-wrap">
+          <div class="verified-tick">&#10003;</div>
+        </div>
+        <h3 class="step-title">Any Department</h3>
+        <p class="step-desc">Youth, young adults, kids ministry, worship, connect groups, campus pastors &mdash; whoever knows you and your walk.</p>
+      </div>
+      <div class="verified-card fade-in">
+        <div class="verified-icon-wrap">
+          <div class="verified-tick">&#10003;</div>
+        </div>
+        <h3 class="step-title">Visible Trust</h3>
+        <p class="step-desc">Your blue tick shows on your profile so every match knows: this person is the real deal.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVENANT -->
+  <section class="section section-dark">
+    <h2 class="section-title fade-in">OUR COVENANT</h2>
+    <p class="section-subtitle fade-in">Every member agrees before entering</p>
+    <div class="covenant">
+      <p class="covenant-label fade-in">MY INTENTION <span style="color: var(--text-muted); font-weight: 300;">&mdash; choose one</span></p>
+      <div class="covenant-item covenant-radio fade-in"><span class="covenant-dot">&#9679;</span>I am pursuing marriage.</div>
+      <div class="covenant-item covenant-radio fade-in"><span class="covenant-dot">&#9675;</span>I am here to build a meaningful, God-honouring relationship that leads to marriage.</div>
+      <p class="covenant-label fade-in" style="margin-top: 24px;">MY COMMITMENT</p>
+      <div class="covenant-item fade-in"><span class="covenant-check">&#10003;</span>I commit to honesty, authenticity, and respect in every interaction.</div>
+      <div class="covenant-item fade-in"><span class="covenant-check">&#10003;</span>I will not use prophetic language, dreams, or spiritual authority to pressure or manipulate another user.</div>
+      <div class="covenant-item fade-in"><span class="covenant-check">&#10003;</span>I commit to seeking God's will and Spirit-led behavior in my relationships.</div>
+      <div class="covenant-item fade-in"><span class="covenant-check">&#10003;</span>I understand that WHOLLY reserves the right to remove anyone who violates this covenant.</div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section section-dark" id="pricing">
+    <h2 class="section-title fade-in">SIMPLE PRICING</h2>
+    <p class="section-subtitle fade-in">Photos come last. Character comes first.</p>
+    <div class="pricing-grid">
+      <div class="price-card fade-in">
+        <div class="price-tier">Discover</div>
+        <div class="price-amount">Free</div>
+        <div class="price-period">forever</div>
+        <ul class="price-features">
+          <li>Full onboarding questionnaire</li>
+          <li>Blurred compatibility scores</li>
+          <li>Blue Tick verification (free)</li>
+          <li>No photos — character first</li>
+        </ul>
+      </div>
+      <div class="price-card featured fade-in">
+        <div class="price-tier">Connect</div>
+        <div class="price-amount">$19.99</div>
+        <div class="price-period">per month ($14.99/mo annual)</div>
+        <ul class="price-features">
+          <li>Full profiles and bios</li>
+          <li>Tiny thumbnail photos</li>
+          <li>Chat on mutual match</li>
+          <li>Express interest</li>
+          <li>Blue Tick verification</li>
+        </ul>
+      </div>
+      <div class="price-card fade-in">
+        <div class="price-tier">Intentional</div>
+        <div class="price-amount">$29.99</div>
+        <div class="price-period">per month ($22.99/mo annual)</div>
+        <ul class="price-features">
+          <li>Everything in Connect</li>
+          <li>Full photo reveal</li>
+          <li>Gold Tick + Pastor's Note</li>
+          <li>Threshold Selector (72%+ / 82%+)</li>
+          <li>Priority Discovery</li>
+          <li>Weekly Interest Digest</li>
+          <li>Extended Insights</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA / SIGNUP -->
+  <section class="cta-banner" id="signup">
+    <h2 class="section-title fade-in">READY?</h2>
+    <p class="fade-in">Your last first date is waiting.</p>
+    <form class="waitlist-form fade-in" onsubmit="handleSignup(event)">
+      <div class="waitlist-input-wrap">
+        <input type="email" class="waitlist-input" placeholder="Enter your email" required />
+        <button type="submit" class="cta-button-dark waitlist-btn">I'M IN</button>
+      </div>
+      <p class="waitlist-msg" id="waitlistMsg"></p>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">WHOLLY</div>
+    <p class="footer-text">Spirit. Soul. Body. Matched.</p>
+    <p class="footer-text" style="margin-top: 8px;">&copy; 2026 WHOLLY</p>
+  </footer>
+
+  <script>
+    // Signup handler
+    function handleSignup(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input[type="email"]').value;
+      const msg = document.getElementById('waitlistMsg');
+      const btn = e.target.querySelector('button');
+      btn.textContent = '...';
+      btn.disabled = true;
+      // Store in Supabase
+      fetch('https://umzyimdhpaquvbyutmir.supabase.co/rest/v1/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ email: email })
+      }).then(r => {
+        msg.textContent = "You're in. Redirecting you now...";
+        e.target.querySelector('input[type="email"]').value = '';
+        btn.textContent = "YOU'RE IN ✓";
+        setTimeout(() => { window.location.href = '/covenant'; }, 1500);
+      }).catch(() => {
+        msg.textContent = "Something went wrong. Please try again.";
+        btn.textContent = "I'M IN";
+        btn.disabled = false;
+      });
+    }
+
+    // Theme toggle
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      // Update meta theme-color for mobile browser chrome
+      document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#1A1A1E' : '#FAF9F7';
+    }
+
+    // Hero carousel — slow crossfade every 5.5 seconds
+    const slides = document.querySelectorAll('.hero-bg img');
+    let current = 0;
+    // Preload all images
+    slides.forEach(img => {
+      const preload = new Image();
+      preload.src = img.src;
+    });
+    // Filter to only successfully loaded images
+    let loadedSlides = Array.from(slides);
+    slides.forEach(img => {
+      img.addEventListener('error', () => {
+        loadedSlides = loadedSlides.filter(s => s !== img);
+        img.style.display = 'none';
+      });
+    });
+    setInterval(() => {
+      if (loadedSlides.length < 2) return;
+      const currentSlide = loadedSlides[current % loadedSlides.length];
+      currentSlide.classList.remove('active');
+      current = (current + 1) % loadedSlides.length;
+      loadedSlides[current].classList.add('active');
+    }, 5500);
+
+    // Scroll-triggered fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

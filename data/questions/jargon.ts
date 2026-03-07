@@ -1,0 +1,48 @@
+import { JargonTerm } from '../../types';
+
+export const JARGON_TERMS: JargonTerm[] = [
+  // Authentic Spirit-filled experiences from Planetshakers & Futures culture
+  // Mixed so there's no obvious grouping
+  { id: 'j1', term: 'Prayed in tongues during a worship set', isAuthentic: true },
+  { id: 'j2', term: 'Been slain in the Spirit at an altar call', isAuthentic: true },
+  { id: 'd1', term: 'Completed the 40-day Encounter Journal program', isAuthentic: false },
+  { id: 'j3', term: 'Attended a Planetshakers conference', isAuthentic: true },
+  { id: 'j4', term: 'Had a prophetic word spoken over me', isAuthentic: true },
+  { id: 'd2', term: 'Attended a Kingdom Alignment retreat', isAuthentic: false },
+  { id: 'j5', term: 'Served on a church welcome team', isAuthentic: true },
+  { id: 'j6', term: 'Fasted corporately with my church for breakthrough', isAuthentic: true },
+  { id: 'j7', term: 'Been part of a small group or connect group', isAuthentic: true },
+  { id: 'd3', term: 'Participated in a Prophetic Mapping session', isAuthentic: false },
+  { id: 'j8', term: 'Experienced God\'s presence tangibly during worship', isAuthentic: true },
+  { id: 'j9', term: 'Volunteered at a church outreach or community event', isAuthentic: true },
+  { id: 'j10', term: 'Laid hands on someone in prayer', isAuthentic: true },
+  { id: 'd4', term: 'Been through a Spiritual Gifting Assessment course', isAuthentic: false },
+  { id: 'j11', term: 'Attended Futures College or a church leadership program', isAuthentic: true },
+  { id: 'j12', term: 'Given a testimony in front of the church', isAuthentic: true },
+  { id: 'j13', term: 'Worshipped at a multi-day conference or camp', isAuthentic: true },
+  { id: 'd5', term: 'Received a Covenant Confirmation certificate', isAuthentic: false },
+  { id: 'j14', term: 'Been water baptised as a believer', isAuthentic: true },
+  { id: 'j15', term: 'Served on a worship or production team', isAuthentic: true },
+  { id: 'd6', term: 'Attended an Anointing Intensive weekend', isAuthentic: false },
+  { id: 'j16', term: 'Prayed through the night at a prayer meeting', isAuthentic: true },
+  { id: 'j17', term: 'Witnessed someone healed during a service', isAuthentic: true },
+  { id: 'j18', term: 'Responded to an altar call for salvation or rededication', isAuthentic: true },
+  { id: 'd7', term: 'Completed a Spirit Formation pathway', isAuthentic: false },
+  { id: 'j19', term: 'Been on a short-term missions trip with church', isAuthentic: true },
+  { id: 'j20', term: 'Experienced a season of breakthrough after prayer', isAuthentic: true },
+  { id: 'j21', term: 'Heard a message on finding your calling or destiny', isAuthentic: true },
+  { id: 'd8', term: 'Been part of a Glory Wave gathering', isAuthentic: false },
+  { id: 'j22', term: 'Been anointed with oil for healing', isAuthentic: true },
+  { id: 'j23', term: 'Participated in a corporate prayer and fasting week', isAuthentic: true },
+  { id: 'j24', term: 'Attended PlanetBoom or a church youth movement', isAuthentic: true },
+  { id: 'd9', term: 'Participated in a Harvest Circle prayer format', isAuthentic: false },
+  { id: 'j25', term: 'Led or hosted a connect group in my home', isAuthentic: true },
+  { id: 'j26', term: 'Felt God speak to me through a sermon or word of knowledge', isAuthentic: true },
+  { id: 'j27', term: 'Tithed consistently as an act of faith', isAuthentic: true },
+  { id: 'd10', term: 'Attended a Presence Protocol training', isAuthentic: false },
+  { id: 'j28', term: 'Served in kids or youth ministry at church', isAuthentic: true },
+  { id: 'j29', term: 'Gone through a discipleship or mentoring program', isAuthentic: true },
+  { id: 'j30', term: 'Experienced the gift of tongues and interpretation in a service', isAuthentic: true },
+];
+
+export const JARGON_DESCRIPTION = "Select all the experiences you've personally had. This helps us understand your faith journey. Be honest — there's no wrong answer.";
