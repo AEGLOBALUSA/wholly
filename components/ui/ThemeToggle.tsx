@@ -30,7 +30,7 @@ const ThemeToggle: React.FC = () => {
 const styles = StyleSheet.create({
   toggle: {
     position: 'absolute',
-    bottom: 24,
+    top: 18,
     right: 24,
     zIndex: 999,
     width: 40,

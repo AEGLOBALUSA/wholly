@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
+  Image,
   Pressable,
   StyleSheet,
   Platform,
@@ -62,7 +63,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
       >
         {/* Avatar + Name Row */}
         <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 16, marginBottom: 14 }}>
-          {/* No Photo — Just a silhouette placeholder */}
+          {/* Tiny thumbnail photo for free tier */}
           <View style={{ alignItems: 'center', gap: 6 }}>
             <View
               style={{
@@ -77,14 +78,19 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
                 alignItems: 'center',
               }}
             >
-              {/* Silhouette icon instead of blurred photo */}
-              <Text style={{
-                fontSize: 28,
-                color: colors.textMuted,
-                opacity: 0.5,
+              {/* Small thumbnail in center of circle */}
+              <View style={{
+                width: 28,
+                height: 28,
+                borderRadius: 14,
+                overflow: 'hidden',
+                opacity: 0.8,
               }}>
-                {'👤'}
-              </Text>
+                <Image
+                  source={{ uri: photoUrl }}
+                  style={{ width: 28, height: 28 }}
+                />
+              </View>
             </View>
           </View>
 
@@ -212,7 +218,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
           </Text>
         </View>
 
-        {/* No photo badge */}
+        {/* Photo upgrade badge */}
         <View style={{
           backgroundColor: colors.accentSubtle || 'rgba(99,102,241,0.1)',
           borderRadius: 8,
@@ -229,7 +235,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
             flex: 1,
             ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
           }}>
-            Photos are hidden on Discover. Upgrade to see thumbnails or full photos.
+            Upgrade for bigger photos and full profiles. Premium unlocks the full photo reveal.
           </Text>
         </View>
 

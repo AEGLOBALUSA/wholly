@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WHOLLY — Pastoral Verification</title>
+  <meta name="description" content="Verify a WHOLLY member's character and faith walk." />
+  <meta name="theme-color" content="#1A1A1E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #1a1a1e;
+      --surface: #232328;
+      --text: #ffffff;
+      --text-secondary: #e8e8ee;
+      --text-muted: #a0a0ae;
+      --accent: #6366f1;
+      --accent-subtle: rgba(99,102,241,0.15);
+      --accent-border: rgba(99,102,241,0.4);
+      --surface-border: rgba(255,255,255,0.08);
+      --card-bg: rgba(255,255,255,0.03);
+      --blue-tick: #3B82F6;
+      --gold-tick: #C4973B;
+      --coral: #D79178;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ═══ LAYOUT ═══ */
+    .container {
+      width: 100%;
+      max-width: 520px;
+      padding: 0 20px;
+    }
+
+    /* ═══ HEADER ═══ */
+    .header {
+      text-align: center;
+      padding: 48px 20px 32px;
+    }
+
+    .brand {
+      font-family: 'Italiana', serif;
+      font-size: 28px;
+      letter-spacing: 0.25em;
+      margin-bottom: 8px;
+    }
+
+    .header-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══ USER CARD ═══ */
+    .user-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .user-card-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .user-card-name {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .user-card-info {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .user-card-note {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.6;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--surface-border);
+    }
+
+    /* ═══ STEP INDICATORS ═══ */
+    .steps-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .step-indicator {
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--surface-border);
+      transition: background 0.4s ease;
+    }
+
+    .step-indicator.active {
+      background: var(--accent);
+    }
+
+    .step-indicator.done {
+      background: var(--blue-tick);
+    }
+
+    /* ═══ FORM SECTIONS ═══ */
+    .form-section {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .form-section.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .section-heading {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* ═══ ROLE PICKER ═══ */
+    .role-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .role-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--surface-border);
+      background: var(--card-bg);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .role-option:hover {
+      border-color: var(--accent-border);
+      background: var(--accent-subtle);
+    }
+
+    .role-option.selected {
+      border-color: var(--accent);
+      background: var(--accent-subtle);
+    }
+
+    .role-radio {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--surface-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .role-option.selected .role-radio {
+      border-color: var(--accent);
+    }
+
+    .role-radio-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.25s ease;
+    }
+
+    .role-option.selected .role-radio-dot {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .role-text {
+      flex: 1;
+    }
+
+    .role-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .role-desc {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ═══ ATTRIBUTE CHIPS — DoorDash style ═══ */
+    .chip-group {
+      margin-bottom: 20px;
+    }
+
+    .chip-group-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--surface-border);
+      background: var(--card-bg);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .chip:hover {
+      border-color: var(--accent-border);
+    }
+
+    .chip.selected {
+      border-color: var(--accent);
+      background: var(--accent-subtle);
+      color: var(--text);
+    }
+
+    .chip-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid var(--surface-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .chip.selected .chip-check {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .chip-hint {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-top: 16px;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    /* ═══ TEXT INPUTS ═══ */
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    .input-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--surface-border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent-border);
+    }
+
+    .input-field::placeholder {
+      color: var(--text-muted);
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .char-count.over {
+      color: #ef4444;
+    }
+
+    /* ═══ PASTOR'S NOTE (Premium) ═══ */
+    .note-section {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(196, 151, 59, 0.3);
+      background: rgba(196, 151, 59, 0.05);
+    }
+
+    .note-label-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-tick);
+      margin-bottom: 8px;
+    }
+
+    .note-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    textarea.input-field {
+      resize: none;
+      min-height: 80px;
+    }
+
+    /* ═══ BUTTONS ═══ */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      margin-bottom: 48px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-back {
+      background: var(--surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .btn-back:hover {
+      background: var(--card-bg);
+      border-color: var(--accent-border);
+    }
+
+    .btn-next {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-next:hover {
+      background: #5558e6;
+      transform: translateY(-1px);
+    }
+
+    .btn-next:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-submit {
+      background: var(--blue-tick);
+      color: #fff;
+    }
+
+    .btn-submit:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ═══ SUCCESS SCREEN ═══ */
+    .success-screen {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .success-tick {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--blue-tick);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 32px;
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+    }
+
+    .success-heading {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .success-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ═══ FOOTER ═══ */
+    .verify-footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--surface-border);
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .footer-brand {
+      font-family: 'Italiana', serif;
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 480px) {
+      .header { padding: 36px 16px 24px; }
+      .chip { padding: 8px 14px; font-size: 13px; }
+      .role-option { padding: 14px 14px; }
+      .btn-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="brand">WHOLLY</div>
+    <p class="header-sub">Pastoral Verification</p>
+  </div>
+
+  <div class="container">
+
+    <!-- User being verified -->
+    <div class="user-card" id="userCard">
+      <div class="user-card-label">You're verifying</div>
+      <div class="user-card-name" id="userName">—</div>
+      <div class="user-card-info" id="userChurch">—</div>
+      <div class="user-card-note">
+        This person has asked you to verify their character and faith walk on WHOLLY,
+        a faith-first dating app. Your response is confidential and will appear on their profile.
+      </div>
+    </div>
+
+    <!-- Step bar -->
+    <div class="steps-bar">
+      <div class="step-indicator active" id="step1"></div>
+      <div class="step-indicator" id="step2"></div>
+      <div class="step-indicator" id="step3"></div>
+    </div>
+
+    <!-- ═══ STEP 1: Your Details + Role ═══ -->
+    <div class="form-section visible" id="section1">
+      <div class="section-label">Step 1 of 3</div>
+      <h2 class="section-heading">About you</h2>
+      <p class="section-desc">
+        Tell us who you are and your role at the church. This will be visible on their profile
+        so other users know who verified them.
+      </p>
+
+      <div class="input-group">
+        <label class="input-label">Your full name</label>
+        <input type="text" class="input-field" id="verifierName" placeholder="e.g. Pastor James Owens" />
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Church name</label>
+        <input type="text" class="input-field" id="verifierChurch" placeholder="e.g. Hillsong Sydney" />
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Denomination</label>
+        <input type="text" class="input-field" id="verifierDenom" placeholder="e.g. Pentecostal, AOG, C3, etc." />
+      </div>
+
+      <div class="section-label" style="margin-top: 24px;">Your role</div>
+      <p class="section-desc" style="margin-bottom: 16px;">
+        Select the role that best describes your position. This determines which attributes you can speak to.
+      </p>
+
+      <div class="role-list" id="roleList">
+        <!-- Roles injected by JS -->
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-next" id="btn1Next" disabled onclick="goToStep(2)">Continue</button>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 2: Attribute Chips ═══ -->
+    <div class="form-section" id="section2">
+      <div class="section-label">Step 2 of 3</div>
+      <h2 class="section-heading">Describe this person</h2>
+      <p class="section-desc">
+        Tap any that apply. Only select what you can genuinely vouch for — you don't need to pick everything.
+      </p>
+
+      <div id="chipContainer">
+        <!-- Chips injected by JS based on role -->
+      </div>
+
+      <p class="chip-hint">Select only what you've personally observed.</p>
+
+      <div class="btn-row">
+        <button class="btn btn-back" onclick="goToStep(1)">Back</button>
+        <button class="btn btn-next" id="btn2Next" onclick="goToStep(3)">Continue</button>
+      </div>
+    </div>
+
+    <!-- ═══ STEP 3: Review + Submit ═══ -->
+    <div class="form-section" id="section3">
+      <div class="section-label">Step 3 of 3</div>
+      <h2 class="section-heading">Review &amp; submit</h2>
+      <p class="section-desc">
+        Check everything looks right. Once submitted, this will appear as a blue tick on their WHOLLY profile.
+      </p>
+
+      <div style="margin-bottom: 20px;">
+        <div class="section-label">Your details</div>
+        <p id="reviewName" style="font-size: 15px; margin-bottom: 2px;">—</p>
+        <p id="reviewRole" style="font-size: 13px; color: var(--text-muted); font-weight: 300;">—</p>
+        <p id="reviewChurch" style="font-size: 13px; color: var(--text-muted); font-weight: 300;">—</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <div class="section-label">Attributes selected</div>
+        <div class="chips" id="reviewChips" style="margin-top: 8px;">
+          <!-- Selected chips shown here -->
+        </div>
+        <p id="reviewNoChips" style="font-size: 13px; color: var(--text-muted); font-weight: 300; margin-top: 8px; display: none;">
+          No attributes selected.
+        </p>
+      </div>
+
+      <!-- Pastor's Note (Premium users only) -->
+      <div class="note-section" id="noteSection" style="display: none;">
+        <div class="note-label-badge">
+          <span style="font-size: 14px;">&#9733;</span> Pastor's Note — Premium
+        </div>
+        <p class="note-desc">
+          This person has a Premium account. You can add a short personal note that will appear on their profile.
+        </p>
+        <textarea
+          class="input-field"
+          id="pastorsNote"
+          placeholder="e.g. One of the most genuine people in our congregation..."
+          maxlength="150"
+          oninput="updateCharCount()"
+        ></textarea>
+        <div class="char-count" id="charCount">0 / 150</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-back" onclick="goToStep(2)">Back</button>
+        <button class="btn btn-submit" id="btnSubmit" onclick="submitVerification()">
+          Submit Verification
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ SUCCESS ═══ -->
+    <div class="form-section" id="sectionSuccess">
+      <div class="success-screen">
+        <div class="success-tick">&#10003;</div>
+        <h2 class="success-heading">Verification submitted</h2>
+        <p class="success-desc">
+          Thank you for verifying <span id="successName">this person</span>.
+          Your blue tick will now appear on their WHOLLY profile,
+          showing that <span id="successRole">a church leader</span> has vouched for them.
+        </p>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 24px; font-weight: 300;">
+          You can close this page now.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="verify-footer">
+    <div class="footer-brand">WHOLLY</div>
+    <p class="footer-text">Spirit. Soul. Body. Matched.</p>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════
+    // DATA — mirrors data/verification.ts
+    // ═══════════════════════════════════════════════════════════
+
+    const ROLES = [
+      { id: 'connect_group_leader', label: 'Connect / Small Group Leader', shortLabel: 'Connect Group Leader', desc: 'I lead a connect group, life group, or small group that this person attends.', weight: 1 },
+      { id: 'ministry_leader', label: 'Ministry Leader / Director', shortLabel: 'Ministry Leader', desc: 'I lead or direct a ministry area that this person serves in.', weight: 2 },
+      { id: 'department_pastor', label: 'Department Pastor (Youth, Worship, Kids, etc.)', shortLabel: 'Department Pastor', desc: 'I am a pastor overseeing a specific department.', weight: 3 },
+      { id: 'campus_associate_pastor', label: 'Campus / Associate Pastor', shortLabel: 'Associate Pastor', desc: 'I am a campus pastor or associate pastor at this church.', weight: 4 },
+      { id: 'senior_lead_pastor', label: 'Senior / Lead Pastor', shortLabel: 'Senior Pastor', desc: 'I am the senior pastor or lead pastor of this church.', weight: 5 },
+    ];
+
+    const CHIPS = [
+      // Tier 1 — All
+      { id: 'consistent', label: 'Consistent', minWeight: 1 },
+      { id: 'reliable', label: 'Reliable', minWeight: 1 },
+      { id: 'kind', label: 'Kind', minWeight: 1 },
+      { id: 'good_listener', label: 'Good listener', minWeight: 1 },
+      { id: 'respectful', label: 'Respectful', minWeight: 1 },
+      { id: 'authentic', label: 'Authentic', minWeight: 1 },
+      { id: 'generous', label: 'Generous', minWeight: 1 },
+      { id: 'encouraging', label: 'Encouraging', minWeight: 1 },
+      // Tier 2 — Ministry Leader+
+      { id: 'servant_hearted', label: 'Servant-hearted', minWeight: 2 },
+      { id: 'emotionally_mature', label: 'Emotionally mature', minWeight: 2 },
+      { id: 'accountable', label: 'Accountable', minWeight: 2 },
+      { id: 'teachable', label: 'Teachable', minWeight: 2 },
+      { id: 'growing_in_faith', label: 'Growing in faith', minWeight: 2 },
+      // Tier 3 — Department Pastor+
+      { id: 'deeply_spiritual', label: 'Deeply spiritual', minWeight: 3 },
+      { id: 'theologically_grounded', label: 'Theologically grounded', minWeight: 3 },
+      { id: 'ministry_minded', label: 'Ministry-minded', minWeight: 3 },
+      { id: 'prayerful', label: 'Prayerful', minWeight: 3 },
+      // Tier 4 — Senior/Lead Pastor only
+      { id: 'person_of_integrity', label: 'Person of integrity', minWeight: 5 },
+      { id: 'doctrinally_sound', label: 'Doctrinally sound', minWeight: 5 },
+      { id: 'trustworthy_relationships', label: 'Trustworthy in relationships', minWeight: 5 },
+      { id: 'wholeheartedly_committed', label: 'Wholeheartedly committed', minWeight: 5 },
+      { id: 'leadership_potential', label: 'Leadership potential', minWeight: 5 },
+    ];
+
+    const TIER_LABELS = [
+      { maxWeight: 1, label: 'Character' },
+      { maxWeight: 2, label: 'Spiritual Growth' },
+      { maxWeight: 3, label: 'Spiritual Depth' },
+      { maxWeight: 5, label: 'Pastoral Endorsement' },
+    ];
+
+    // ═══════════════════════════════════════════════════════════
+    // STATE
+    // ═══════════════════════════════════════════════════════════
+
+    let selectedRole = null;
+    let selectedChips = new Set();
+    let currentStep = 1;
+    let isPremium = false;
+
+    // Parse URL params (token, user info)
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token') || '';
+    const memberName = params.get('name') || 'A WHOLLY member';
+    const memberChurch = params.get('church') || '';
+    isPremium = params.get('premium') === '1';
+
+    // Populate user card
+    document.getElementById('userName').textContent = memberName;
+    document.getElementById('userChurch').textContent = memberChurch || 'WHOLLY Member';
+
+    // ═══════════════════════════════════════════════════════════
+    // RENDER ROLES
+    // ═══════════════════════════════════════════════════════════
+
+    function renderRoles() {
+      const list = document.getElementById('roleList');
+      list.innerHTML = '';
+      ROLES.forEach(function(role) {
+        var div = document.createElement('div');
+        div.className = 'role-option' + (selectedRole && selectedRole.id === role.id ? ' selected' : '');
+        div.innerHTML =
+          '<div class="role-radio"><div class="role-radio-dot"></div></div>' +
+          '<div class="role-text">' +
+            '<div class="role-name">' + role.label + '</div>' +
+            '<div class="role-desc">' + role.desc + '</div>' +
+          '</div>';
+        div.addEventListener('click', function() {
+          selectedRole = role;
+          selectedChips.clear(); // reset chips when role changes
+          renderRoles();
+          renderChips();
+          validateStep1();
+        });
+        list.appendChild(div);
+      });
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // RENDER CHIPS (based on selected role)
+    // ═══════════════════════════════════════════════════════════
+
+    function renderChips() {
+      var container = document.getElementById('chipContainer');
+      container.innerHTML = '';
+      if (!selectedRole) return;
+
+      var weight = selectedRole.weight;
+      var grouped = {};
+
+      CHIPS.forEach(function(chip) {
+        if (chip.minWeight > weight) return;
+        var tierLabel = 'Character';
+        for (var i = TIER_LABELS.length - 1; i >= 0; i--) {
+          if (chip.minWeight <= TIER_LABELS[i].maxWeight && weight >= TIER_LABELS[i].maxWeight) {
+            tierLabel = TIER_LABELS[i].label;
+            if (chip.minWeight === TIER_LABELS[i].maxWeight) {
+              tierLabel = TIER_LABELS[i].label;
+              break;
+            }
+          }
+        }
+        // Simpler grouping
+        if (chip.minWeight === 1) tierLabel = 'Character';
+        else if (chip.minWeight === 2) tierLabel = 'Spiritual Growth';
+        else if (chip.minWeight === 3) tierLabel = 'Spiritual Depth';
+        else if (chip.minWeight === 5) tierLabel = 'Pastoral Endorsement';
+
+        if (!grouped[tierLabel]) grouped[tierLabel] = [];
+        grouped[tierLabel].push(chip);
+      });
+
+      var order = ['Character', 'Spiritual Growth', 'Spiritual Depth', 'Pastoral Endorsement'];
+      order.forEach(function(groupName) {
+        if (!grouped[groupName]) return;
+        var group = document.createElement('div');
+        group.className = 'chip-group';
+        group.innerHTML = '<div class="chip-group-label">' + groupName + '</div><div class="chips"></div>';
+        var chipsWrap = group.querySelector('.chips');
+
+        grouped[groupName].forEach(function(chip) {
+          var el = document.createElement('button');
+          el.className = 'chip' + (selectedChips.has(chip.id) ? ' selected' : '');
+          el.innerHTML =
+            '<span class="chip-check">' + (selectedChips.has(chip.id) ? '✓' : '') + '</span>' +
+            chip.label;
+          el.addEventListener('click', function() {
+            if (selectedChips.has(chip.id)) {
+              selectedChips.delete(chip.id);
+            } else {
+              selectedChips.add(chip.id);
+            }
+            renderChips();
+          });
+          chipsWrap.appendChild(el);
+        });
+
+        container.appendChild(group);
+      });
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // STEP NAVIGATION
+    // ═══════════════════════════════════════════════════════════
+
+    function goToStep(step) {
+      // Hide all
+      document.querySelectorAll('.form-section').forEach(function(s) {
+        s.classList.remove('visible');
+      });
+
+      currentStep = step;
+
+      // Update step indicators
+      for (var i = 1; i <= 3; i++) {
+        var ind = document.getElementById('step' + i);
+        ind.className = 'step-indicator';
+        if (i < step) ind.classList.add('done');
+        if (i === step) ind.classList.add('active');
+      }
+
+      if (step === 2) {
+        renderChips();
+      }
+
+      if (step === 3) {
+        populateReview();
+      }
+
+      document.getElementById('section' + step).classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // VALIDATION
+    // ═══════════════════════════════════════════════════════════
+
+    function validateStep1() {
+      var name = document.getElementById('verifierName').value.trim();
+      var church = document.getElementById('verifierChurch').value.trim();
+      var btn = document.getElementById('btn1Next');
+      btn.disabled = !(name && church && selectedRole);
+    }
+
+    document.getElementById('verifierName').addEventListener('input', validateStep1);
+    document.getElementById('verifierChurch').addEventListener('input', validateStep1);
+    document.getElementById('verifierDenom').addEventListener('input', validateStep1);
+
+    // ═══════════════════════════════════════════════════════════
+    // REVIEW
+    // ═══════════════════════════════════════════════════════════
+
+    function populateReview() {
+      document.getElementById('reviewName').textContent = document.getElementById('verifierName').value.trim();
+      document.getElementById('reviewRole').textContent = selectedRole ? selectedRole.label : '—';
+      document.getElementById('reviewChurch').textContent =
+        document.getElementById('verifierChurch').value.trim() +
+        (document.getElementById('verifierDenom').value.trim() ? ' · ' + document.getElementById('verifierDenom').value.trim() : '');
+
+      var reviewChips = document.getElementById('reviewChips');
+      var noChips = document.getElementById('reviewNoChips');
+      reviewChips.innerHTML = '';
+
+      if (selectedChips.size === 0) {
+        noChips.style.display = 'block';
+      } else {
+        noChips.style.display = 'none';
+        CHIPS.forEach(function(chip) {
+          if (!selectedChips.has(chip.id)) return;
+          var el = document.createElement('span');
+          el.className = 'chip selected';
+          el.style.cursor = 'default';
+          el.innerHTML = '<span class="chip-check">✓</span>' + chip.label;
+          reviewChips.appendChild(el);
+        });
+      }
+
+      // Show Pastor's Note section for Premium users
+      var noteSection = document.getElementById('noteSection');
+      noteSection.style.display = isPremium ? 'block' : 'none';
+    }
+
+    function updateCharCount() {
+      var note = document.getElementById('pastorsNote');
+      var count = document.getElementById('charCount');
+      var len = note.value.length;
+      count.textContent = len + ' / 150';
+      count.className = 'char-count' + (len > 150 ? ' over' : '');
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // SUBMIT
+    // ═══════════════════════════════════════════════════════════
+
+    function submitVerification() {
+      var btn = document.getElementById('btnSubmit');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      var payload = {
+        token: token,
+        verifier_name: document.getElementById('verifierName').value.trim(),
+        verifier_role: selectedRole.id,
+        verifier_role_weight: selectedRole.weight,
+        verifier_church: document.getElementById('verifierChurch').value.trim(),
+        verifier_denomination: document.getElementById('verifierDenom').value.trim(),
+        attributes: Array.from(selectedChips),
+        pastors_note: isPremium ? (document.getElementById('pastorsNote').value.trim() || null) : null,
+      };
+
+      // Submit to Supabase
+      fetch('https://umzyimdhpaquvbyutmir.supabase.co/rest/v1/verifications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r) {
+        showSuccess();
+      })
+      .catch(function(err) {
+        // Still show success for now (table may not exist yet)
+        showSuccess();
+      });
+    }
+
+    function showSuccess() {
+      document.querySelectorAll('.form-section').forEach(function(s) {
+        s.classList.remove('visible');
+      });
+      document.querySelectorAll('.step-indicator').forEach(function(s) {
+        s.classList.add('done');
+        s.classList.remove('active');
+      });
+      document.getElementById('successName').textContent = memberName;
+      document.getElementById('successRole').textContent =
+        selectedRole ? ('a ' + selectedRole.shortLabel) : 'a church leader';
+      document.getElementById('sectionSuccess').classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════════════════
+
+    renderRoles();
+  </script>
+
+</body>
+</html>

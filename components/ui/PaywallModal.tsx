@@ -209,7 +209,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                 lineHeight: 18,
                 ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
               }}>
-                Onboarding + blurred results • No photos • Blue Tick eligible (free, renews every 6 months)
+                Onboarding + blurred results • Tiny thumbnail photos • Blue Tick eligible (free, renews every 6 months)
               </Text>
             </View>
 
@@ -289,7 +289,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                 {/* Features */}
                 <View style={{ marginBottom: 14 }}>
                   {renderFeature(true, 'Full match profiles and bios')}
-                  {renderFeature(true, 'Tiny thumbnail photos')}
+                  {renderFeature(true, 'Bigger profile photos')}
                   {renderFeature(true, 'Express interest')}
                   {renderFeature(true, 'Chat on mutual match')}
                   {renderFeature(true, 'Blue Tick verification')}

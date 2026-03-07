@@ -26,8 +26,8 @@ const FEATURE_GATES: Record<SubscriptionTier, SubscriptionFeatures> = {
     viewFullProfiles: false,
     expressInterest: false,
     chat: false,
-    photoAccess: 'none',
-    seeBlueVerifiedTick: true,       // Blue Tick is free for everyone
+    photoAccess: 'thumbnail',         // Free = tiny thumbnail
+    seeBlueVerifiedTick: true,        // Blue Tick is free for everyone
     seeGoldVerifiedTick: false,
     pastorNote: false,
     thresholdSelector: false,
@@ -42,7 +42,7 @@ const FEATURE_GATES: Record<SubscriptionTier, SubscriptionFeatures> = {
     viewFullProfiles: true,
     expressInterest: true,
     chat: true,
-    photoAccess: 'thumbnail',         // Standard = tiny thumbnails
+    photoAccess: 'thumbnail',         // Standard = bigger photo (medium)
     seeBlueVerifiedTick: true,
     seeGoldVerifiedTick: false,
     pastorNote: false,
