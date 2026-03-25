@@ -58,6 +58,12 @@ const MatchCard: React.FC<MatchCardProps> = ({ profile, style }) => {
           <ScoreBar label="Intellectual" score={profile.scores.intellectual} />
           <ScoreBar label="Life Vision" score={profile.scores.lifeVision} />
         </View>
+
+        {profile.communityFamiliarity != null && (
+          <View style={styles.communitySection}>
+            <ScoreBar label="Community Familiarity" score={profile.communityFamiliarity} />
+          </View>
+        )}
       </View>
     </Card>
   );
@@ -135,6 +141,13 @@ const styles = StyleSheet.create({
   },
   bars: {
     gap: 14,
+  },
+  communitySection: {
+    marginTop: SPACING.md,
+    paddingTop: SPACING.sm,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.borderLight,
+    borderStyle: 'dashed',
   },
 });
 

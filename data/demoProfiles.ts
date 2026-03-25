@@ -18,6 +18,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 75,
+    communityFamiliarity: 88,
     pastoralVerified: true,
     pastoralDepartment: 'worship',
   },
@@ -38,6 +39,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 70,
+    communityFamiliarity: 79,
     pastoralVerified: true,
     pastoralDepartment: 'connect-groups',
   },
@@ -58,6 +60,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 68,
+    communityFamiliarity: 92,
   },
   {
     id: 'profile4',
@@ -76,6 +79,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 63,
+    communityFamiliarity: 88,
     pastoralVerified: true,
     pastoralDepartment: 'youth',
   },
@@ -96,6 +100,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 61,
+    communityFamiliarity: 51,
   },
   {
     id: 'profile6',
@@ -114,6 +119,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 77,
+    communityFamiliarity: 81,
   },
   {
     id: 'profile7',
@@ -132,6 +138,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 79,
+    communityFamiliarity: 84,
   },
   {
     id: 'profile8',
@@ -150,6 +157,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 77,
+    communityFamiliarity: 88,
   },
   {
     id: 'profile9',
@@ -168,6 +176,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 66,
+    communityFamiliarity: 72,
   },
   {
     id: 'profile10',
@@ -186,6 +195,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 80,
+    communityFamiliarity: 84,
   },
   {
     id: 'profile11',
@@ -204,6 +214,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 64,
   },
   {
     id: 'profile12',
@@ -222,6 +233,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 72,
+    communityFamiliarity: 79,
   },
   {
     id: 'profile13',
@@ -240,6 +252,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 65,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile14',
@@ -258,6 +271,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 79,
+    communityFamiliarity: 90,
   },
   {
     id: 'profile15',
@@ -276,6 +290,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 80,
   },
   {
     id: 'profile16',
@@ -294,6 +309,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 67,
+    communityFamiliarity: 44,
   },
   {
     id: 'profile17',
@@ -312,6 +328,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 48,
+    communityFamiliarity: 40,
   },
   {
     id: 'profile18',
@@ -330,6 +347,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 65,
+    communityFamiliarity: 78,
   },
   {
     id: 'profile19',
@@ -348,6 +366,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 80,
   },
   {
     id: 'profile20',
@@ -366,6 +385,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 76,
+    communityFamiliarity: 58,
   },
   {
     id: 'profile21',
@@ -384,6 +404,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 70,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile22',
@@ -402,6 +423,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 79,
+    communityFamiliarity: 78,
   },
   {
     id: 'profile23',
@@ -420,6 +442,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 76,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile24',
@@ -438,6 +461,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile25',
@@ -456,6 +480,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 75,
+    communityFamiliarity: 61,
   },
   {
     id: 'profile26',
@@ -474,6 +499,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 66,
+    communityFamiliarity: 71,
   },
   {
     id: 'profile27',
@@ -492,6 +518,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 51,
+    communityFamiliarity: 41,
   },
   {
     id: 'profile28',
@@ -510,6 +537,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 72,
+    communityFamiliarity: 83,
   },
   {
     id: 'profile29',
@@ -528,6 +556,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 73,
+    communityFamiliarity: 78,
   },
   {
     id: 'profile30',
@@ -546,6 +575,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 66,
+    communityFamiliarity: 65,
   },
   {
     id: 'profile31',
@@ -564,6 +594,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 69,
+    communityFamiliarity: 92,
   },
   {
     id: 'profile32',
@@ -582,6 +613,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'exceptional',
     overallScore: 82,
+    communityFamiliarity: 83,
   },
   {
     id: 'profile33',
@@ -600,6 +632,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 46,
   },
   {
     id: 'profile34',
@@ -618,6 +651,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 57,
   },
   {
     id: 'profile35',
@@ -636,6 +670,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 52,
+    communityFamiliarity: 71,
   },
   {
     id: 'profile36',
@@ -654,6 +689,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 80,
+    communityFamiliarity: 95,
   },
   {
     id: 'profile37',
@@ -672,6 +708,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 53,
+    communityFamiliarity: 55,
   },
   {
     id: 'profile38',
@@ -690,6 +727,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 69,
+    communityFamiliarity: 93,
   },
   {
     id: 'profile39',
@@ -708,6 +746,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 58,
+    communityFamiliarity: 64,
   },
   {
     id: 'profile40',
@@ -726,6 +765,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 75,
+    communityFamiliarity: 64,
   },
   {
     id: 'profile41',
@@ -744,6 +784,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 67,
+    communityFamiliarity: 62,
   },
   {
     id: 'profile42',
@@ -762,6 +803,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 79,
+    communityFamiliarity: 81,
   },
   {
     id: 'profile43',
@@ -780,6 +822,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 77,
+    communityFamiliarity: 82,
   },
   {
     id: 'profile44',
@@ -798,6 +841,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'exceptional',
     overallScore: 87,
+    communityFamiliarity: 91,
   },
   {
     id: 'profile45',
@@ -816,6 +860,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 68,
+    communityFamiliarity: 97,
   },
   {
     id: 'profile46',
@@ -834,6 +879,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 84,
   },
   {
     id: 'profile47',
@@ -852,6 +898,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 62,
+    communityFamiliarity: 53,
   },
   {
     id: 'profile48',
@@ -870,6 +917,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 72,
+    communityFamiliarity: 72,
   },
   {
     id: 'profile49',
@@ -888,6 +936,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 80,
+    communityFamiliarity: 83,
   },
   {
     id: 'profile50',
@@ -906,6 +955,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 72,
+    communityFamiliarity: 92,
   },
   {
     id: 'profile51',
@@ -924,6 +974,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 68,
+    communityFamiliarity: 68,
   },
   {
     id: 'profile52',
@@ -942,6 +993,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 77,
+    communityFamiliarity: 70,
   },
   {
     id: 'profile53',
@@ -960,6 +1012,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 75,
+    communityFamiliarity: 82,
   },
   {
     id: 'profile54',
@@ -978,6 +1031,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 75,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile55',
@@ -996,6 +1050,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 73,
+    communityFamiliarity: 77,
   },
   {
     id: 'profile56',
@@ -1014,6 +1069,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 75,
+    communityFamiliarity: 62,
   },
   {
     id: 'profile57',
@@ -1032,6 +1088,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 60,
+    communityFamiliarity: 65,
   },
   {
     id: 'profile58',
@@ -1050,6 +1107,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 70,
+    communityFamiliarity: 81,
   },
   {
     id: 'profile59',
@@ -1068,6 +1126,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 52,
+    communityFamiliarity: 55,
   },
   {
     id: 'profile60',
@@ -1086,6 +1145,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'exceptional',
     overallScore: 85,
+    communityFamiliarity: 81,
   },
   {
     id: 'profile61',
@@ -1104,6 +1164,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 70,
+    communityFamiliarity: 86,
   },
   {
     id: 'profile62',
@@ -1122,6 +1183,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile63',
@@ -1140,6 +1202,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 76,
+    communityFamiliarity: 62,
   },
   {
     id: 'profile64',
@@ -1158,6 +1221,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 76,
+    communityFamiliarity: 84,
   },
   {
     id: 'profile65',
@@ -1176,6 +1240,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 49,
+    communityFamiliarity: 37,
   },
   {
     id: 'profile66',
@@ -1194,6 +1259,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 69,
+    communityFamiliarity: 95,
   },
   {
     id: 'profile67',
@@ -1212,6 +1278,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 69,
+    communityFamiliarity: 83,
   },
   {
     id: 'profile68',
@@ -1230,6 +1297,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 73,
+    communityFamiliarity: 63,
   },
   {
     id: 'profile69',
@@ -1248,6 +1316,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 65,
+    communityFamiliarity: 97,
   },
   {
     id: 'profile70',
@@ -1266,6 +1335,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 71,
+    communityFamiliarity: 82,
   },
   {
     id: 'profile71',
@@ -1284,6 +1354,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 62,
+    communityFamiliarity: 50,
   },
   {
     id: 'profile72',
@@ -1302,6 +1373,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 70,
+    communityFamiliarity: 76,
   },
   {
     id: 'profile73',
@@ -1320,6 +1392,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 78,
+    communityFamiliarity: 64,
   },
   {
     id: 'profile74',
@@ -1338,6 +1411,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 72,
   },
   {
     id: 'profile75',
@@ -1356,6 +1430,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 63,
+    communityFamiliarity: 84,
   },
   {
     id: 'profile76',
@@ -1374,6 +1449,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 72,
+    communityFamiliarity: 72,
   },
   {
     id: 'profile77',
@@ -1392,6 +1468,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 77,
+    communityFamiliarity: 84,
   },
   {
     id: 'profile78',
@@ -1410,6 +1487,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 73,
+    communityFamiliarity: 91,
   },
   {
     id: 'profile79',
@@ -1428,6 +1506,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 80,
+    communityFamiliarity: 74,
   },
   {
     id: 'profile80',
@@ -1446,6 +1525,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 70,
+    communityFamiliarity: 86,
   },
   {
     id: 'profile81',
@@ -1464,6 +1544,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 58,
+    communityFamiliarity: 50,
   },
   {
     id: 'profile82',
@@ -1482,6 +1563,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 52,
+    communityFamiliarity: 62,
   },
   {
     id: 'profile83',
@@ -1500,6 +1582,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'exceptional',
     overallScore: 82,
+    communityFamiliarity: 83,
   },
   {
     id: 'profile84',
@@ -1518,6 +1601,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 81,
+    communityFamiliarity: 91,
   },
   {
     id: 'profile85',
@@ -1536,6 +1620,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 75,
+    communityFamiliarity: 88,
   },
   {
     id: 'profile86',
@@ -1554,6 +1639,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 62,
+    communityFamiliarity: 86,
   },
   {
     id: 'profile87',
@@ -1572,6 +1658,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 93,
   },
   {
     id: 'profile88',
@@ -1590,6 +1677,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 67,
+    communityFamiliarity: 68,
   },
   {
     id: 'profile89',
@@ -1608,6 +1696,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 50,
+    communityFamiliarity: 37,
   },
   {
     id: 'profile90',
@@ -1626,6 +1715,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 65,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile91',
@@ -1644,6 +1734,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 76,
+    communityFamiliarity: 57,
   },
   {
     id: 'profile92',
@@ -1662,6 +1753,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'exceptional',
     overallScore: 86,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile93',
@@ -1680,6 +1772,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 62,
+    communityFamiliarity: 98,
   },
   {
     id: 'profile94',
@@ -1698,6 +1791,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'strong',
     overallScore: 74,
+    communityFamiliarity: 86,
   },
   {
     id: 'profile95',
@@ -1716,6 +1810,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 71,
+    communityFamiliarity: 80,
   },
   {
     id: 'profile96',
@@ -1734,6 +1829,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 67,
+    communityFamiliarity: 64,
   },
   {
     id: 'profile97',
@@ -1752,6 +1848,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'exceptional',
     overallScore: 83,
+    communityFamiliarity: 94,
   },
   {
     id: 'profile98',
@@ -1770,6 +1867,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'compatible',
     overallScore: 65,
+    communityFamiliarity: 86,
   },
   {
     id: 'profile99',
@@ -1788,6 +1886,7 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 53,
+    communityFamiliarity: 48,
   },
   {
     id: 'profile100',
@@ -1806,5 +1905,6 @@ export const DEMO_PROFILES: DemoProfile[] = [
     },
     tier: 'below',
     overallScore: 55,
+    communityFamiliarity: 46,
   },
 ];

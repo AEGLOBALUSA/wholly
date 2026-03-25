@@ -114,4 +114,5 @@ export interface DemoProfile {
   overallScore: number;
   pastoralVerified?: boolean;
   pastoralDepartment?: PastoralDepartment;
+  communityFamiliarity?: number;
 }
