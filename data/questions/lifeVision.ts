@@ -130,4 +130,17 @@ export const LIFE_VISION_QUESTIONS: Question[] = [
       { id: 'lv10d', label: 'Haven\'t set firm boundaries yet', value: 'unsure' },
     ],
   },
+  {
+    id: 'lv11',
+    text: 'When it comes to career and family:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv11a', label: 'Both partners should work and share home responsibilities', value: 'dual-income' },
+      { id: 'lv11b', label: 'One parent should stay home with young children', value: 'one-home' },
+      { id: 'lv11c', label: 'Flexible — whatever works best for the family at the time', value: 'flexible' },
+      { id: 'lv11d', label: 'Haven\'t thought about it yet', value: 'unsure' },
+    ],
+  },
 ];

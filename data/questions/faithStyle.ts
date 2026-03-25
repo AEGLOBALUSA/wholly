@@ -1,6 +1,6 @@
 import { ForcedChoicePair } from '../../types';
 
-// 12 spiritual priority forced-choice questions
+// 10 spiritual priority forced-choice questions
 export const FAITH_STYLE_PAIRS: ForcedChoicePair[] = [
   {
     id: 'fs1',
@@ -41,5 +41,15 @@ export const FAITH_STYLE_PAIRS: ForcedChoicePair[] = [
     id: 'fs11',
     optionA: { label: 'If I sense a check in my spirit, I pause', value: 'spirit-check' },
     optionB: { label: 'I move forward if it feels right', value: 'feels-right' },
+  },
+  {
+    id: 'fs13',
+    optionA: { label: 'I want a partner who leads worship or serves in ministry', value: 'ministry-partner' },
+    optionB: { label: 'I just want someone who loves Jesus genuinely', value: 'genuine-faith' },
+  },
+  {
+    id: 'fs14',
+    optionA: { label: 'I believe in spiritual warfare and pray against it', value: 'spiritual-warfare' },
+    optionB: { label: 'I focus on God\'s goodness more than warfare', value: 'goodness-focus' },
   },
 ];

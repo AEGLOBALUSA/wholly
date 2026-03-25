@@ -105,4 +105,30 @@ export const EMOTIONAL_HEALTH_QUESTIONS: Question[] = [
       { id: 'eh8d', label: 'I want to but hold back out of fear', value: 'disorganized' },
     ],
   },
+  {
+    id: 'eh9',
+    text: 'When something bothers me about my partner, I tend to:',
+    type: 'single-choice',
+    category: 'emotionalHealth',
+    required: true,
+    options: [
+      { id: 'eh9a', label: 'Describe the specific situation and how it made me feel', value: 'healthy-complaint' },
+      { id: 'eh9b', label: 'Point out the pattern — "you always do this"', value: 'criticism' },
+      { id: 'eh9c', label: 'Keep it to myself and hope it changes', value: 'suppression' },
+      { id: 'eh9d', label: 'Express frustration with sarcasm or eye-rolling', value: 'contempt' },
+    ],
+  },
+  {
+    id: 'eh10',
+    text: 'When my partner raises a concern about something I did, my first reaction is:',
+    type: 'single-choice',
+    category: 'emotionalHealth',
+    required: true,
+    options: [
+      { id: 'eh10a', label: 'Listen and try to understand their perspective', value: 'receptive' },
+      { id: 'eh10b', label: 'Explain why I did what I did', value: 'defensive' },
+      { id: 'eh10c', label: 'Turn it around — what about what they did?', value: 'counter-attack' },
+      { id: 'eh10d', label: 'Shut down — I can\'t handle being criticised', value: 'stonewalling' },
+    ],
+  },
 ];
