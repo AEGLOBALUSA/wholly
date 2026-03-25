@@ -57,4 +57,32 @@ export const CONFLICT_STYLE_QUESTIONS: Question[] = [
       { id: 'cs4a', label: 'Leads to deeper understanding', value: 'collaborative' },
     ],
   },
+  {
+    id: 'cs5',
+    text: 'Your partner makes a significant purchase without discussing it with you. You:',
+    type: 'single-choice',
+    category: 'conflictStyle',
+    required: true,
+    options: [
+      { id: 'cs5a', label: 'Sit down together to talk about financial boundaries', value: 'collaborative' },
+      { id: 'cs5b', label: 'Let it go — it\'s their money too', value: 'accommodating' },
+      { id: 'cs5c', label: 'Feel hurt but don\'t bring it up right away', value: 'avoiding' },
+      { id: 'cs5d', label: 'Confront them immediately — that\'s not okay', value: 'competing' },
+      { id: 'cs5e', label: 'Suggest a spending limit you both agree on', value: 'compromising' },
+    ],
+  },
+  {
+    id: 'cs6',
+    text: 'Your partner criticizes how you handled something in front of friends. You:',
+    type: 'single-choice',
+    category: 'conflictStyle',
+    required: true,
+    options: [
+      { id: 'cs6a', label: 'Ask to discuss it privately later', value: 'collaborative' },
+      { id: 'cs6b', label: 'Laugh it off — they probably didn\'t mean it', value: 'accommodating' },
+      { id: 'cs6c', label: 'Go quiet and withdraw from the conversation', value: 'avoiding' },
+      { id: 'cs6d', label: 'Call it out right there — that was disrespectful', value: 'competing' },
+      { id: 'cs6e', label: 'Acknowledge their point but ask them to be more careful', value: 'compromising' },
+    ],
+  },
 ];

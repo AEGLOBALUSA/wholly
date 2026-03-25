@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ScrollView, StyleSheet, Platform, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
-import { getConversations } from '../../services/chat';
-import { FONTS } from '../../styles/tokens';
-import ThemeToggle from '../../components/ui/ThemeToggle';
+import { getConversations, subscribeToMessages, unsubscribe } from '../../services/chat';
+import { COLORS, FONTS } from '../../styles/tokens';
 
 const isWeb = Platform.OS === 'web';
 
 export default function ChatList() {
   const router = useRouter();
   const { profile } = useAuth();
-  const { colors } = useTheme();
   const [conversations, setConversations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const loadConversations = useCallback(async () => {
+    if (!profile) return;
+    const data = await getConversations(profile.id);
+    setConversations(data);
+    setLoading(false);
+  }, [profile]);
 
   useEffect(() => {
     if (profile?.id) {
@@ -22,103 +26,109 @@ export default function ChatList() {
     } else {
       setLoading(false);
     }
-  }, [profile]);
-
-  const loadConversations = async () => {
-    if (!profile) return;
-    const data = await getConversations(profile.id);
-    setConversations(data);
-    setLoading(false);
-  };
+  }, [profile, loadConversations]);
 
   if (!profile) {
     return (
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={styles.container}>
         <View style={styles.empty}>
-          <Text style={[styles.emptyTitle, { color: colors.text }]}>Sign In Required</Text>
-          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
+          <Text style={styles.emptyTitle}>Sign In Required</Text>
+          <Text style={styles.emptyText}>
             Sign in to start chatting with your matches.
           </Text>
           <Pressable
             onPress={() => router.push('/auth/sign-in')}
-            style={({ pressed }) => [styles.button, { backgroundColor: colors.text }, pressed && { opacity: 0.85 }]}
+            style={({ pressed }) => [styles.button, pressed && { opacity: 0.85 }]}
           >
             <Text style={styles.buttonText}>Sign In</Text>
           </Pressable>
         </View>
-        <ThemeToggle />
       </View>
     );
   }
 
   if (loading) {
     return (
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={styles.container}>
         <View style={styles.empty}>
-          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>Loading conversations...</Text>
+          <Text style={styles.emptyText}>Loading conversations...</Text>
         </View>
-        <ThemeToggle />
       </View>
     );
   }
 
   if (conversations.length === 0) {
     return (
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={[styles.title, { color: colors.text }]}>Messages</Text>
+          <Text style={styles.title}>Messages</Text>
         </View>
         <View style={styles.empty}>
-          <Text style={[styles.emptyTitle, { color: colors.text }]}>No Conversations Yet</Text>
-          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
+          <Text style={styles.emptyTitle}>No Conversations Yet</Text>
+          <Text style={styles.emptyText}>
             When you and a match both express interest, a conversation will open here automatically.
           </Text>
           <Pressable
             onPress={() => router.push('/onboarding/results')}
-            style={({ pressed }) => [styles.button, { backgroundColor: colors.text }, pressed && { opacity: 0.85 }]}
+            style={({ pressed }) => [styles.button, pressed && { opacity: 0.85 }]}
           >
             <Text style={styles.buttonText}>View Matches</Text>
           </Pressable>
         </View>
-        <ThemeToggle />
       </View>
     );
   }
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={styles.content}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Text style={[styles.title, { color: colors.text }]}>Messages</Text>
+        <Text style={styles.title}>Messages</Text>
       </View>
 
-      {conversations.map((convo) => (
-        <Pressable
-          key={convo.id}
-          onPress={() => router.push(`/chat/${convo.id}`)}
-          style={({ pressed }) => [
-            styles.convoCard,
-            { borderBottomColor: colors.surfaceBorder },
-            pressed && { opacity: 0.8 },
-          ]}
-        >
-          <View style={[styles.avatar, { backgroundColor: colors.surface }]}>
-            <Text style={[styles.avatarText, { color: colors.accent }]}>
-              {/* First initial of the other person */}
-              ?
-            </Text>
-          </View>
-          <View style={styles.convoInfo}>
-            <Text style={[styles.convoName, { color: colors.text }]}>Match</Text>
-            <Text style={[styles.convoPreview, { color: colors.textMuted }]}>Tap to start chatting</Text>
-          </View>
-          {convo.last_message_at && (
-            <Text style={[styles.convoTime, { color: colors.textMuted }]}>
-              {new Date(convo.last_message_at).toLocaleDateString()}
-            </Text>
-          )}
-        </Pressable>
-      ))}
-      <ThemeToggle />
+      {conversations.map((convo) => {
+        const name = convo.otherProfile?.first_name || 'Match';
+        const initial = name.charAt(0).toUpperCase();
+        const lastMsg = convo.lastMessage;
+        const preview = lastMsg
+          ? (lastMsg.sender_id === profile?.id ? 'You: ' : '') + lastMsg.content
+          : 'Tap to start chatting';
+        const unread = convo.unreadCount || 0;
+
+        return (
+          <Pressable
+            key={convo.id}
+            onPress={() => router.push(`/chat/${convo.id}`)}
+            style={({ pressed }) => [
+              styles.convoCard,
+              pressed && { opacity: 0.8 },
+            ]}
+          >
+            <View style={styles.avatar}>
+              <Text style={styles.avatarText}>{initial}</Text>
+            </View>
+            <View style={styles.convoInfo}>
+              <Text style={[styles.convoName, unread > 0 && { fontFamily: FONTS.bodyBold }]}>
+                {name}
+              </Text>
+              <Text style={styles.convoPreview} numberOfLines={1}>
+                {preview}
+              </Text>
+            </View>
+            <View style={{ alignItems: 'flex-end', gap: 6 }}>
+              {convo.last_message_at && (
+                <Text style={styles.convoTime}>
+                  {new Date(convo.last_message_at).toLocaleDateString()}
+                </Text>
+              )}
+              {unread > 0 && (
+                <View style={styles.unreadBadge}>
+                  <Text style={styles.unreadText}>{unread}</Text>
+                </View>
+              )}
+            </View>
+          </Pressable>
+        );
+      })}
     </ScrollView>
   );
 }
@@ -126,6 +136,7 @@ export default function ChatList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   content: {
     padding: 24,
@@ -141,6 +152,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.heading,
     fontSize: 28,
+    color: COLORS.text,
   },
   empty: {
     flex: 1,
@@ -152,16 +164,19 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontFamily: FONTS.heading,
     fontSize: 22,
+    color: COLORS.text,
     marginBottom: 12,
   },
   emptyText: {
     fontFamily: FONTS.body,
     fontSize: 15,
+    color: COLORS.textSecondary,
     textAlign: 'center',
     lineHeight: 22,
     marginBottom: 24,
   },
   button: {
+    backgroundColor: COLORS.charcoal,
     paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 9999,
@@ -178,18 +193,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
+    borderBottomColor: COLORS.borderLight,
     gap: 14,
   },
   avatar: {
     width: 48,
     height: 48,
     borderRadius: 24,
+    backgroundColor: COLORS.secondary,
     justifyContent: 'center',
     alignItems: 'center',
   },
   avatarText: {
     fontFamily: FONTS.bodySemiBold,
     fontSize: 18,
+    color: COLORS.primary,
   },
   convoInfo: {
     flex: 1,
@@ -197,14 +215,31 @@ const styles = StyleSheet.create({
   convoName: {
     fontFamily: FONTS.bodySemiBold,
     fontSize: 16,
+    color: COLORS.text,
     marginBottom: 2,
   },
   convoPreview: {
     fontFamily: FONTS.body,
     fontSize: 14,
+    color: COLORS.textMuted,
   },
   convoTime: {
     fontFamily: FONTS.body,
     fontSize: 12,
+    color: COLORS.textMuted,
+  },
+  unreadBadge: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 6,
+  },
+  unreadText: {
+    fontFamily: FONTS.bodySemiBold,
+    fontSize: 11,
+    color: '#FFFFFF',
   },
 });

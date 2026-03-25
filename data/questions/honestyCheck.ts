@@ -12,9 +12,4 @@ export const HONESTY_CHECK_PAIRS: ForcedChoicePair[] = [
     optionA: { label: 'I always feel God\'s presence when I pray', value: 'always-feel' },
     optionB: { label: 'Sometimes prayer feels dry or distant', value: 'sometimes-dry' },
   },
-  {
-    id: 'hc3',
-    optionA: { label: 'I have never been angry at God', value: 'never-angry' },
-    optionB: { label: 'I have had moments of frustration with God', value: 'have-frustrated' },
-  },
 ];

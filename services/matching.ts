@@ -18,8 +18,15 @@ import { OnboardingAnswers, CompatibilityScores, MatchTier, DemoProfile } from '
  *
  * Floor capping rule:
  * - Overall score cannot exceed 1.35× the lowest dimension
+ * - Exception: intellectual uses 1.5× (less critical mismatch)
  * - This prevents catastrophically low dimensions from being hidden
  * - Example: if emotional = 40%, overall caps at 54% max
+ *
+ * Tier thresholds (adjusted for better distribution):
+ * - Exceptional: ≥82 (~5-8%)
+ * - Strong: ≥72 (~20-25%)
+ * - Compatible: ≥58 (~35-40%)  ← lowered from 62
+ * - Below: <58 (~25-35%)
  */
 
 const WEIGHTS = {
@@ -45,16 +52,18 @@ function weightedGeometricMean(scores: CompatibilityScores): number {
 }
 
 /**
- * Apply floor capping — overall cannot exceed 1.35× the lowest dimension
+ * Apply floor capping — overall cannot exceed multiplier × the lowest dimension
+ * Intellectual uses a softer 1.5× cap (less critical than spiritual/emotional)
  */
 function applyFloorCap(overall: number, scores: CompatibilityScores): number {
-  const minDimension = Math.min(
-    scores.spiritual,
-    scores.emotional,
-    scores.intellectual,
-    scores.lifeVision
-  );
-  const floor = Math.round(1.35 * minDimension);
+  // Find the most constraining floor across all dimensions
+  const floors = [
+    Math.round(1.35 * scores.spiritual),
+    Math.round(1.35 * scores.emotional),
+    Math.round(1.5 * scores.intellectual),  // Softer cap for intellectual
+    Math.round(1.35 * scores.lifeVision),
+  ];
+  const floor = Math.min(...floors);
   return Math.min(overall, floor);
 }
 
@@ -100,7 +109,7 @@ export function calculateCompatibility(
 export function getMatchTier(score: number): MatchTier {
   if (score >= 82) return 'exceptional';
   if (score >= 72) return 'strong';
-  if (score >= 62) return 'compatible';
+  if (score >= 58) return 'compatible';
   return 'below';
 }
 

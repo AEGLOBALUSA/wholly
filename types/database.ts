@@ -19,8 +19,10 @@ export interface Database {
           gender: 'male' | 'female';
           bio: string | null;
           photo_url: string | null;
+          photos: string[];
           community_familiarity_score: number | null;
           is_demo: boolean;
+          push_subscription: Record<string, any> | null;
           created_at: string;
           updated_at: string;
         };
@@ -34,8 +36,10 @@ export interface Database {
           gender: 'male' | 'female';
           bio?: string | null;
           photo_url?: string | null;
+          photos?: string[];
           community_familiarity_score?: number | null;
           is_demo?: boolean;
+          push_subscription?: Record<string, any> | null;
           created_at?: string;
           updated_at?: string;
         };

@@ -80,14 +80,15 @@ export const LIFE_VISION_QUESTIONS: Question[] = [
   },
   {
     id: 'lv7',
-    text: 'In terms of gender roles in marriage:',
+    text: 'How do you see leadership in marriage?',
     type: 'single-choice',
     category: 'lifeVision',
     required: true,
     options: [
-      { id: 'lv7a', label: 'Traditional / complementarian roles', value: 'complementarian' },
-      { id: 'lv7b', label: 'Fully equal / egalitarian partnership', value: 'egalitarian' },
-      { id: 'lv7c', label: 'Roles based on individual strengths', value: 'strengths-based' },
+      { id: 'lv7a', label: 'Husband is the spiritual head, but day-to-day we lead in our strengths', value: 'servant-headship' },
+      { id: 'lv7b', label: 'Husband leads and has final say in major decisions', value: 'traditional-headship' },
+      { id: 'lv7c', label: 'Fully equal — no gender-based roles at all', value: 'egalitarian' },
+      { id: 'lv7d', label: 'Haven\'t thought deeply about it yet', value: 'unsure' },
     ],
   },
   {
@@ -101,6 +102,32 @@ export const LIFE_VISION_QUESTIONS: Question[] = [
       { id: 'lv8a', label: 'My full-time calling', value: 'full-time' },
       { id: 'lv8d', label: 'I support ministry but prefer a secular career', value: 'secular' },
       { id: 'lv8b', label: 'A significant part of my life', value: 'significant' },
+    ],
+  },
+  {
+    id: 'lv9',
+    text: 'How involved should extended family be in your marriage?',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv9a', label: 'Very involved — family is central to everything', value: 'very-involved' },
+      { id: 'lv9b', label: 'Somewhat involved — we value their input', value: 'somewhat-involved' },
+      { id: 'lv9c', label: 'Minimal involvement — we set our own course', value: 'minimal' },
+      { id: 'lv9d', label: 'Our decisions are between us and God', value: 'us-and-god' },
+    ],
+  },
+  {
+    id: 'lv10',
+    text: 'Regarding physical intimacy before marriage:',
+    type: 'single-choice',
+    category: 'lifeVision',
+    required: true,
+    options: [
+      { id: 'lv10a', label: 'Committed to no physical intimacy before marriage', value: 'no-intimacy' },
+      { id: 'lv10b', label: 'Committed to clear boundaries (e.g. no sex before marriage)', value: 'clear-boundaries' },
+      { id: 'lv10c', label: 'Open to what feels right within the relationship', value: 'open' },
+      { id: 'lv10d', label: 'Haven\'t set firm boundaries yet', value: 'unsure' },
     ],
   },
 ];

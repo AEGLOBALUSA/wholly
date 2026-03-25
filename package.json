@@ -12,6 +12,7 @@
     "@react-native-async-storage/async-storage": "^3.0.1",
     "@react-navigation/native": "^7.1.28",
     "@supabase/supabase-js": "^2.98.0",
+    "docx": "^9.6.1",
     "expo": "~55.0.5",
     "expo-constants": "~55.0.7",
     "expo-font": "~55.0.4",

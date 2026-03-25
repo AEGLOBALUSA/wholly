@@ -66,4 +66,43 @@ export const EMOTIONAL_HEALTH_QUESTIONS: Question[] = [
       { id: 'eh5b', label: 'Get invested quickly, think about the future early', value: 'anxious' },
     ],
   },
+  {
+    id: 'eh6',
+    text: 'I feel comfortable depending on a romantic partner:',
+    type: 'single-choice',
+    category: 'emotionalHealth',
+    required: true,
+    options: [
+      { id: 'eh6a', label: 'Strongly agree — mutual dependence is healthy', value: 'secure' },
+      { id: 'eh6b', label: 'Agree, but I still worry they might let me down', value: 'anxious' },
+      { id: 'eh6c', label: 'Disagree — I prefer to handle things myself', value: 'avoidant' },
+      { id: 'eh6d', label: 'I want to depend on them but it feels risky', value: 'disorganized' },
+    ],
+  },
+  {
+    id: 'eh7',
+    text: 'I worry that a partner won\'t care about me as much as I care about them:',
+    type: 'single-choice',
+    category: 'emotionalHealth',
+    required: true,
+    options: [
+      { id: 'eh7a', label: 'Rarely — I trust the relationship', value: 'secure' },
+      { id: 'eh7b', label: 'Often — I need reassurance', value: 'anxious' },
+      { id: 'eh7c', label: 'I don\'t let myself care that much', value: 'avoidant' },
+      { id: 'eh7d', label: 'It swings — sometimes yes, sometimes no', value: 'disorganized' },
+    ],
+  },
+  {
+    id: 'eh8',
+    text: 'When I think about sharing my deepest feelings with a partner:',
+    type: 'single-choice',
+    category: 'emotionalHealth',
+    required: true,
+    options: [
+      { id: 'eh8a', label: 'I feel safe and natural doing so', value: 'secure' },
+      { id: 'eh8b', label: 'I share a lot, maybe too quickly', value: 'anxious' },
+      { id: 'eh8c', label: 'I prefer to keep my private thoughts to myself', value: 'avoidant' },
+      { id: 'eh8d', label: 'I want to but hold back out of fear', value: 'disorganized' },
+    ],
+  },
 ];

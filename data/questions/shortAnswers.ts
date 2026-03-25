@@ -9,13 +9,6 @@ export const SHORT_ANSWER_QUESTIONS: Question[] = [
     required: true,
   },
   {
-    id: 'sa2',
-    text: 'What does being part of a church community mean to you personally?',
-    type: 'text',
-    category: 'shortAnswers',
-    required: true,
-  },
-  {
     id: 'sa3',
     text: 'What are you believing God for in this next season?',
     type: 'text',

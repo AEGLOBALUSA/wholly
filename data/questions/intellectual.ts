@@ -73,20 +73,6 @@ export const INTELLECTUAL_QUESTIONS: Question[] = [
     ],
   },
   {
-    id: 'int6',
-    text: 'My sense of humor is best described as:',
-    type: 'single-choice',
-    category: 'intellectual',
-    required: true,
-    options: [
-      { id: 'int6a', label: 'Witty and clever', value: 'witty' },
-      { id: 'int6b', label: 'Goofy and playful', value: 'goofy' },
-      { id: 'int6c', label: 'Dry and sarcastic', value: 'dry' },
-      { id: 'int6d', label: 'Story-based', value: 'story' },
-      { id: 'int6e', label: 'Observational', value: 'observational' },
-    ],
-  },
-  {
     id: 'int7',
     text: 'When making decisions, I tend to:',
     type: 'single-choice',

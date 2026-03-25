@@ -14,7 +14,8 @@ import { RealtimeChannel } from '@supabase/supabase-js';
  * Get all conversations for a user
  */
 export async function getConversations(profileId: string): Promise<any[]> {
-  const { data, error } = await supabase
+  // First get conversations with match info
+  const { data: convos, error } = await supabase
     .from('conversations')
     .select(`
       id,
@@ -38,7 +39,48 @@ export async function getConversations(profileId: string): Promise<any[]> {
     return [];
   }
 
-  return data || [];
+  if (!convos || convos.length === 0) return [];
+
+  // Enrich with the other person's profile info and last message
+  const enriched = await Promise.all(
+    convos.map(async (convo: any) => {
+      const match = convo.matches;
+      const otherId = match.user_a === profileId ? match.user_b : match.user_a;
+
+      // Get the other person's profile
+      const { data: otherProfile } = await supabase
+        .from('profiles')
+        .select('id, first_name, photo_url, photos')
+        .eq('id', otherId)
+        .single();
+
+      // Get the last message
+      const { data: lastMsg } = await supabase
+        .from('messages')
+        .select('content, sender_id, created_at')
+        .eq('conversation_id', convo.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      // Get unread count for this conversation
+      const { count: unreadCount } = await supabase
+        .from('messages')
+        .select('*', { count: 'exact', head: true })
+        .eq('conversation_id', convo.id)
+        .neq('sender_id', profileId)
+        .is('read_at', null);
+
+      return {
+        ...convo,
+        otherProfile: otherProfile || { first_name: 'Match', photo_url: null, photos: [] },
+        lastMessage: lastMsg || null,
+        unreadCount: unreadCount || 0,
+      };
+    }),
+  );
+
+  return enriched;
 }
 
 /**

@@ -29,6 +29,9 @@ function InnerLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="covenant" />
       <Stack.Screen name="onboarding" />
+      <Stack.Screen name="auth" />
+      <Stack.Screen name="chat" />
+      <Stack.Screen name="profile" />
       <Stack.Screen name="+not-found" />
     </Stack>
   );

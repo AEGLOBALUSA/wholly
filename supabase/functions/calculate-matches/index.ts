@@ -48,7 +48,7 @@ function applyFloorCap(
 function getTier(score: number): string {
   if (score >= 82) return 'exceptional';
   if (score >= 72) return 'strong';
-  if (score >= 62) return 'compatible';
+  if (score >= 58) return 'compatible';
   return 'below';
 }
 
@@ -77,6 +77,33 @@ function compareDimensionScores(
   return { spiritual, emotional, intellectual, lifeVision };
 }
 
+// ─── Deal-Breaker Configuration ─────────────────────────────────────
+// Hard deal-breakers cap the dimension at 50%
+const HARD_DEAL_BREAKERS: Record<string, string[]> = {
+  theology: ['theo1', 'theo2'], // Spirit baptism, tongues belief
+  lifeVision: ['lv2'],          // Children desire (want vs don't want)
+};
+
+// Soft deal-breakers apply a penalty but don't hard-cap
+const SOFT_DEAL_BREAKERS: Record<string, { key: string; penalty: number }[]> = {
+  lifeVision: [
+    { key: 'lv1', penalty: 10 },  // Marriage timeline gap
+    { key: 'lv9', penalty: 10 },  // Family-of-origin involvement
+  ],
+};
+
+/**
+ * Marriage leadership compatibility matrix
+ * servant-headship is the bridge position (Futures/Planetshakers default)
+ * traditional-headship + egalitarian = hard deal-breaker
+ */
+const LEADERSHIP_COMPATIBILITY: Record<string, Record<string, number>> = {
+  'servant-headship':    { 'servant-headship': 0, 'traditional-headship': -10, 'egalitarian': -15, 'unsure': 0 },
+  'traditional-headship': { 'servant-headship': -10, 'traditional-headship': 0, 'egalitarian': -999, 'unsure': 0 },
+  'egalitarian':          { 'servant-headship': -15, 'traditional-headship': -999, 'egalitarian': 0, 'unsure': 0 },
+  'unsure':               { 'servant-headship': 0, 'traditional-headship': 0, 'egalitarian': 0, 'unsure': 0 },
+};
+
 function compareSectionScores(
   userAnswers: Record<string, Record<string, any>>,
   matchAnswers: Record<string, Record<string, any>>,
@@ -84,36 +111,91 @@ function compareSectionScores(
 ): number {
   let totalQuestions = 0;
   let agreements = 0;
+  let hasDealBreaker = false;
+  let softPenalty = 0;
 
   for (const section of sections) {
     const userSection = userAnswers[section] || {};
     const matchSection = matchAnswers[section] || {};
     const allKeys = new Set([...Object.keys(userSection), ...Object.keys(matchSection)]);
+    const hardBreakers = HARD_DEAL_BREAKERS[section] || [];
+    const softBreakers = SOFT_DEAL_BREAKERS[section] || [];
 
     for (const key of allKeys) {
       if (userSection[key] !== undefined && matchSection[key] !== undefined) {
         totalQuestions++;
+
         if (userSection[key] === matchSection[key]) {
           agreements++;
         } else {
-          // Partial credit for "close" answers (within 1 step on a scale)
-          const u = typeof userSection[key] === 'string' ? userSection[key] : '';
-          const m = typeof matchSection[key] === 'string' ? matchSection[key] : '';
-          // Simple proximity: if answers share words, give partial credit
-          const uWords = new Set(u.toLowerCase().split(/\s+/));
-          const mWords = new Set(m.toLowerCase().split(/\s+/));
-          let overlap = 0;
-          for (const w of uWords) {
-            if (mWords.has(w) && w.length > 3) overlap++;
+          // Check hard deal-breakers
+          if (hardBreakers.includes(key)) {
+            // For children: want + dont-want = deal-breaker, but want + probably = ok
+            if (key === 'lv2') {
+              const vals = [userSection[key], matchSection[key]];
+              if (vals.includes('want') && vals.includes('dont-want')) {
+                hasDealBreaker = true;
+              } else if (vals.includes('dont-want') && vals.includes('probably')) {
+                hasDealBreaker = true;
+              }
+              // Other combos (want+probably, want+unsure) get partial credit below
+            } else {
+              hasDealBreaker = true;
+            }
           }
-          if (overlap > 0) agreements += 0.5;
+
+          // Check soft deal-breakers
+          for (const sb of softBreakers) {
+            if (sb.key === key) {
+              softPenalty += sb.penalty;
+            }
+          }
+
+          // Check marriage leadership compatibility
+          if (key === 'lv7') {
+            const userVal = userSection[key] as string;
+            const matchVal = matchSection[key] as string;
+            const compat = LEADERSHIP_COMPATIBILITY[userVal]?.[matchVal] ?? -5;
+            if (compat === -999) {
+              hasDealBreaker = true; // traditional-headship + egalitarian
+            } else {
+              softPenalty += Math.abs(compat);
+            }
+          }
+
+          // Partial credit for close answers (non-deal-breaker questions)
+          if (!hardBreakers.includes(key)) {
+            const u = typeof userSection[key] === 'string' ? userSection[key] : '';
+            const m = typeof matchSection[key] === 'string' ? matchSection[key] : '';
+
+            if (u && m) {
+              const uWords = new Set(u.toLowerCase().split(/\s+/));
+              const mWords = new Set(m.toLowerCase().split(/\s+/));
+              let overlap = 0;
+              for (const w of uWords) {
+                if (mWords.has(w) && w.length > 3) overlap++;
+              }
+              if (overlap > 0) agreements += 0.5;
+            }
+          }
         }
       }
     }
   }
 
-  if (totalQuestions === 0) return 70; // Default score if no answers to compare
-  return Math.round(Math.min(100, Math.max(30, (agreements / totalQuestions) * 100)));
+  if (totalQuestions === 0) return 70;
+
+  let score = Math.round(Math.min(100, Math.max(30, (agreements / totalQuestions) * 100)));
+
+  // Apply soft penalties
+  score = Math.max(30, score - softPenalty);
+
+  // Hard deal-breaker cap: if fundamental disagreement, cap at 50%
+  if (hasDealBreaker) {
+    score = Math.min(score, 50);
+  }
+
+  return score;
 }
 
 // ─── Edge Function Handler ───────────────────────────────────────────
