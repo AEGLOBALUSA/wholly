@@ -3189,7 +3189,7 @@
                         <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.5rem;">Share this link with your pastor:</p>
                         <div style="display:flex;gap:0.5rem;align-items:center;">
                             <input type="text" id="verifyLinkInput" readonly style="flex:1;padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--bg-primary);color:var(--text);font-family:monospace;">
-                            <button onclick="copyVerifyLink()" style="padding:0.6rem 1rem;background:var(--accent);color:white;border:none;border-radius:6px;font-size:0.85rem;font-weight:600;cursor:pointer;">Copy</button>
+                            <button onclick="copyVerifyLink(event)" style="padding:0.6rem 1rem;background:var(--accent);color:white;border:none;border-radius:6px;font-size:0.85rem;font-weight:600;cursor:pointer;">Copy</button>
                         </div>
                     </div>
 
@@ -3821,6 +3821,7 @@
                             userGender = this.profile.gender;
                             answers = { ...this.profile.answers };
                             currentQuestion = cnt;
+                            openQuestionnaireModal();
                         }
                     }
                 }
@@ -4277,12 +4278,18 @@
                 }));
             }
 
-            const userAnswers = AuthState.profile.answers;
+            const userAnswers = AuthState.profile.answers || {};
             const userGender = AuthState.profile.gender;
+
+            if (!userAnswers || Object.keys(userAnswers).length === 0) {
+                document.getElementById('dashNoMutual').style.display = 'block';
+                document.getElementById('mutualCount').textContent = '0';
+                return;
+            }
 
             // Normalize user answer keys: ensure numeric access works
             const normalizedUserAnswers = {};
-            for (const [k, v] of Object.entries(userAnswers || {})) {
+            for (const [k, v] of Object.entries(userAnswers)) {
                 normalizedUserAnswers[k] = v;
                 // Also add numeric key if string
                 const num = parseInt(k.replace('q', ''));
@@ -4316,7 +4323,7 @@
 
             const grid = document.getElementById('dashMatchGrid');
             grid.innerHTML = matches.map((m, idx) => {
-                const name = m.firstName || m.first_name || 'Unknown';
+                const name = sanitize(m.firstName || m.first_name || 'Unknown');
                 const photo = m.photoUrl || m.photo_url || `https://api.dicebear.com/7.x/lorelei/svg?seed=${name}&backgroundColor=f5ebe0,ffd5dc,c0aede,d1d4f9,b6e3f4`;
                 const location = m.campus || m.city || m.church || '';
                 const tierColor = m.tier === 'Exceptional' ? '#4CAF7D' : m.tier === 'Strong' ? '#6366F1' : m.tier === 'Compatible' ? 'var(--accent)' : 'var(--text-tertiary)';
@@ -4356,9 +4363,9 @@
                 if (interestedProfiles && interestedProfiles.length > 0) {
                     document.getElementById('dashNoInterested').style.display = 'none';
                     const interestedHtml = interestedProfiles.map(p => {
-                        const pname = p.first_name || 'Unknown';
+                        const pname = sanitize(p.first_name || 'Unknown');
                         const pphoto = p.photo_url || `https://api.dicebear.com/7.x/lorelei/svg?seed=${pname}`;
-                        const plocation = p.city || p.church || '';
+                        const plocation = sanitize(p.city || p.church || '');
                         return `
                         <div style="background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;" onclick="showInterestedDetail('${p.id}', '${pname}', '${pphoto}', ${p.age}, '${p.church}', '${plocation}')">
                             <div style="height:200px;overflow:hidden;">
@@ -4368,8 +4375,8 @@
                                 <h4 style="font-family:'Sora',sans-serif;margin-bottom:0.5rem;">${pname}, ${p.age}</h4>
                                 <p style="font-size:0.8rem;color:var(--text-secondary);">${p.church} · ${plocation}</p>
                                 <div style="margin-top:0.8rem;">
-                                    <button onclick="event.stopPropagation();respondInterest('${p.id}', true)" class="btn btn-primary" style="width:100%;padding:0.5rem;font-size:0.8rem;margin-bottom:0.4rem;">♥ Accept</button>
-                                    <button onclick="event.stopPropagation();respondInterest('${p.id}', false)" style="width:100%;padding:0.5rem;background:none;border:1px solid var(--text-tertiary);color:var(--text-tertiary);border-radius:25px;cursor:pointer;font-size:0.8rem;font-weight:600;">Pass</button>
+                                    <button onclick="event.stopPropagation();respondInterest('${p.id}', true, event)" class="btn btn-primary" style="width:100%;padding:0.5rem;font-size:0.8rem;margin-bottom:0.4rem;">♥ Accept</button>
+                                    <button onclick="event.stopPropagation();respondInterest('${p.id}', false, event)" style="width:100%;padding:0.5rem;background:none;border:1px solid var(--text-tertiary);color:var(--text-tertiary);border-radius:25px;cursor:pointer;font-size:0.8rem;font-weight:600;">Pass</button>
                                 </div>
                             </div>
                         </div>`;
@@ -4405,9 +4412,9 @@
                     document.getElementById('dashNoMutual').style.display = 'none';
                     document.getElementById('mutualCount').textContent = mutualProfiles.length;
                     const mutualHtml = mutualProfiles.map(p => {
-                        const pname = p.first_name || 'Unknown';
+                        const pname = sanitize(p.first_name || 'Unknown');
                         const pphoto = p.photo_url || `https://api.dicebear.com/7.x/lorelei/svg?seed=${pname}`;
-                        const plocation = p.city || p.church || '';
+                        const plocation = sanitize(p.city || p.church || '');
                         return `
                         <div style="background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;" onclick="openChat('${p.id}', '${pname}', '${pphoto}')">
                             <div style="height:200px;overflow:hidden;">
@@ -4431,8 +4438,9 @@
             }
         }
 
-        async function sendInterest(matchId) {
-            const btn = event.target;
+        async function sendInterest(matchId, evt) {
+            const btn = evt ? evt.target : (event ? event.target : null);
+            if (!btn) return;
             if (btn.disabled) return;
             btn.disabled = true;
             btn.textContent = 'SENDING...';
@@ -4483,10 +4491,11 @@
             }
         }
 
-        async function blockMatch(matchId, matchName) {
+        async function blockMatch(matchId, matchName, evt) {
             if (!confirm(`Block ${matchName}? You won't see their profile anymore.`)) return;
 
-            const btn = event.target;
+            const btn = evt ? evt.target : (event ? event.target : null);
+            if (!btn) return;
             btn.disabled = true;
             btn.textContent = 'BLOCKING...';
 
@@ -4534,7 +4543,7 @@
                         <textarea id="reportDescription" placeholder="Tell us more..." style="width:100%;padding:0.7rem;border:1px solid var(--subtle-border);border-radius:8px;background:var(--card-bg);color:var(--text);font-family:inherit;font-size:0.9rem;resize:vertical;min-height:80px;margin-bottom:1.2rem;"></textarea>
                         <div style="display:flex;gap:0.75rem;">
                             <button onclick="this.closest('[style*=fixed]').remove()" class="btn btn-secondary" style="flex:1;padding:0.6rem;font-size:0.85rem;">Cancel</button>
-                            <button onclick="submitReport('${matchId}')" class="btn btn-primary" style="flex:1;padding:0.6rem;font-size:0.85rem;">Submit Report</button>
+                            <button onclick="submitReport('${matchId}', event)" class="btn btn-primary" style="flex:1;padding:0.6rem;font-size:0.85rem;">Submit Report</button>
                         </div>
                     </div>
                 </div>
@@ -4543,7 +4552,7 @@
             document.body.insertAdjacentHTML('beforeend', reportModal);
         }
 
-        async function submitReport(matchId) {
+        async function submitReport(matchId, evt) {
             const category = document.getElementById('reportCategory').value;
             const description = document.getElementById('reportDescription').value.trim();
 
@@ -4552,7 +4561,8 @@
                 return;
             }
 
-            const btn = event.target;
+            const btn = evt ? evt.target : (event ? event.target : null);
+            if (!btn) return;
             btn.disabled = true;
             btn.textContent = 'SUBMITTING...';
 
@@ -4581,9 +4591,9 @@
             const m = window._dashMatches[idx];
             if (!m) return;
 
-            const name = m.firstName || m.first_name || 'Unknown';
+            const name = sanitize(m.firstName || m.first_name || 'Unknown');
             const photo = m.photoUrl || m.photo_url || `https://api.dicebear.com/7.x/lorelei/svg?seed=${name}`;
-            const location = m.campus || m.city || m.church || '';
+            const location = sanitize(m.campus || m.city || m.church || '');
             const bio = m.bio || '';
             const tierColor = m.tier === 'Exceptional' ? '#4CAF7D' : m.tier === 'Strong' ? '#6366F1' : m.tier === 'Compatible' ? 'var(--accent)' : 'var(--text-tertiary)';
             const tierBg = m.tier === 'Exceptional' ? 'rgba(76,175,125,0.12)' : m.tier === 'Strong' ? 'rgba(99,102,241,0.12)' : m.tier === 'Compatible' ? 'var(--accent-light)' : 'rgba(155,145,150,0.12)';
@@ -4681,10 +4691,10 @@
 
                     <!-- Actions -->
                     <div style="padding:0 1.5rem 1.5rem;">
-                        <button onclick="sendInterest('${m.id}')" class="btn btn-primary" style="width:100%;padding:0.8rem;margin-bottom:0.75rem;">SEND INTEREST</button>
+                        <button onclick="sendInterest('${m.id}', event)" class="btn btn-primary" style="width:100%;padding:0.8rem;margin-bottom:0.75rem;">SEND INTEREST</button>
                         <div style="display:flex;gap:0.75rem;">
-                            <button onclick="blockMatch('${m.id}', '${name}')" style="flex:1;padding:0.6rem;background:none;border:1px solid #DC2626;color:#DC2626;border-radius:25px;cursor:pointer;font-size:0.8rem;font-weight:600;">Block</button>
-                            <button onclick="openReportForm('${m.id}', '${name}')" style="flex:1;padding:0.6rem;background:none;border:1px solid var(--text-tertiary);color:var(--text-tertiary);border-radius:25px;cursor:pointer;font-size:0.8rem;font-weight:600;">Report</button>
+                            <button onclick="blockMatch('${m.id}', '${sanitize(name)}', event)" style="flex:1;padding:0.6rem;background:none;border:1px solid #DC2626;color:#DC2626;border-radius:25px;cursor:pointer;font-size:0.8rem;font-weight:600;">Block</button>
+                            <button onclick="openReportForm('${m.id}', '${sanitize(name)}')" style="flex:1;padding:0.6rem;background:none;border:1px solid var(--text-tertiary);color:var(--text-tertiary);border-radius:25px;cursor:pointer;font-size:0.8rem;font-weight:600;">Report</button>
                             <button onclick="this.closest('[style*=fixed]').remove()" class="btn btn-secondary" style="flex:1;padding:0.6rem;font-size:0.8rem;">Close</button>
                         </div>
                     </div>
@@ -4694,8 +4704,9 @@
             document.body.insertAdjacentHTML('beforeend', detailHtml);
         }
 
-        async function respondInterest(fromUserId, accept) {
-            const btn = event.target;
+        async function respondInterest(fromUserId, accept, evt) {
+            const btn = evt ? evt.target : (event ? event.target : null);
+            if (!btn) return;
             btn.disabled = true;
             btn.textContent = accept ? 'ACCEPTING...' : 'PASSING...';
 
@@ -4757,8 +4768,8 @@
                         <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1.5rem;text-align:center;">
                             ${name} is interested in you!
                         </p>
-                        <button onclick="respondInterest('${id}', true)" class="btn btn-primary" style="width:100%;padding:0.8rem;margin-bottom:0.75rem;font-size:0.9rem;">♥ ACCEPT</button>
-                        <button onclick="respondInterest('${id}', false);this.closest('[style*=fixed]').remove();" style="width:100%;padding:0.8rem;background:none;border:1px solid var(--text-tertiary);color:var(--text-tertiary);border-radius:25px;cursor:pointer;font-size:0.9rem;font-weight:600;">PASS</button>
+                        <button onclick="respondInterest('${id}', true, event)" class="btn btn-primary" style="width:100%;padding:0.8rem;margin-bottom:0.75rem;font-size:0.9rem;">♥ ACCEPT</button>
+                        <button onclick="respondInterest('${id}', false, event);this.closest('[style*=fixed]').remove();" style="width:100%;padding:0.8rem;background:none;border:1px solid var(--text-tertiary);color:var(--text-tertiary);border-radius:25px;cursor:pointer;font-size:0.9rem;font-weight:600;">PASS</button>
                     </div>
                 </div>
             </div>`;
@@ -4810,7 +4821,7 @@
                             return `
                             <div style="display:flex;${isOwn ? 'justify-content:flex-end' : 'justify-content:flex-start'};">
                                 <div style="background:${isOwn ? 'var(--accent)' : 'var(--bg-secondary)'};color:${isOwn ? 'white' : 'var(--text)'};padding:0.7rem 1rem;border-radius:12px;max-width:70%;word-wrap:break-word;font-size:0.9rem;">
-                                    ${msg.content}
+                                    ${sanitize(msg.content)}
                                 </div>
                             </div>`;
                         }).join('') : '<p style="color:var(--text-secondary);text-align:center;">Start the conversation!</p>'}
@@ -4842,7 +4853,7 @@
                 msgDiv.style.cssText = `display:flex;${isOwn ? 'justify-content:flex-end' : 'justify-content:flex-start'};`;
                 msgDiv.innerHTML = `
                     <div style="background:${isOwn ? 'var(--accent)' : 'var(--bg-secondary)'};color:${isOwn ? 'white' : 'var(--text)'};padding:0.7rem 1rem;border-radius:12px;max-width:70%;word-wrap:break-word;font-size:0.9rem;">
-                        ${newMsg.content}
+                        ${sanitize(newMsg.content)}
                     </div>`;
                 document.getElementById('chatMessages').appendChild(msgDiv);
                 document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
@@ -4882,7 +4893,7 @@
             }
         }
 
-        function openQuestionnaireFromDashboard() {
+        async function openQuestionnaireFromDashboard() {
             // Set gender for questionnaire matching
             if (AuthState.profile) {
                 userGender = AuthState.profile.gender;
@@ -4895,7 +4906,7 @@
                         currentQuestion = 0;
                         // Clear server-side completion flag so fresh answers save correctly
                         if (AuthState.isAuthenticated && AuthState.user) {
-                            supabaseClient
+                            await supabaseClient
                                 .from('profiles')
                                 .update({ answers: {}, answers_complete: false, updated_at: new Date().toISOString() })
                                 .eq('user_id', AuthState.user.id);
@@ -5328,6 +5339,7 @@
             if (BOTS.length === 0) { console.warn('No bot profiles loaded'); return null; }
             // Filter bots by opposite gender
             const oppositeBots = BOTS.filter(bot => bot.gender !== userGender);
+            if (oppositeBots.length === 0) { console.warn('No opposite-gender matches available'); return null; }
 
             const matches = oppositeBots.map(bot => {
                 const matchScore = calculateMatch(userAnswers, bot.answers, userGender);
@@ -5425,7 +5437,8 @@ const questions = [
                 supabaseClient
                     .from('profiles')
                     .update({ answers: answers, updated_at: new Date().toISOString() })
-                    .eq('user_id', AuthState.user.id);
+                    .eq('user_id', AuthState.user.id)
+                    .then(({ error }) => { if (error) console.error('Save progress error:', error); });
             }
         }
 
@@ -5509,6 +5522,11 @@ const questions = [
         }
 
         function showQuestion(index) {
+            if (index < 0 || index >= questions.length) {
+                console.error('showQuestion: index out of bounds', index);
+                currentQuestion = 0;
+                index = 0;
+            }
             const q = questions[index];
             const progress = ((index + 1) / questions.length) * 100;
             document.getElementById('questionProgress').style.width = progress + '%';
@@ -5551,6 +5569,7 @@ const questions = [
                     <small id="charCount${q.id}">${value.length} characters</small>`;
             } else if (q.type === 'slider') {
                 const value = answers[q.id] || 50;
+                if (!answers[q.id]) { answers[q.id] = 50; }
                 html += `<div class="slider-container">
                     <input type="range" id="q${q.id}" class="slider" min="0" max="100" value="${value}" oninput="updateSliderValue(${q.id})">
                     <div class="slider-labels">
@@ -5589,6 +5608,13 @@ const questions = [
                         return;
                     }
                     answers[q.id] = value;
+                } else if (q.type === 'multiple') {
+                    const selectedRadio = document.querySelector(`input[name="q${q.id}"]:checked`);
+                    if (!selectedRadio) {
+                        alert('Please select an option');
+                        return;
+                    }
+                    answers[q.id] = selectedRadio.value;
                 } else if (q.type === 'hybrid') {
                     const selectedRadio = document.querySelector(`input[name="q${q.id}"]:checked`);
                     if (!selectedRadio) {
@@ -5597,6 +5623,10 @@ const questions = [
                     }
                     // Store just the option string for consistent scoring
                     answers[q.id] = selectedRadio.value;
+                } else if (q.type === 'slider') {
+                    // Slider always has a value (default 50), save it
+                    const slider = document.getElementById(`q${q.id}`);
+                    if (slider) answers[q.id] = parseInt(slider.value);
                 }
 
                 currentQuestion++;
@@ -5747,6 +5777,10 @@ const questions = [
                 return;
             }
             const matchResult = findBestMatch(answers, userGender);
+            if (!matchResult) {
+                alert('No compatible matches found. Please try again later.');
+                return;
+            }
             const topMatch = matchResult.topMatch;
             const topThree = matchResult.topThree;
 
@@ -5843,7 +5877,10 @@ const questions = [
                     .from('profiles')
                     .update({ answers: answers, answers_complete: true, updated_at: new Date().toISOString() })
                     .eq('user_id', AuthState.user.id)
-                    .then(() => AuthState.loadProfile());
+                    .then(({ error }) => {
+                        if (error) console.error('Save answers error:', error);
+                        else AuthState.loadProfile();
+                    });
             }
 
             let statusTexts = ['Analyzing your responses...', 'Comparing across 200 profiles...', 'Matching five dimensions...', 'Finding your person...', 'Match found.'];
@@ -5979,13 +6016,6 @@ const questions = [
         let currentPastoralToken = null;
         let currentPastoralProfileId = null;
 
-        function generateUUID() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
-
         async function generatePastoralLink() {
             if (!AuthState.user || !AuthState.profile) {
                 alert('Please log in first.');
@@ -6030,11 +6060,12 @@ const questions = [
             }
         }
 
-        function copyVerifyLink() {
+        function copyVerifyLink(evt) {
             const input = document.getElementById('verifyLinkInput');
             input.select();
             document.execCommand('copy');
-            const btn = event.target;
+            const btn = evt ? evt.target : (event ? event.target : null);
+            if (!btn) return;
             const originalText = btn.textContent;
             btn.textContent = 'Copied!';
             setTimeout(() => { btn.textContent = originalText; }, 2000);
