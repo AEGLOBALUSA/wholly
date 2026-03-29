@@ -1,9 +1,20 @@
 [build]
-  command = "mkdir -p dist/assets/carousel && cp landing.html dist/index.html && cp assets/carousel/*.jpg dist/assets/carousel/"
+  command = "mkdir -p dist/assets/carousel && cp landing.html dist/index.html && cp assets/carousel/*.jpg dist/assets/carousel/ && cp robots.txt dist/robots.txt && cp sitemap.xml dist/sitemap.xml"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
+
+# Serve robots.txt and sitemap.xml directly (before SPA catch-all)
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
 
 [[redirects]]
   from = "/*"
