@@ -4897,6 +4897,12 @@
             // Set gender for questionnaire matching
             if (AuthState.profile) {
                 userGender = AuthState.profile.gender;
+                // If profile has no answers, start fresh (e.g. after retake cleared them)
+                if (!AuthState.profile.answers || Object.keys(AuthState.profile.answers).length === 0) {
+                    answers = {};
+                    currentQuestion = 0;
+                    localStorage.removeItem('whollyProgress');
+                }
                 // Load any saved answers
                 if (AuthState.profile.answers && Object.keys(AuthState.profile.answers).length > 0) {
                     const savedAnswerCount = Object.keys(AuthState.profile.answers).length;
