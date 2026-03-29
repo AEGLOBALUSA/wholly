@@ -3693,9 +3693,14 @@
                 userGender = AuthState.profile.gender;
                 // Load saved answers if any
                 if (AuthState.profile.answers && Object.keys(AuthState.profile.answers).length > 0) {
+                    const savedCount = Object.keys(AuthState.profile.answers).length;
+                    if (savedCount >= 52) {
+                        // Already completed — show dashboard instead of restarting
+                        showDashboard();
+                        return;
+                    }
                     answers = { ...AuthState.profile.answers };
-                    currentQuestion = Object.keys(answers).length;
-                    if (currentQuestion >= 52) currentQuestion = 0;
+                    currentQuestion = savedCount;
                 }
                 openQuestionnaireModal();
                 return;
@@ -3808,10 +3813,15 @@
                         showDashboard();
                         switchDashTab('matches');
                     } else if (this.profile.answers && Object.keys(this.profile.answers).length > 0) {
-                        userGender = this.profile.gender;
-                        answers = { ...this.profile.answers };
-                        currentQuestion = Object.keys(answers).length;
-                        if (currentQuestion >= 52) currentQuestion = 0;
+                        const cnt = Object.keys(this.profile.answers).length;
+                        if (cnt >= 52) {
+                            // All done — go to dashboard
+                            showDashboard();
+                        } else {
+                            userGender = this.profile.gender;
+                            answers = { ...this.profile.answers };
+                            currentQuestion = cnt;
+                        }
                     }
                 }
 
@@ -4878,9 +4888,26 @@
                 userGender = AuthState.profile.gender;
                 // Load any saved answers
                 if (AuthState.profile.answers && Object.keys(AuthState.profile.answers).length > 0) {
-                    answers = { ...AuthState.profile.answers };
-                    currentQuestion = Object.keys(answers).length;
-                    if (currentQuestion >= 52) currentQuestion = 0;
+                    const savedAnswerCount = Object.keys(AuthState.profile.answers).length;
+                    if (savedAnswerCount >= 52) {
+                        // Retake: clear answers and start fresh
+                        answers = {};
+                        currentQuestion = 0;
+                        // Clear server-side completion flag so fresh answers save correctly
+                        if (AuthState.isAuthenticated && AuthState.user) {
+                            supabaseClient
+                                .from('profiles')
+                                .update({ answers: {}, answers_complete: false, updated_at: new Date().toISOString() })
+                                .eq('user_id', AuthState.user.id);
+                        }
+                        AuthState.profile.answers = {};
+                        AuthState.profile.answers_complete = false;
+                        localStorage.removeItem('whollyProgress');
+                    } else {
+                        // Resume: continue from where they left off
+                        answers = { ...AuthState.profile.answers };
+                        currentQuestion = savedAnswerCount;
+                    }
                 }
             }
             // Hide dashboard so modal appears on top
@@ -5432,17 +5459,23 @@ const questions = [
             if (Object.keys(answers).length === 0 && AuthState.profile && AuthState.profile.answers) {
                 const saved = AuthState.profile.answers;
                 if (saved && Object.keys(saved).length > 0) {
-                    answers = { ...saved };
-                    // Convert string keys like 'q1' back to numeric keys like 1
-                    const converted = {};
-                    for (const [k, v] of Object.entries(answers)) {
-                        const numKey = parseInt(k.replace('q', ''));
-                        if (!isNaN(numKey)) converted[numKey] = v;
-                        else converted[k] = v;
+                    const savedCount = Object.keys(saved).length;
+                    if (savedCount >= 52) {
+                        // All questions answered — start fresh for retake
+                        answers = {};
+                        currentQuestion = 0;
+                    } else {
+                        answers = { ...saved };
+                        // Convert string keys like 'q1' back to numeric keys like 1
+                        const converted = {};
+                        for (const [k, v] of Object.entries(answers)) {
+                            const numKey = parseInt(k.replace('q', ''));
+                            if (!isNaN(numKey)) converted[numKey] = v;
+                            else converted[k] = v;
+                        }
+                        answers = converted;
+                        currentQuestion = Object.keys(answers).length;
                     }
-                    answers = converted;
-                    currentQuestion = Object.keys(answers).length;
-                    if (currentQuestion >= 52) currentQuestion = 0;
                 }
             }
             // Also try localStorage as fallback
