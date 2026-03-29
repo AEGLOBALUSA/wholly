@@ -5420,7 +5420,7 @@ const questions = [
 
         const savedProgress = loadProgress();
         let currentQuestion = savedProgress?.currentQuestion || 0;
-        const answers = savedProgress?.answers || {};
+        let answers = savedProgress?.answers || {};
         let userGender = savedProgress?.userGender || null;
 
         function openQuestionnaireModal() {
