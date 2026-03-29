@@ -3634,7 +3634,7 @@
 
         window.addEventListener('scroll', () => {
             const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrolled = (window.scrollY / scrollHeight) * 100;
+            const scrolled = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0;
             document.querySelector('.scroll-progress').style.width = scrolled + '%';
         });
 
@@ -3666,7 +3666,7 @@
             showSlide(currentSlide);
         }
 
-        setInterval(nextSlide, 5500);
+        let carouselInterval = setInterval(nextSlide, 5500);
 
         let touchStartX = 0;
         let touchEndX = 0;
@@ -4203,6 +4203,7 @@
         }
 
         function showDashboard() {
+            if (carouselInterval) { clearInterval(carouselInterval); carouselInterval = null; }
             // Hide landing page sections
             document.querySelectorAll('section:not(#dashboardSection)').forEach(s => s.style.display = 'none');
             document.querySelector('footer').style.display = 'none';
@@ -4510,7 +4511,8 @@
 
                 btn.textContent = 'BLOCKED ✓';
                 setTimeout(() => {
-                    document.querySelector('[style*=fixed]').remove();
+                    const modal = btn.closest('[style*="fixed"]');
+                    if (modal) modal.remove();
                 }, 500);
             } catch (err) {
                 console.error('Block error:', err);
@@ -4579,7 +4581,8 @@
 
                 btn.textContent = 'SUBMITTED ✓';
                 setTimeout(() => {
-                    document.querySelectorAll('[style*="fixed"]').forEach(el => el.remove());
+                    const modal = btn.closest('[style*="fixed"]');
+                    if (modal) modal.remove();
                 }, 800);
             } catch (err) {
                 console.error('Report error:', err);
@@ -5768,14 +5771,11 @@ const questions = [
         }
 
         function revealMatch() {
-            clearProgress();
             if (!userGender) {
                 alert('Please select your gender first to get a match.');
                 openQuestionnaireModal();
                 return;
             }
-
-            closeQuestionnaireModal();
 
             // Find the best match using the algorithm
             if (BOTS.length === 0) {
@@ -5794,6 +5794,10 @@ const questions = [
                 alert('No compatible matches found. Please try again later.');
                 return;
             }
+
+            // All validation passed — safe to clear progress and show match
+            clearProgress();
+            closeQuestionnaireModal();
 
             const bot = topMatch.bot;
             const botAnswers = bot.answers;
@@ -5831,7 +5835,13 @@ const questions = [
 
                     <!-- PHASE 4: Spirit Compass (3.5-4.5s) -->
                     <div style="opacity: 0; animation: fadeIn 0.5s ease forwards 3.5s;">
-                        ${createSpiritCompass(topMatch, topMatch, topMatch.percentage)}
+                        ${createSpiritCompass(topMatch, {
+                            emotional: Math.min(100, topMatch.emotional + (Math.random() * 14 - 7)),
+                            spiritual: Math.min(100, topMatch.spiritual + (Math.random() * 14 - 7)),
+                            lifeVision: Math.min(100, topMatch.lifeVision + (Math.random() * 14 - 7)),
+                            temperament: Math.min(100, topMatch.temperament + (Math.random() * 14 - 7)),
+                            intellectual: Math.min(100, topMatch.intellectual + (Math.random() * 14 - 7))
+                        }, topMatch.percentage)}
                     </div>
 
                     <!-- PHASE 5: Stated Intention Quote (4-4.5s) -->
