@@ -80,7 +80,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       email,
       password,
       options: {
-        emailRedirectTo: undefined, // Handled by app deep linking
+        emailRedirectTo: 'https://whollydate.com/auth/sign-in',
       },
     });
     return { error };
