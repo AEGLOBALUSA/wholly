@@ -1,5 +1,5 @@
 [build]
-  command = "mkdir -p dist/assets/carousel && cp landing.html dist/index.html && cp assets/carousel/*.jpg dist/assets/carousel/ && cp robots.txt dist/robots.txt && cp sitemap.xml dist/sitemap.xml"
+  command = "mkdir -p dist/assets/carousel && cp landing.html dist/index.html && cp assets/carousel/*.jpg dist/assets/carousel/ && cp robots.txt dist/robots.txt && cp sitemap.xml dist/sitemap.xml && cp assets/images/wholly-og-share.png dist/wholly-og-share.png 2>/dev/null || true"
   publish = "dist"
 
 [build.environment]
