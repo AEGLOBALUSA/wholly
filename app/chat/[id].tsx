@@ -12,6 +12,7 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
+import { supabase } from '../../lib/supabase';
 import {
   getMessages,
   sendMessage,
@@ -19,6 +20,7 @@ import {
   unsubscribe,
   markMessagesRead,
 } from '../../services/chat';
+import { isDemoProfile, triggerBotReplyWithDelay } from '../../services/botChat';
 import { Message } from '../../types/database';
 import { FONTS, BORDER_RADIUS } from '../../styles/tokens';
 import ThemeToggle from '../../components/ui/ThemeToggle';
@@ -36,6 +38,8 @@ export default function ChatRoom() {
   const [newMessage, setNewMessage] = useState('');
   const [sending, setSending] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [otherProfileId, setOtherProfileId] = useState<string | null>(null);
+  const [botTyping, setBotTyping] = useState(false);
 
   // Load messages
   useEffect(() => {
@@ -46,15 +50,40 @@ export default function ChatRoom() {
       setMessages(msgs);
       setLoading(false);
       await markMessagesRead(conversationId, profile.id);
+
+      // Detect the other participant for bot reply triggering
+      const otherMsg = msgs.find((m) => m.sender_id !== profile.id);
+      if (otherMsg && isDemoProfile(otherMsg.sender_id)) {
+        setOtherProfileId(otherMsg.sender_id);
+      }
+    };
+
+    // Also check via conversation's match to find the other profile
+    const detectOtherProfile = async () => {
+      const { data: convo } = await supabase
+        .from('conversations')
+        .select('match_id, matches!inner(user_a, user_b)')
+        .eq('id', conversationId)
+        .single();
+
+      if (convo?.matches) {
+        const match = convo.matches as any;
+        const otherId = match.user_a === profile.id ? match.user_b : match.user_a;
+        if (isDemoProfile(otherId)) {
+          setOtherProfileId(otherId);
+        }
+      }
     };
 
     loadMessages();
+    detectOtherProfile();
 
     // Subscribe to real-time messages
     const channel = subscribeToMessages(conversationId, (msg) => {
       setMessages((prev) => [...prev, msg]);
       if (msg.sender_id !== profile.id) {
         markMessagesRead(conversationId, profile.id);
+        setBotTyping(false); // Clear typing indicator when bot message arrives
       }
     });
 
@@ -77,6 +106,11 @@ export default function ChatRoom() {
     const msg = await sendMessage(conversationId, profile.id, newMessage);
     if (msg) {
       setNewMessage('');
+      // Trigger AI bot reply if chatting with a demo profile
+      if (otherProfileId) {
+        setBotTyping(true);
+        triggerBotReplyWithDelay(conversationId, otherProfileId);
+      }
     }
     setSending(false);
   };
@@ -155,6 +189,13 @@ export default function ChatRoom() {
           })
         )}
       </ScrollView>
+
+      {/* Typing indicator */}
+      {botTyping && (
+        <View style={[styles.typingIndicator, { backgroundColor: colors.background }]}>
+          <Text style={[styles.typingText, { color: colors.textMuted }]}>typing...</Text>
+        </View>
+      )}
 
       {/* Input */}
       <View style={[styles.inputBar, { borderTopColor: colors.surfaceBorder, backgroundColor: colors.surface }]}>
@@ -266,6 +307,15 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.5)',
   },
   theirMessageTime: {
+  },
+  typingIndicator: {
+    paddingHorizontal: 24,
+    paddingVertical: 6,
+  },
+  typingText: {
+    fontFamily: FONTS.body,
+    fontSize: 13,
+    fontStyle: 'italic',
   },
   inputBar: {
     flexDirection: 'row',
