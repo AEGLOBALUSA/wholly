@@ -6261,10 +6261,15 @@ const questions = [
         }, { threshold: 0.2 });
 
         document.querySelectorAll('.dimension-row').forEach((row, i) => {
-            row.style.opacity = '0';
-            row.style.transform = 'translateY(30px)';
-            row.style.transition = `opacity 0.8s ease ${i * 0.15}s, transform 0.8s ease ${i * 0.15}s`;
+            row.style.opacity = '0.15';
+            row.style.transform = 'translateY(20px)';
+            row.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
             barObserver.observe(row);
+            // Fallback: ensure rows become visible after 2 seconds even if observer doesn't fire
+            setTimeout(() => {
+                row.style.opacity = '1';
+                row.style.transform = 'translateY(0)';
+            }, 2000 + (i * 150));
         });
 
         // Intention selector toggle
