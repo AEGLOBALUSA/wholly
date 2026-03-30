@@ -6334,17 +6334,30 @@ const questions = [
 
                 // Step 2: Send the email to the pastor
                 const memberName = AuthState.profile.first_name || 'A WHOLLY member';
-                const { error: emailErr } = await supabaseClient.functions.invoke('send-email', {
-                    body: {
-                        type: 'pastoral_verification',
-                        to: pastorEmail,
-                        recipientName: pastorName || 'Pastor',
-                        data: {
-                            memberName: memberName,
-                            verifyUrl: verifyUrl
-                        }
-                    }
-                });
+                let emailErr = null;
+                try {
+                    const emailRes = await fetch('https://umzyimdhpaquvbyutmir.supabase.co/functions/v1/send-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + (await supabaseClient.auth.getSession()).data.session?.access_token,
+                            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk'
+                        },
+                        body: JSON.stringify({
+                            type: 'pastoral_verification',
+                            to: pastorEmail,
+                            recipientName: pastorName || 'Pastor',
+                            data: {
+                                memberName: memberName,
+                                verifyUrl: verifyUrl
+                            }
+                        })
+                    });
+                    if (!emailRes.ok) emailErr = await emailRes.text();
+                } catch (e) {
+                    console.error('Email send error:', e);
+                    emailErr = e.message;
+                }
 
                 // Show the link as well
                 document.getElementById('verifyLinkInput').value = verifyUrl;
