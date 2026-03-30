@@ -645,7 +645,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            opacity: 0.06;
+            opacity: 0.12;
             border-radius: 0;
         }
 
@@ -653,6 +653,7 @@
         .dimension-row:nth-child(2) .dimension-visual::before { background: var(--accent-gold, #B8A99A); }
         .dimension-row:nth-child(3) .dimension-visual::before { background: var(--accent-indigo, #6366F1); }
         .dimension-row:nth-child(4) .dimension-visual::before { background: var(--accent-green, #4CAF7D); }
+        .dimension-row:nth-child(5) .dimension-visual::before { background: var(--accent-coral); }
 
         .dimension-visual-inner {
             text-align: center;
@@ -2690,9 +2691,9 @@
         <div class="container">
             <div class="logo" onclick="hideDashboard(); window.scrollTo(0,0);" style="cursor:pointer;">WHOLLY</div>
             <div class="nav-links">
-                <a href="#how-it-works">Discover</a>
-                <a href="#dimensions">Dimensions</a>
-                <a href="#pricing">Premium</a>
+                <a href="#how-it-works" onclick="if(dashboardVisible){hideDashboard();}">Discover</a>
+                <a href="#dimensions" onclick="if(dashboardVisible){hideDashboard();}">Dimensions</a>
+                <a href="#pricing" onclick="if(dashboardVisible){hideDashboard();}">Premium</a>
             </div>
             <div class="nav-right">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
@@ -2717,9 +2718,9 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenu">
         <div class="mobile-menu-content">
-            <a href="#how-it-works">Discover</a>
-            <a href="#dimensions">Dimensions</a>
-            <a href="#pricing">Premium</a>
+            <a href="#how-it-works" onclick="if(dashboardVisible){hideDashboard();}">Discover</a>
+            <a href="#dimensions" onclick="if(dashboardVisible){hideDashboard();}">Dimensions</a>
+            <a href="#pricing" onclick="if(dashboardVisible){hideDashboard();}">Premium</a>
             <button class="btn btn-primary" onclick="openProfileModal()" style="margin-top: 1rem;">APPLY NOW</button>
         </div>
     </div>
@@ -3251,7 +3252,8 @@
                     <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem;">
                         <input type="text" id="pastorName" placeholder="Pastor's name" style="padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
                         <input type="email" id="pastorEmail" placeholder="Pastor's email" style="padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
-                        <input type="tel" id="pastorPhone" placeholder="Pastor's phone (optional)" style="padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
+                        <input type="tel" id="pastorPhone" placeholder="Pastor's phone (SMS)" style="padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
+                        <p style="font-size:0.7rem;color:var(--text-secondary);margin:0;">Enter email, phone, or both. SMS will open your messaging app.</p>
                     </div>
                     <div style="display:flex;gap:0.75rem;">
                         <button class="btn btn-primary" onclick="generateAndSendPastoralLink()" style="flex:1;padding:0.6rem 1.5rem;font-size:0.85rem;" id="sendPastoralBtn">Send to Pastor</button>
@@ -3736,41 +3738,71 @@
                 <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.5rem;">You've been asked to verify <strong id="verifyUserName"></strong>'s character</p>
             </div>
 
+            <div style="background:var(--bg-secondary);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+                <h3 style="font-family:'Sora',sans-serif;font-size:1rem;margin-bottom:0.25rem;">Character & Faith</h3>
+                <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:1rem;">Select all that apply — the more detail you provide, the richer their profile becomes.</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" id="traitGroupCharacter">
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Faithful" style="cursor:pointer;width:18px;height:18px;"><span>Faithful</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Trustworthy" style="cursor:pointer;width:18px;height:18px;"><span>Trustworthy</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Accountable" style="cursor:pointer;width:18px;height:18px;"><span>Accountable</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Honest" style="cursor:pointer;width:18px;height:18px;"><span>Honest</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Humble" style="cursor:pointer;width:18px;height:18px;"><span>Humble</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Prayerful" style="cursor:pointer;width:18px;height:18px;"><span>Prayerful</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Growing" style="cursor:pointer;width:18px;height:18px;"><span>Growing in faith</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Teachable" style="cursor:pointer;width:18px;height:18px;"><span>Teachable</span></label>
+                </div>
+            </div>
+
+            <div style="background:var(--bg-secondary);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+                <h3 style="font-family:'Sora',sans-serif;font-size:1rem;margin-bottom:1rem;">Personality & Temperament</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" id="traitGroupPersonality">
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Kind" style="cursor:pointer;width:18px;height:18px;"><span>Kind</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Generous" style="cursor:pointer;width:18px;height:18px;"><span>Generous</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Outgoing" style="cursor:pointer;width:18px;height:18px;"><span>Outgoing</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Quiet & Thoughtful" style="cursor:pointer;width:18px;height:18px;"><span>Quiet & Thoughtful</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Joyful" style="cursor:pointer;width:18px;height:18px;"><span>Joyful</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Patient" style="cursor:pointer;width:18px;height:18px;"><span>Patient</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Encouraging" style="cursor:pointer;width:18px;height:18px;"><span>Encouraging</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Good Listener" style="cursor:pointer;width:18px;height:18px;"><span>Good Listener</span></label>
+                </div>
+            </div>
+
+            <div style="background:var(--bg-secondary);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+                <h3 style="font-family:'Sora',sans-serif;font-size:1rem;margin-bottom:1rem;">Reliability & Resilience</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" id="traitGroupReliability">
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Reliable" style="cursor:pointer;width:18px;height:18px;"><span>Reliable</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Good Under Pressure" style="cursor:pointer;width:18px;height:18px;"><span>Good Under Pressure</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Consistent" style="cursor:pointer;width:18px;height:18px;"><span>Consistent</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Resilient" style="cursor:pointer;width:18px;height:18px;"><span>Resilient</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Committed" style="cursor:pointer;width:18px;height:18px;"><span>Committed</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Punctual" style="cursor:pointer;width:18px;height:18px;"><span>Punctual</span></label>
+                </div>
+            </div>
+
+            <div style="background:var(--bg-secondary);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+                <h3 style="font-family:'Sora',sans-serif;font-size:1rem;margin-bottom:1rem;">Relationships & Community</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" id="traitGroupRelationships">
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Servant-hearted" style="cursor:pointer;width:18px;height:18px;"><span>Servant-hearted</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Respectful" style="cursor:pointer;width:18px;height:18px;"><span>Respectful</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Team Player" style="cursor:pointer;width:18px;height:18px;"><span>Team Player</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Welcoming" style="cursor:pointer;width:18px;height:18px;"><span>Welcoming</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Compassionate" style="cursor:pointer;width:18px;height:18px;"><span>Compassionate</span></label>
+                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="pastoralTrait" value="Forgiving" style="cursor:pointer;width:18px;height:18px;"><span>Forgiving</span></label>
+                </div>
+            </div>
+
             <div style="background:var(--bg-secondary);border-radius:12px;padding:1.5rem;margin-bottom:2rem;">
-                <h3 style="font-family:'Sora',sans-serif;font-size:1rem;margin-bottom:1rem;">Select traits you've observed:</h3>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
-                        <input type="checkbox" id="traitFaithful" value="Faithful" style="cursor:pointer;width:18px;height:18px;">
-                        <span>Faithful</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
-                        <input type="checkbox" id="traitServantHearted" value="Servant-hearted" style="cursor:pointer;width:18px;height:18px;">
-                        <span>Servant-hearted</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
-                        <input type="checkbox" id="traitTrustworthy" value="Trustworthy" style="cursor:pointer;width:18px;height:18px;">
-                        <span>Trustworthy</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
-                        <input type="checkbox" id="traitGrowing" value="Growing" style="cursor:pointer;width:18px;height:18px;">
-                        <span>Growing</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
-                        <input type="checkbox" id="traitAccountable" value="Accountable" style="cursor:pointer;width:18px;height:18px;">
-                        <span>Accountable</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
-                        <input type="checkbox" id="traitGenerous" value="Generous" style="cursor:pointer;width:18px;height:18px;">
-                        <span>Generous</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
-                        <input type="checkbox" id="traitHumble" value="Humble" style="cursor:pointer;width:18px;height:18px;">
-                        <span>Humble</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
-                        <input type="checkbox" id="traitPrayerful" value="Prayerful" style="cursor:pointer;width:18px;height:18px;">
-                        <span>Prayerful</span>
-                    </label>
+                <h3 style="font-family:'Sora',sans-serif;font-size:1rem;margin-bottom:0.5rem;">Church Leadership Involvement</h3>
+                <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:1rem;">How involved is this person in church leadership? (1 = attends occasionally, 10 = key leader)</p>
+                <div style="display:flex;align-items:center;gap:1rem;">
+                    <span style="font-size:0.8rem;color:var(--text-secondary);white-space:nowrap;">1</span>
+                    <input type="range" id="leadershipScale" min="1" max="10" value="5" style="flex:1;cursor:pointer;accent-color:#D4726A;">
+                    <span style="font-size:0.8rem;color:var(--text-secondary);white-space:nowrap;">10</span>
+                    <span id="leadershipScaleValue" style="font-size:1.1rem;font-weight:700;color:var(--accent);min-width:2rem;text-align:center;">5</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:0.5rem;">
+                    <span style="font-size:0.65rem;color:var(--text-secondary);">Attends regularly</span>
+                    <span style="font-size:0.65rem;color:var(--text-secondary);">Key leader</span>
                 </div>
             </div>
 
@@ -4014,6 +4046,20 @@
                 }
                 this.updateUI();
 
+                // Check if URL is for legal pages — always show these regardless of auth state
+                const currentPath = window.location.pathname;
+                const isLegalRoute = currentPath.startsWith('/legal/');
+
+                if (isLegalRoute) {
+                    if (currentPath.includes('privacy')) {
+                        document.getElementById('privacyModal').style.display = 'flex';
+                    } else if (currentPath.includes('terms')) {
+                        document.getElementById('termsModal').style.display = 'flex';
+                    }
+                    // Don't auto-route to questionnaire/dashboard when viewing legal pages
+                    return;
+                }
+
                 // Auto-route returning authenticated users
                 if (this.isAuthenticated && this.profile) {
                     if (!this.profile.profile_complete) {
@@ -4225,7 +4271,17 @@
             btn.textContent = 'SIGN IN';
             btn.disabled = false;
 
-            if (error) return showAuthError(error.message);
+            // Handle email not confirmed — still allow login if session exists
+            if (error) {
+                if (error.message === 'Email not confirmed' && data?.session) {
+                    // Email unconfirmed but session granted — proceed
+                } else if (error.message === 'Email not confirmed') {
+                    // No session — show friendly message
+                    return showAuthError('Please check your email and click the verification link to activate your account.');
+                } else {
+                    return showAuthError(error.message);
+                }
+            }
 
             closeAuthModal();
 
@@ -5732,6 +5788,10 @@ const questions = [
         function closeQuestionnaireModal() {
             document.getElementById('questionnaireModal').classList.remove('active');
             document.body.style.overflow = '';
+            // Return to dashboard if user has a profile, not the landing page
+            if (AuthState.isAuthenticated && AuthState.profile && AuthState.profile.profile_complete) {
+                showDashboard();
+            }
         }
 
         function sanitize(str) {
@@ -6295,8 +6355,8 @@ const questions = [
             const pastorEmail = document.getElementById('pastorEmail').value.trim();
             const pastorPhone = document.getElementById('pastorPhone').value.trim();
 
-            if (!pastorEmail) {
-                alert('Please enter your pastor\'s email address.');
+            if (!pastorEmail && !pastorPhone) {
+                alert('Please enter your pastor\'s email or phone number.');
                 return;
             }
 
@@ -6317,7 +6377,7 @@ const questions = [
                         profile_id: AuthState.profile.id,
                         verification_token: token,
                         pastor_name: pastorName || null,
-                        pastor_email: pastorEmail,
+                        pastor_email: pastorEmail || null,
                         pastor_phone: pastorPhone || null,
                         status: 'pending',
                         created_at: new Date().toISOString()
@@ -6331,43 +6391,52 @@ const questions = [
                 }
 
                 const verifyUrl = 'https://whollydate.com?verify=' + token;
-
-                // Step 2: Send the email to the pastor
                 const memberName = AuthState.profile.first_name || 'A WHOLLY member';
-                let emailErr = null;
-                try {
-                    const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk';
-                    const emailRes = await fetch('https://umzyimdhpaquvbyutmir.supabase.co/functions/v1/send-email', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + ANON_KEY,
-                            'apikey': ANON_KEY
-                        },
-                        body: JSON.stringify({
-                            type: 'pastoral_verification',
-                            to: pastorEmail,
-                            recipientName: pastorName || 'Pastor',
-                            data: {
-                                memberName: memberName,
-                                verifyUrl: verifyUrl
-                            }
-                        })
-                    });
-                    const emailText = await emailRes.text();
-                    console.log('Edge function response:', emailRes.status, emailText);
+                const results = [];
+
+                // Step 2a: Send email if email provided
+                if (pastorEmail) {
                     try {
-                        const emailResult = JSON.parse(emailText);
-                        if (!emailRes.ok || !emailResult.sent) emailErr = emailResult.error || emailResult.reason || 'Status ' + emailRes.status;
-                    } catch (parseErr) {
-                        emailErr = 'Status ' + emailRes.status + ': ' + emailText.substring(0, 200);
+                        const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk';
+                        const emailRes = await fetch('https://umzyimdhpaquvbyutmir.supabase.co/functions/v1/send-email', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + ANON_KEY,
+                                'apikey': ANON_KEY
+                            },
+                            body: JSON.stringify({
+                                type: 'pastoral_verification',
+                                to: pastorEmail,
+                                recipientName: pastorName || 'Pastor',
+                                data: { memberName, verifyUrl }
+                            })
+                        });
+                        const emailResult = await emailRes.json();
+                        if (emailRes.ok && emailResult.sent) {
+                            results.push({ type: 'email', success: true });
+                        } else {
+                            results.push({ type: 'email', success: false, error: emailResult.error || emailResult.reason });
+                        }
+                    } catch (e) {
+                        results.push({ type: 'email', success: false, error: e.message });
                     }
-                } catch (e) {
-                    console.error('Email send error:', e);
-                    emailErr = e.message;
                 }
 
-                // Show the link as well
+                // Step 2b: Send SMS if phone provided (opens native messaging app)
+                if (pastorPhone) {
+                    const smsBody = encodeURIComponent(
+                        'Hi' + (pastorName ? ' ' + pastorName : '') + ', ' + memberName +
+                        ' has requested your character endorsement on WHOLLY. Please tap the link to verify: ' + verifyUrl
+                    );
+                    // Use sms: URI — works on iOS (&body=) and Android (?body=)
+                    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                    const smsUrl = 'sms:' + pastorPhone + (isIOS ? '&body=' : '?body=') + smsBody;
+                    window.open(smsUrl, '_blank');
+                    results.push({ type: 'sms', success: true });
+                }
+
+                // Show the link
                 document.getElementById('verifyLinkInput').value = verifyUrl;
                 document.getElementById('pastorVerificationLink').style.display = 'block';
 
@@ -6377,20 +6446,24 @@ const questions = [
                 document.getElementById('pastorPhone').value = '';
 
                 // Show status
-                if (emailErr) {
-                    const errDetail = typeof emailErr === 'object' ? JSON.stringify(emailErr) : emailErr;
-                    status.textContent = 'Link created. Email error: ' + errDetail;
-                    status.style.color = '#DC2626';
-                    console.error('Pastoral email error:', emailErr);
-                } else {
-                    status.textContent = '✓ Verification link sent to ' + pastorEmail;
-                    status.style.color = '#4CAF7D';
+                const emailResult = results.find(r => r.type === 'email');
+                const smsResult = results.find(r => r.type === 'sms');
+                let statusParts = [];
+
+                if (emailResult) {
+                    statusParts.push(emailResult.success ? 'Email sent to ' + pastorEmail : 'Email failed');
                 }
+                if (smsResult) {
+                    statusParts.push('SMS opened for ' + pastorPhone);
+                }
+
+                const allSuccess = results.every(r => r.success);
+                status.textContent = (allSuccess ? '\u2713 ' : '') + statusParts.join(' · ');
+                status.style.color = allSuccess ? '#4CAF7D' : '#DC2626';
                 status.style.display = 'block';
 
                 loadPastoralVerifications();
             } catch (err) {
-                console.error('Error:', err);
                 alert('Error sending verification link. Please try again.');
             }
 
@@ -6434,6 +6507,7 @@ const questions = [
                                 <span style="font-size:0.75rem;color:var(--text-tertiary);">${new Date(v.verified_at).toLocaleDateString()}</span>
                             </div>
                             <div style="margin-bottom:0.5rem;">${traitsHtml}</div>
+                            ${v.leadership_scale ? `<div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.5rem;">Church Leadership: <strong>${v.leadership_scale}/10</strong></div>` : ''}
                             ${v.pastor_comment ? `<p style="font-size:0.8rem;color:var(--text-secondary);font-style:italic;margin:0.5rem 0;">"${v.pastor_comment}"</p>` : ''}
                         </div>`;
                     });
@@ -6451,6 +6525,15 @@ const questions = [
             document.getElementById('pastorVerifyModal').style.display = 'none';
         }
 
+        // Leadership scale slider live update
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.getElementById('leadershipScale');
+            const display = document.getElementById('leadershipScaleValue');
+            if (slider && display) {
+                slider.addEventListener('input', () => { display.textContent = slider.value; });
+            }
+        });
+
         async function submitPastoralVerification() {
             if (!currentPastoralToken || !currentPastoralProfileId) {
                 alert('Verification token missing.');
@@ -6466,20 +6549,17 @@ const questions = [
                 return;
             }
 
-            // Collect selected traits
+            // Collect selected traits from all checkboxes
             const traits = [];
-            const traitIds = ['traitFaithful', 'traitServantHearted', 'traitTrustworthy', 'traitGrowing', 'traitAccountable', 'traitGenerous', 'traitHumble', 'traitPrayerful'];
-            traitIds.forEach(id => {
-                const checkbox = document.getElementById(id);
-                if (checkbox && checkbox.checked) {
-                    traits.push(checkbox.value);
-                }
-            });
+            document.querySelectorAll('.pastoralTrait:checked').forEach(cb => traits.push(cb.value));
 
             if (traits.length === 0) {
                 alert('Please select at least one trait.');
                 return;
             }
+
+            // Collect leadership scale
+            const leadershipScale = parseInt(document.getElementById('leadershipScale')?.value || '5');
 
             const btn = document.getElementById('submitVerifyBtn');
             btn.disabled = true;
@@ -6492,6 +6572,7 @@ const questions = [
                         pastor_name: pastorName,
                         pastor_email: pastorEmail,
                         traits: traits,
+                        leadership_scale: leadershipScale,
                         pastor_comment: comment || null,
                         status: 'verified',
                         verified_at: new Date().toISOString()
