@@ -3248,11 +3248,16 @@
 
                     <div id="pastorVerifications" style="display:none;margin-bottom:1.5rem;"></div>
 
-                    <div style="display:flex;gap:1rem;margin-bottom:1.5rem;">
-                        <input type="text" id="pastorName" placeholder="Pastor's name (optional)" style="flex:1;padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
-                        <input type="email" id="pastorEmail" placeholder="Pastor's email" style="flex:1;padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
+                    <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem;">
+                        <input type="text" id="pastorName" placeholder="Pastor's name" style="padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
+                        <input type="email" id="pastorEmail" placeholder="Pastor's email" style="padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
+                        <input type="tel" id="pastorPhone" placeholder="Pastor's phone (optional)" style="padding:0.6rem;font-size:0.85rem;border:1px solid var(--subtle-border);border-radius:6px;background:var(--card-bg);color:var(--text);">
                     </div>
-                    <button class="btn btn-primary" onclick="generatePastoralLink()" style="padding:0.6rem 1.5rem;font-size:0.85rem;">Generate Verification Link</button>
+                    <div style="display:flex;gap:0.75rem;">
+                        <button class="btn btn-primary" onclick="generateAndSendPastoralLink()" style="flex:1;padding:0.6rem 1.5rem;font-size:0.85rem;" id="sendPastoralBtn">Send to Pastor</button>
+                        <button class="btn btn-secondary" onclick="generatePastoralLink()" style="padding:0.6rem 1.5rem;font-size:0.85rem;">Just Generate Link</button>
+                    </div>
+                    <p id="pastoralSendStatus" style="font-size:0.8rem;color:var(--accent);margin-top:0.75rem;display:none;"></p>
                 </div>
 
                 <div style="background:var(--card-bg);border-radius:16px;padding:2rem;box-shadow:var(--shadow);margin-bottom:1.5rem;">
@@ -6278,6 +6283,96 @@ const questions = [
                 console.error('Error generating pastoral link:', err);
                 alert('Error creating verification link. Please try again.');
             }
+        }
+
+        async function generateAndSendPastoralLink() {
+            if (!AuthState.user || !AuthState.profile) {
+                alert('Please log in first.');
+                return;
+            }
+
+            const pastorName = document.getElementById('pastorName').value.trim();
+            const pastorEmail = document.getElementById('pastorEmail').value.trim();
+            const pastorPhone = document.getElementById('pastorPhone').value.trim();
+
+            if (!pastorEmail) {
+                alert('Please enter your pastor\'s email address.');
+                return;
+            }
+
+            const btn = document.getElementById('sendPastoralBtn');
+            const status = document.getElementById('pastoralSendStatus');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            status.style.display = 'none';
+
+            const token = generateUUID();
+
+            try {
+                // Step 1: Create the verification record
+                const { error: insertErr } = await supabaseClient
+                    .from('pastoral_verifications')
+                    .insert({
+                        id: generateUUID(),
+                        profile_id: AuthState.profile.id,
+                        verification_token: token,
+                        pastor_name: pastorName || null,
+                        pastor_email: pastorEmail,
+                        pastor_phone: pastorPhone || null,
+                        status: 'pending',
+                        created_at: new Date().toISOString()
+                    });
+
+                if (insertErr) {
+                    alert('Error creating verification: ' + insertErr.message);
+                    btn.disabled = false;
+                    btn.textContent = 'Send to Pastor';
+                    return;
+                }
+
+                const verifyUrl = 'https://whollydate.com?verify=' + token;
+
+                // Step 2: Send the email to the pastor
+                const memberName = AuthState.profile.first_name || 'A WHOLLY member';
+                const { error: emailErr } = await supabaseClient.functions.invoke('send-email', {
+                    body: {
+                        type: 'pastoral_verification',
+                        to: pastorEmail,
+                        recipientName: pastorName || 'Pastor',
+                        data: {
+                            memberName: memberName,
+                            verifyUrl: verifyUrl
+                        }
+                    }
+                });
+
+                // Show the link as well
+                document.getElementById('verifyLinkInput').value = verifyUrl;
+                document.getElementById('pastorVerificationLink').style.display = 'block';
+
+                // Clear form
+                document.getElementById('pastorName').value = '';
+                document.getElementById('pastorEmail').value = '';
+                document.getElementById('pastorPhone').value = '';
+
+                // Show status
+                if (emailErr) {
+                    status.textContent = 'Link created but email failed to send. Share the link manually.';
+                    status.style.color = '#DC2626';
+                } else {
+                    status.textContent = '✓ Verification link sent to ' + pastorEmail;
+                    status.style.color = '#4CAF7D';
+                }
+                status.style.display = 'block';
+
+                loadPastoralVerifications();
+            } catch (err) {
+                console.error('Error:', err);
+                alert('Error sending verification link. Please try again.');
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Send to Pastor';
         }
 
         function copyVerifyLink(evt) {

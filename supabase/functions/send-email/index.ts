@@ -26,7 +26,8 @@ type EmailType =
   | 'weekly_digest'
   | 'account_deletion_scheduled'
   | 'account_deletion_reminder'
-  | 'welcome';
+  | 'welcome'
+  | 'pastoral_verification';
 
 interface EmailPayload {
   type: EmailType;
@@ -147,6 +148,31 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
             <a href="${APP_URL}/settings" style="display: inline-block; background: #5C5C5C; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
               Cancel Deletion
             </a>
+          </div>
+        `,
+      };
+
+    case 'pastoral_verification':
+      return {
+        subject: `${data.memberName} has requested your character endorsement`,
+        html: `
+          <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+            <h1 style="color: #D4726A; font-size: 28px;">Character Verification Request</h1>
+            <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
+              Hi ${recipientName},
+            </p>
+            <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
+              <strong>${data.memberName}</strong> is a member of WHOLLY, a faith-first matchmaking community, and has asked you to verify their character.
+            </p>
+            <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
+              It only takes a minute — select a few character traits you've observed and optionally leave a short comment.
+            </p>
+            <a href="${data.verifyUrl}" style="display: inline-block; background: #D4726A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
+              Verify ${data.memberName}'s Character
+            </a>
+            <p style="color: #999; font-size: 13px; margin-top: 30px;">
+              If you don't know this person or received this in error, you can safely ignore this email.
+            </p>
           </div>
         `,
       };
