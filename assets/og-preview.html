@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -11,401 +11,262 @@
       width: 1200px;
       height: 630px;
       overflow: hidden;
-      font-family: 'DM Sans', sans-serif;
     }
 
     .og-card {
       width: 1200px;
       height: 630px;
       position: relative;
-      background: #1A1418;
       overflow: hidden;
     }
 
-    /* Warm gradient overlay */
-    .bg-gradient {
+    /* Full-bleed hero photo */
+    .hero-photo {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    /* Cinematic gradient overlay — dark bottom for text, warm tones */
+    .overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       background:
-        radial-gradient(ellipse at 20% 50%, rgba(212, 114, 122, 0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 30%, rgba(184, 169, 154, 0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 90%, rgba(209, 199, 188, 0.08) 0%, transparent 40%);
+        linear-gradient(180deg,
+          rgba(0, 0, 0, 0.05) 0%,
+          rgba(0, 0, 0, 0.0) 25%,
+          rgba(0, 0, 0, 0.15) 50%,
+          rgba(20, 12, 15, 0.7) 75%,
+          rgba(20, 12, 15, 0.92) 100%
+        ),
+        linear-gradient(135deg,
+          rgba(212, 114, 122, 0.1) 0%,
+          transparent 50%
+        );
       z-index: 1;
     }
 
-    /* Subtle grain texture */
-    .grain {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      opacity: 0.03;
-      z-index: 2;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    }
-
-    /* Elegant line accents */
-    .line-accent-top {
+    /* Top gold accent line */
+    .accent-line {
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent 0%, #D4727A 20%, #B8A99A 50%, #D1C7BC 80%, transparent 100%);
-      z-index: 10;
-    }
-
-    .line-accent-bottom {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent 0%, rgba(212, 114, 122, 0.3) 50%, transparent 100%);
-      z-index: 10;
-    }
-
-    /* Content layout */
-    .content {
-      position: relative;
-      z-index: 5;
-      display: flex;
-      height: 100%;
-      padding: 60px 80px;
-      align-items: center;
-    }
-
-    .left {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-right: 60px;
-    }
-
-    .right {
-      width: 380px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Brand mark */
-    .brand-mark {
-      font-family: 'Sora', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 8px;
-      text-transform: uppercase;
-      color: #D4727A;
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .brand-mark::before {
-      content: '';
-      width: 32px;
-      height: 1px;
-      background: #D4727A;
-    }
-
-    /* Headline */
-    .headline {
-      font-family: 'Sora', sans-serif;
-      font-size: 52px;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.5px;
-      color: #FAF7F5;
-      margin-bottom: 20px;
-    }
-
-    .headline em {
-      font-style: italic;
-      color: #D4727A;
-      font-weight: 300;
-    }
-
-    /* Tagline */
-    .tagline {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 18px;
-      font-weight: 300;
-      color: #B8A99A;
-      line-height: 1.6;
-      margin-bottom: 36px;
-      max-width: 440px;
-    }
-
-    /* Stat pills */
-    .stats {
-      display: flex;
-      gap: 12px;
-    }
-
-    .stat {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(212, 114, 122, 0.15);
-    }
-
-    .stat-icon {
-      font-size: 14px;
-    }
-
-    .stat-text {
-      font-size: 12px;
-      font-weight: 500;
-      color: #D1C7BC;
-      letter-spacing: 0.5px;
-    }
-
-    /* Right side — abstract card stack */
-    .card-stack {
-      position: relative;
-      width: 300px;
-      height: 380px;
-    }
-
-    .preview-card {
-      position: absolute;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    }
-
-    .card-1 {
-      width: 260px;
-      height: 340px;
-      top: 20px;
-      left: 40px;
-      transform: rotate(3deg);
-      z-index: 3;
-      background: linear-gradient(180deg, #2A2427 0%, #332D30 100%);
-      border: 1px solid rgba(212, 114, 122, 0.2);
-    }
-
-    .card-2 {
-      width: 240px;
-      height: 320px;
-      top: 10px;
-      left: 10px;
-      transform: rotate(-4deg);
-      z-index: 2;
-      background: linear-gradient(180deg, #332D30 0%, #3D3538 100%);
-      border: 1px solid rgba(184, 169, 154, 0.15);
-    }
-
-    .card-3 {
-      width: 220px;
-      height: 300px;
-      top: 40px;
-      left: 60px;
-      transform: rotate(7deg);
-      z-index: 1;
-      background: linear-gradient(180deg, #3D3538 0%, #4A4245 100%);
-      border: 1px solid rgba(209, 199, 188, 0.1);
-    }
-
-    /* Card content */
-    .card-inner {
-      padding: 24px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #D4727A, #B8A99A);
-      margin-bottom: 16px;
-    }
-
-    .card-name {
-      font-family: 'Sora', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      color: #FAF7F5;
-      margin-bottom: 4px;
-    }
-
-    .card-detail {
-      font-size: 12px;
-      color: #8A7F7A;
-      margin-bottom: 20px;
-    }
-
-    .card-score-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #8A7F7A;
-      margin-bottom: 8px;
-    }
-
-    .card-score-bar {
-      width: 100%;
       height: 4px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 2px;
-      margin-bottom: 6px;
-      overflow: hidden;
+      background: linear-gradient(90deg, #D4727A 0%, #C9A96E 40%, #D4727A 100%);
+      z-index: 10;
     }
 
-    .card-score-fill {
-      height: 100%;
-      border-radius: 2px;
-    }
-
-    .fill-spiritual { width: 88%; background: #D4727A; }
-    .fill-emotional { width: 82%; background: #B8A99A; }
-    .fill-intellectual { width: 76%; background: #D1C7BC; }
-    .fill-life { width: 84%; background: #4CAF7D; }
-
-    .card-score-row {
+    /* Top bar — brand + tagline */
+    .top-bar {
+      position: absolute;
+      top: 28px;
+      left: 56px;
+      right: 56px;
+      z-index: 10;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 4px;
     }
 
-    .card-score-dim {
-      font-size: 10px;
-      color: #6B6166;
+    .logo {
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
     }
 
-    .card-score-val {
-      font-size: 10px;
-      font-weight: 600;
-      color: #D1C7BC;
-    }
-
-    .card-tier {
-      margin-top: auto;
-      display: inline-flex;
+    .top-badge {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 12px;
-      background: rgba(76, 175, 125, 0.12);
-      align-self: flex-start;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .card-tier-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #4CAF7D;
-    }
-
-    .card-tier-text {
-      font-size: 11px;
-      font-weight: 600;
-      color: #4CAF7D;
-      letter-spacing: 1px;
+    .top-badge-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 1.5px;
       text-transform: uppercase;
     }
 
-    /* URL footer */
-    .url-footer {
+    /* Bottom content */
+    .bottom-content {
       position: absolute;
-      bottom: 24px;
-      right: 80px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      padding: 0 56px 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .bottom-left {
+      max-width: 700px;
+    }
+
+    .headline {
+      font-family: 'Sora', sans-serif;
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.05;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .headline .accent {
+      background: linear-gradient(135deg, #E8A5AB, #C9A96E);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .sub-headline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 19px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+      max-width: 520px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Bottom right — features */
+    .bottom-right {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .feature-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .pill-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .pill-icon-coral {
+      background: rgba(212, 114, 122, 0.25);
+      color: #E8A5AB;
+    }
+
+    .pill-icon-gold {
+      background: rgba(201, 169, 110, 0.25);
+      color: #C9A96E;
+    }
+
+    .pill-icon-green {
+      background: rgba(76, 175, 125, 0.2);
+      color: #5CC98E;
+    }
+
+    .pill-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.5px;
+    }
+
+    /* URL watermark */
+    .url {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 10;
       font-family: 'Sora', sans-serif;
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 400;
-      letter-spacing: 3px;
-      color: rgba(209, 199, 188, 0.4);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.25);
+      display: none; /* hidden — URL shows in the meta tag instead */
     }
   </style>
 </head>
 <body>
   <div class="og-card">
-    <div class="bg-gradient"></div>
-    <div class="grain"></div>
-    <div class="line-accent-top"></div>
-    <div class="line-accent-bottom"></div>
+    <!-- Full-bleed couple photo -->
+    <div class="hero-photo">
+      <img src="carousel/couple-1.jpg" alt="">
+    </div>
 
-    <div class="content">
-      <div class="left">
-        <div class="brand-mark">WHOLLY</div>
-        <div class="headline">
-          Faith-First<br>
-          <em>Matchmaking</em>
-        </div>
-        <div class="tagline">
-          52-question compatibility. Pastoral verification. Substance before selfies.
-        </div>
-        <div class="stats">
-          <div class="stat">
-            <span class="stat-icon">&#10023;</span>
-            <span class="stat-text">4-Layer Matching</span>
-          </div>
-          <div class="stat">
-            <span class="stat-icon">&#10003;</span>
-            <span class="stat-text">Pastor Verified</span>
-          </div>
-          <div class="stat">
-            <span class="stat-icon">&#9829;</span>
-            <span class="stat-text">Spirit-Led</span>
-          </div>
-        </div>
-      </div>
+    <!-- Cinematic overlay -->
+    <div class="overlay"></div>
 
-      <div class="right">
-        <div class="card-stack">
-          <!-- Background cards -->
-          <div class="preview-card card-3"></div>
-          <div class="preview-card card-2"></div>
+    <!-- Gold accent line -->
+    <div class="accent-line"></div>
 
-          <!-- Main card -->
-          <div class="preview-card card-1">
-            <div class="card-inner">
-              <div class="card-avatar"></div>
-              <div class="card-name">Sarah M.</div>
-              <div class="card-detail">26 &middot; Adelaide &middot; Futures Church</div>
-
-              <div class="card-score-label">Compatibility</div>
-
-              <div class="card-score-row">
-                <span class="card-score-dim">Spiritual</span>
-                <span class="card-score-val">88%</span>
-              </div>
-              <div class="card-score-bar"><div class="card-score-fill fill-spiritual"></div></div>
-
-              <div class="card-score-row">
-                <span class="card-score-dim">Emotional</span>
-                <span class="card-score-val">82%</span>
-              </div>
-              <div class="card-score-bar"><div class="card-score-fill fill-emotional"></div></div>
-
-              <div class="card-score-row">
-                <span class="card-score-dim">Intellectual</span>
-                <span class="card-score-val">76%</span>
-              </div>
-              <div class="card-score-bar"><div class="card-score-fill fill-intellectual"></div></div>
-
-              <div class="card-score-row">
-                <span class="card-score-dim">Life Vision</span>
-                <span class="card-score-val">84%</span>
-              </div>
-              <div class="card-score-bar"><div class="card-score-fill fill-life"></div></div>
-
-              <div class="card-tier">
-                <div class="card-tier-dot"></div>
-                <span class="card-tier-text">Exceptional</span>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="logo">WHOLLY</div>
+      <div class="top-badge">
+        <span class="top-badge-text">Beta &mdash; Now Live</span>
       </div>
     </div>
 
-    <div class="url-footer">whollydate.com</div>
+    <!-- Bottom content -->
+    <div class="bottom-content">
+      <div class="bottom-left">
+        <div class="headline">
+          Where Faith Meets<br><span class="accent">Forever</span>
+        </div>
+        <div class="sub-headline">
+          Premium matchmaking for Spirit-filled Christians.<br>
+          52 questions. 4 dimensions. One covenant.
+        </div>
+      </div>
+
+      <div class="bottom-right">
+        <div class="feature-pill">
+          <div class="pill-icon pill-icon-coral">&#10023;</div>
+          <span class="pill-text">4-Layer Compatibility</span>
+        </div>
+        <div class="feature-pill">
+          <div class="pill-icon pill-icon-gold">&#10003;</div>
+          <span class="pill-text">Pastor Verified</span>
+        </div>
+        <div class="feature-pill">
+          <div class="pill-icon pill-icon-green">&#9829;</div>
+          <span class="pill-text">Substance Before Selfies</span>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
