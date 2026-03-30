@@ -6336,12 +6336,18 @@ const questions = [
                 const memberName = AuthState.profile.first_name || 'A WHOLLY member';
                 let emailErr = null;
                 try {
+                    const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk';
+                    let authToken = ANON_KEY;
+                    try {
+                        const sess = (await supabaseClient.auth.getSession()).data.session;
+                        if (sess && sess.access_token) authToken = sess.access_token;
+                    } catch (e) {}
                     const emailRes = await fetch('https://umzyimdhpaquvbyutmir.supabase.co/functions/v1/send-email', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + (await supabaseClient.auth.getSession()).data.session?.access_token,
-                            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtenlpbWRocGFxdXZieXV0bWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDAzNTEsImV4cCI6MjA4ODM3NjM1MX0.OV1gVAA5an_zCUt4UYt2JpiQjColphjQpquY7Ayp0Uk'
+                            'Authorization': 'Bearer ' + authToken,
+                            'apikey': ANON_KEY
                         },
                         body: JSON.stringify({
                             type: 'pastoral_verification',
@@ -6353,7 +6359,8 @@ const questions = [
                             }
                         })
                     });
-                    if (!emailRes.ok) emailErr = await emailRes.text();
+                    const emailResult = await emailRes.json();
+                    if (!emailRes.ok || !emailResult.sent) emailErr = emailResult.error || emailResult.reason || 'Unknown error';
                 } catch (e) {
                     console.error('Email send error:', e);
                     emailErr = e.message;
