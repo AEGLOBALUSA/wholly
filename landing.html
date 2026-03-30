@@ -6359,8 +6359,14 @@ const questions = [
                             }
                         })
                     });
-                    const emailResult = await emailRes.json();
-                    if (!emailRes.ok || !emailResult.sent) emailErr = emailResult.error || emailResult.reason || 'Unknown error';
+                    const emailText = await emailRes.text();
+                    console.log('Edge function response:', emailRes.status, emailText);
+                    try {
+                        const emailResult = JSON.parse(emailText);
+                        if (!emailRes.ok || !emailResult.sent) emailErr = emailResult.error || emailResult.reason || 'Status ' + emailRes.status;
+                    } catch (parseErr) {
+                        emailErr = 'Status ' + emailRes.status + ': ' + emailText.substring(0, 200);
+                    }
                 } catch (e) {
                     console.error('Email send error:', e);
                     emailErr = e.message;
@@ -6377,8 +6383,10 @@ const questions = [
 
                 // Show status
                 if (emailErr) {
-                    status.textContent = 'Link created but email failed to send. Share the link manually.';
+                    const errDetail = typeof emailErr === 'object' ? JSON.stringify(emailErr) : emailErr;
+                    status.textContent = 'Link created. Email error: ' + errDetail;
                     status.style.color = '#DC2626';
+                    console.error('Pastoral email error:', emailErr);
                 } else {
                     status.textContent = '✓ Verification link sent to ' + pastorEmail;
                     status.style.color = '#4CAF7D';
