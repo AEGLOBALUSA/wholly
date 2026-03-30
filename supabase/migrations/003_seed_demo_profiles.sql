@@ -127,25 +127,56 @@ INSERT INTO profiles (
 -- Create a self-join to calculate scores between all demo profiles
 -- Score calculation: (1 - normalized_difference) * 100
 
+-- Generate compatibility scores between all demo profile pairs
+-- Uses community_familiarity_score difference as a base, then adds
+-- randomized dimension scores for realistic-looking data
 WITH profile_pairs AS (
   SELECT
-    p1.id as profile_id_1,
-    p2.id as profile_id_2,
+    p1.id as user_id,
+    p2.id as match_id,
     ABS(p1.community_familiarity_score - p2.community_familiarity_score) as familiarity_diff
   FROM profiles p1
   JOIN profiles p2 ON p1.id < p2.id
   WHERE p1.is_demo = TRUE AND p2.is_demo = TRUE
+),
+scored_pairs AS (
+  SELECT
+    user_id,
+    match_id,
+    -- Generate dimension scores based on familiarity similarity + variance
+    LEAST(100, GREATEST(30, (100 - familiarity_diff) + (random() * 20 - 10)::integer)) as spiritual,
+    LEAST(100, GREATEST(30, (100 - familiarity_diff) + (random() * 30 - 15)::integer)) as emotional,
+    LEAST(100, GREATEST(30, (100 - familiarity_diff) + (random() * 30 - 15)::integer)) as intellectual,
+    LEAST(100, GREATEST(30, (100 - familiarity_diff) + (random() * 25 - 12)::integer)) as life_vision
+  FROM profile_pairs
 )
 INSERT INTO compatibility_scores (
-  profile_id_1,
-  profile_id_2,
-  score
+  user_id,
+  match_id,
+  spiritual,
+  emotional,
+  intellectual,
+  life_vision,
+  overall,
+  tier
 )
 SELECT
-  profile_id_1,
-  profile_id_2,
-  ROUND(((100 - familiarity_diff) / 100.0) * 100)::integer as score
-FROM profile_pairs
+  user_id,
+  match_id,
+  spiritual,
+  emotional,
+  intellectual,
+  life_vision,
+  -- Overall: simple weighted average matching the algorithm weights
+  ROUND((spiritual * 1.5 + emotional * 1.2 + intellectual * 0.8 + life_vision * 1.0) / 4.5)::integer as overall,
+  -- Tier assignment
+  CASE
+    WHEN ROUND((spiritual * 1.5 + emotional * 1.2 + intellectual * 0.8 + life_vision * 1.0) / 4.5) >= 82 THEN 'exceptional'
+    WHEN ROUND((spiritual * 1.5 + emotional * 1.2 + intellectual * 0.8 + life_vision * 1.0) / 4.5) >= 72 THEN 'strong'
+    WHEN ROUND((spiritual * 1.5 + emotional * 1.2 + intellectual * 0.8 + life_vision * 1.0) / 4.5) >= 58 THEN 'compatible'
+    ELSE 'below'
+  END as tier
+FROM scored_pairs
 ON CONFLICT DO NOTHING;
 
 -- Re-enable foreign key checks
