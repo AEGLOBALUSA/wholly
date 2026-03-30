@@ -182,12 +182,23 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
   }
 }
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
+
 serve(async (req: Request) => {
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders });
+  }
+
   try {
     const payload: EmailPayload = await req.json();
 
     if (!payload.to || !payload.type) {
-      return new Response(JSON.stringify({ error: 'to and type required' }), { status: 400 });
+      return new Response(JSON.stringify({ error: 'to and type required' }), { status: 400, headers: corsHeaders });
     }
 
     const { subject, html } = getEmailContent(payload);
@@ -210,15 +221,15 @@ serve(async (req: Request) => {
 
       const result = await res.json();
       if (!res.ok) {
-        return new Response(JSON.stringify({ error: result }), { status: 500 });
+        return new Response(JSON.stringify({ error: result }), { status: 500, headers: corsHeaders });
       }
-      return new Response(JSON.stringify({ sent: true, id: result.id }));
+      return new Response(JSON.stringify({ sent: true, id: result.id }), { headers: corsHeaders });
     }
 
     // Fallback: log email (dev mode)
     console.log(`[EMAIL] To: ${payload.to}, Subject: ${subject}`);
-    return new Response(JSON.stringify({ sent: false, reason: 'No email provider configured' }));
+    return new Response(JSON.stringify({ sent: false, reason: 'No email provider configured' }), { headers: corsHeaders });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders });
   }
 });
