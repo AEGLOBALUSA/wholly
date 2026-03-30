@@ -6414,27 +6414,42 @@ const questions = [
                 // Show pastoral verification modal
                 currentPastoralToken = token;
 
-                // Fetch the verification record to get profile info
+                // Fetch the verification record, then look up profile name separately
                 (async () => {
                     try {
-                        const { data } = await supabaseClient
+                        // Step 1: Get the verification record by token
+                        const { data: verification, error: vErr } = await supabaseClient
                             .from('pastoral_verifications')
-                            .select('*, profiles(first_name)')
+                            .select('*')
                             .eq('verification_token', token)
                             .single();
 
-                        if (data && data.profiles) {
-                            currentPastoralProfileId = data.profile_id;
-                            document.getElementById('verifyUserName').textContent = data.profiles.first_name || 'user';
-                            document.getElementById('pastorVerifyModal').style.display = 'flex';
-
-                            // Hide all sections except the pastoral modal
-                            document.querySelectorAll('section:not(#dashboardSection)').forEach(s => s.style.display = 'none');
-                            document.querySelector('nav').style.display = 'none';
-                            document.querySelector('footer').style.display = 'none';
-                        } else {
+                        if (vErr || !verification) {
                             alert('Verification link not found or has expired.');
+                            return;
                         }
+
+                        // Step 2: Look up the user's first name from profiles
+                        let firstName = 'this person';
+                        if (verification.profile_id) {
+                            const { data: profile } = await supabaseClient
+                                .from('profiles')
+                                .select('first_name')
+                                .eq('id', verification.profile_id)
+                                .single();
+                            if (profile && profile.first_name) {
+                                firstName = profile.first_name;
+                            }
+                        }
+
+                        currentPastoralProfileId = verification.profile_id;
+                        document.getElementById('verifyUserName').textContent = firstName;
+                        document.getElementById('pastorVerifyModal').style.display = 'flex';
+
+                        // Hide all sections except the pastoral modal
+                        document.querySelectorAll('section:not(#dashboardSection)').forEach(s => s.style.display = 'none');
+                        document.querySelector('nav').style.display = 'none';
+                        document.querySelector('footer').style.display = 'none';
                     } catch (err) {
                         console.error('Error fetching verification:', err);
                         alert('Error loading verification. Please try again.');
