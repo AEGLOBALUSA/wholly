@@ -45,14 +45,14 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
         subject: 'Welcome to WHOLLY',
         html: `
           <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-            <h1 style="color: #D4726A; font-size: 28px;">Welcome to WHOLLY, ${recipientName}!</h1>
+            <h1 style="color: #E8615A; font-size: 28px;">Welcome to WHOLLY, ${recipientName}!</h1>
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               Your covenant is signed and your profile is live. We're believing with you for something meaningful.
             </p>
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               Complete your onboarding to start seeing matches aligned with your faith, values, and vision.
             </p>
-            <a href="${APP_URL}/onboarding/step-1" style="display: inline-block; background: #D4726A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
+            <a href="${APP_URL}/onboarding/step-1" style="display: inline-block; background: #E8615A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
               Complete Your Profile
             </a>
           </div>
@@ -64,14 +64,14 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
         subject: `You and ${data.matchName} are a mutual match!`,
         html: `
           <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-            <h1 style="color: #D4726A; font-size: 28px;">It's mutual!</h1>
+            <h1 style="color: #E8615A; font-size: 28px;">It's mutual!</h1>
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               ${recipientName}, you and ${data.matchName} both expressed interest. Your compatibility score is <strong>${data.overallScore}%</strong>.
             </p>
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               You can now message each other. Start a conversation!
             </p>
-            <a href="${APP_URL}/chat" style="display: inline-block; background: #D4726A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
+            <a href="${APP_URL}/chat" style="display: inline-block; background: #E8615A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
               Open Chat
             </a>
           </div>
@@ -83,16 +83,16 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
         subject: `New message from ${data.senderName}`,
         html: `
           <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-            <h1 style="color: #D4726A; font-size: 28px;">New Message</h1>
+            <h1 style="color: #E8615A; font-size: 28px;">New Message</h1>
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               ${recipientName}, ${data.senderName} sent you a message.
             </p>
-            <div style="background: #FFF0EE; padding: 16px; border-radius: 8px; margin: 20px 0;">
-              <p style="color: #1A1A1A; font-size: 16px; margin: 0; font-style: italic;">
+            <div style="background: #FFE4E0; padding: 16px; border-radius: 8px; margin: 20px 0;">
+              <p style="color: #2D2D2D; font-size: 16px; margin: 0; font-style: italic;">
                 "${data.preview}"
               </p>
             </div>
-            <a href="${APP_URL}/chat/${data.conversationId}" style="display: inline-block; background: #D4726A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+            <a href="${APP_URL}/chat/${data.conversationId}" style="display: inline-block; background: #E8615A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;">
               Reply
             </a>
           </div>
@@ -104,11 +104,11 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
         subject: `New ${data.tier} match: ${data.matchName}`,
         html: `
           <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-            <h1 style="color: #D4726A; font-size: 28px;">New ${data.tier === 'exceptional' ? 'Exceptional' : 'Strong'} Match</h1>
+            <h1 style="color: #E8615A; font-size: 28px;">New ${data.tier === 'exceptional' ? 'Exceptional' : 'Strong'} Match</h1>
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               ${recipientName}, you have a new ${data.tier} match with <strong>${data.matchName}</strong> at <strong>${data.overallScore}%</strong> compatibility.
             </p>
-            <a href="${APP_URL}/onboarding/results" style="display: inline-block; background: #D4726A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
+            <a href="${APP_URL}/onboarding/results" style="display: inline-block; background: #E8615A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
               View Match
             </a>
           </div>
@@ -120,13 +120,13 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
         subject: 'Your weekly WHOLLY digest',
         html: `
           <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-            <h1 style="color: #D4726A; font-size: 28px;">Your Week on WHOLLY</h1>
+            <h1 style="color: #E8615A; font-size: 28px;">Your Week on WHOLLY</h1>
             <ul style="color: #5C5C5C; font-size: 16px; line-height: 2;">
               <li><strong>${data.newMatches}</strong> new matches</li>
               <li><strong>${data.interestsReceived}</strong> people expressed interest in you</li>
               <li><strong>${data.unreadMessages}</strong> unread messages</li>
             </ul>
-            <a href="${APP_URL}" style="display: inline-block; background: #D4726A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
+            <a href="${APP_URL}" style="display: inline-block; background: #E8615A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
               Open WHOLLY
             </a>
           </div>
@@ -138,7 +138,7 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
         subject: 'Your WHOLLY account is scheduled for deletion',
         html: `
           <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-            <h1 style="color: #1A1A1A; font-size: 28px;">Account Deletion Scheduled</h1>
+            <h1 style="color: #2D2D2D; font-size: 28px;">Account Deletion Scheduled</h1>
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               ${recipientName}, your account is scheduled to be permanently deleted on <strong>${data.scheduledDate}</strong>.
             </p>
@@ -157,7 +157,7 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
         subject: `${data.memberName} has requested your character endorsement`,
         html: `
           <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-            <h1 style="color: #D4726A; font-size: 28px;">Character Verification Request</h1>
+            <h1 style="color: #E8615A; font-size: 28px;">Character Verification Request</h1>
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               Hi ${recipientName},
             </p>
@@ -167,7 +167,7 @@ function getEmailContent(payload: EmailPayload): { subject: string; html: string
             <p style="color: #5C5C5C; font-size: 16px; line-height: 1.6;">
               It only takes a minute — select a few character traits you've observed and optionally leave a short comment.
             </p>
-            <a href="${data.verifyUrl}" style="display: inline-block; background: #D4726A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
+            <a href="${data.verifyUrl}" style="display: inline-block; background: #E8615A; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px;">
               Verify ${data.memberName}'s Character
             </a>
             <p style="color: #999; font-size: 13px; margin-top: 30px;">
