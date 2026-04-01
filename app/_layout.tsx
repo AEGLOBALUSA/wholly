@@ -52,6 +52,10 @@ function InnerLayout() {
         <Stack.Screen name="chat" />
         <Stack.Screen name="profile" />
         <Stack.Screen name="about" />
+        <Stack.Screen name="login" />
+        <Stack.Screen name="privacy" />
+        <Stack.Screen name="terms" />
+        <Stack.Screen name="contact" />
         <Stack.Screen name="+not-found" />
       </Stack>
     </>

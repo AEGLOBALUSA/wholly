@@ -66,11 +66,23 @@ export default function AboutPage() {
           </Text>
 
           <Text style={styles.body}>
-            Most dating apps optimise for engagement — more swipes, more matches, more time on screen. WHOLLY optimises for alignment. We believe the best relationships start with shared values and emotional maturity, not just attraction.
+            WHOLLY was born out of frustration. Every dating app we tried optimised for the same thing: more swipes, more matches, more time on screen. None of them cared whether the relationship actually worked. For Spirit-filled Christians, the gap was even wider — there was nowhere that took faith, emotional maturity, and life vision seriously as the foundation of compatibility.
           </Text>
 
           <Text style={styles.body}>
-            The matching algorithm uses a weighted geometric mean across four dimensions, with floor capping to prevent hiding weak areas. A 95% spiritual score with a 40% emotional score doesn't average to 67% — it drops to 62%. We penalise imbalance because real relationships can't survive on one dimension alone.
+            So we built WHOLLY. A platform where the first question isn't "what do you look like?" but "who are you becoming?" Where a covenant replaces a swipe. Where compatibility is measured across four real dimensions, not reduced to a photo and a bio.
+          </Text>
+
+          <Text style={styles.body}>
+            The matching algorithm uses a weighted geometric mean with floor capping to prevent hiding weak areas. A 95% spiritual score with a 40% emotional score doesn't average to 67% — it drops to 62%. We penalise imbalance because real relationships can't survive on one dimension alone.
+          </Text>
+
+          <Text style={[styles.subheading, isDesktop && { fontSize: 22 }]}>
+            Built by
+          </Text>
+
+          <Text style={styles.body}>
+            WHOLLY is built by a small team of believers who think the Church deserves better tools for one of life's most important decisions. We're not a VC-funded startup chasing engagement metrics. We're builders who care about the outcome — marriages that thrive because they started with depth, not just attraction.
           </Text>
 
           <Text style={[styles.subheading, isDesktop && { fontSize: 22 }]}>
@@ -111,6 +123,23 @@ export default function AboutPage() {
 
       {/* Footer */}
       <View style={styles.footer}>
+        <View style={styles.footerLinks}>
+          <Pressable onPress={() => router.push('/covenant')}>
+            <Text style={styles.footerLink}>The Covenant</Text>
+          </Pressable>
+          <Text style={styles.footerDot}>·</Text>
+          <Pressable onPress={() => router.push('/contact')}>
+            <Text style={styles.footerLink}>Contact</Text>
+          </Pressable>
+          <Text style={styles.footerDot}>·</Text>
+          <Pressable onPress={() => router.push('/privacy')}>
+            <Text style={styles.footerLink}>Privacy</Text>
+          </Pressable>
+          <Text style={styles.footerDot}>·</Text>
+          <Pressable onPress={() => router.push('/terms')}>
+            <Text style={styles.footerLink}>Terms</Text>
+          </Pressable>
+        </View>
         <Text style={styles.footerText}>WHOLLY © 2026</Text>
       </View>
     </ScrollView>
@@ -232,6 +261,25 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.footerBg,
     borderTopWidth: 1,
     borderTopColor: 'rgba(255,255,255,0.08)',
+  },
+  footerLinks: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 16,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  footerLink: {
+    fontFamily: FONTS.body,
+    fontSize: 12,
+    color: COLORS.primary,
+    ...(isWeb ? { cursor: 'pointer' } : {}),
+  },
+  footerDot: {
+    fontFamily: FONTS.body,
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.35)',
   },
   footerText: {
     fontFamily: FONTS.body,

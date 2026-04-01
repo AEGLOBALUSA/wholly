@@ -5,7 +5,7 @@ import Head from 'expo-router/head';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { analytics } from '../../context/AnalyticsContext';
-import { FONTS, BORDER_RADIUS } from '../../styles/tokens';
+import { COLORS, FONTS, BORDER_RADIUS } from '../../styles/tokens';
 import ThemeToggle from '../../components/ui/ThemeToggle';
 import Input from '../../components/ui/Input';
 

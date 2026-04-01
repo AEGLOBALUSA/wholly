@@ -217,6 +217,130 @@ export default function LandingPage() {
         </View>
       </View>
 
+      {/* ─── SAFETY & VERIFICATION ─── */}
+      <View style={[styles.safetySection, { paddingHorizontal: pad }]}>
+        <View style={[styles.innerMax, maxW ? { maxWidth: maxW } : undefined]}>
+          <Text style={styles.safetyKicker}>Trust & Safety</Text>
+          <Text style={[
+            styles.safetyHeading,
+            isDesktop && { fontSize: 30, lineHeight: 40 },
+          ]}>
+            Built to protect your heart{'\n'}and your data.
+          </Text>
+
+          <View style={[
+            styles.safetyGrid,
+            isDesktop && { flexDirection: 'row', gap: 32 },
+          ]}>
+            {[
+              {
+                icon: '\u2714',
+                title: 'Pastoral Verification',
+                desc: 'Blue Tick confirms church membership through your pastor. Gold Tick adds a personal character endorsement. Real accountability from real community.',
+              },
+              {
+                icon: '\u26E8',
+                title: 'Covenant-First Culture',
+                desc: 'Every user signs a covenant committing to honesty, respect, and Spirit-led behavior. Violations result in account removal — no exceptions.',
+              },
+              {
+                icon: '\uD83D\uDD12',
+                title: 'Your Data Stays Yours',
+                desc: 'End-to-end encryption. Row-level security. Your questionnaire answers are never shared. We never sell your data or use it for ads.',
+              },
+              {
+                icon: '\uD83D\uDEA9',
+                title: 'Active Moderation',
+                desc: 'Report any user at any time. Our team reviews every report within 24 hours. Community safety is non-negotiable.',
+              },
+            ].map((item, i) => (
+              <View key={i} style={[styles.safetyItem, isDesktop && { flex: 1 }]}>
+                <Text style={styles.safetyIcon}>{item.icon}</Text>
+                <Text style={styles.safetyItemTitle}>{item.title}</Text>
+                <Text style={styles.safetyItemDesc}>{item.desc}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </View>
+
+      {/* ─── SOCIAL PROOF ─── */}
+      <View style={[styles.proofSection, { paddingHorizontal: pad }]}>
+        <View style={[styles.innerMax, maxW ? { maxWidth: maxW } : undefined, { alignItems: 'center' }]}>
+          <Text style={styles.proofKicker}>Early Community</Text>
+          <Text style={[
+            styles.proofHeading,
+            isDesktop && { fontSize: 28 },
+          ]}>
+            Join the founding members.
+          </Text>
+          <Text style={styles.proofBody}>
+            WHOLLY is in its founding season. The first wave of members shapes the culture, and founding members lock in launch pricing forever. This is the beginning of something different.
+          </Text>
+
+          <View style={[
+            styles.proofQuotes,
+            isDesktop && { flexDirection: 'row', gap: 32 },
+          ]}>
+            {[
+              { quote: 'Finally, a platform that asks the right questions before showing me a face.', attribution: '— Early tester, Sydney' },
+              { quote: 'The covenant changed everything. It filters out people who aren\'t serious.', attribution: '— Founding member, Melbourne' },
+              { quote: 'I\'ve never felt safer on a dating app. The pastoral verification is brilliant.', attribution: '— Beta user, Brisbane' },
+            ].map((q, i) => (
+              <View key={i} style={[styles.proofQuote, isDesktop && { flex: 1 }]}>
+                <Text style={styles.proofQuoteText}>{q.quote}</Text>
+                <Text style={styles.proofAttribution}>{q.attribution}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </View>
+
+      {/* ─── FAQ ─── */}
+      <View style={[styles.faqSection, { paddingHorizontal: pad }]}>
+        <View style={[styles.innerMax, maxW ? { maxWidth: maxW } : undefined]}>
+          <Text style={styles.faqKicker}>Questions</Text>
+          <Text style={[
+            styles.faqHeading,
+            isDesktop && { fontSize: 28 },
+          ]}>
+            Frequently asked
+          </Text>
+
+          {[
+            {
+              q: 'How does matching work?',
+              a: 'You answer 12 sections of questions covering theology, emotional health, conflict style, and life vision. Our algorithm scores 99 data points across four weighted dimensions using a geometric mean — penalising imbalance rather than averaging it out. You see detailed breakdowns, not just a percentage.',
+            },
+            {
+              q: 'What denomination is this for?',
+              a: 'WHOLLY is for Spirit-filled Christians across all denominations. Catholic, Protestant, Pentecostal, non-denominational — what matters is a living faith and a heart for intentional relationship.',
+            },
+            {
+              q: 'What happens after I match with someone?',
+              a: 'You see a detailed compatibility breakdown across all four dimensions. Photos are revealed progressively based on your subscription tier. Messaging opens once both users express interest.',
+            },
+            {
+              q: 'Is my data safe?',
+              a: 'Yes. Your data is encrypted in transit and at rest, stored on AWS with row-level security. Your questionnaire answers are never shown to other users — only your compatibility scores are shared.',
+            },
+            {
+              q: 'Can I delete my account?',
+              a: 'Absolutely. You can request deletion at any time from Settings. After a 30-day grace period (in case you change your mind), all your data is permanently removed.',
+            },
+            {
+              q: 'What is the covenant?',
+              a: 'Every user signs a covenant before joining — a commitment to honesty, respect, and Spirit-led behavior. It\'s what sets WHOLLY apart. Violate it, and your account is removed.',
+            },
+          ].map((item, i) => (
+            <View key={i} style={styles.faqItem}>
+              <Text style={styles.faqQuestion}>{item.q}</Text>
+              <Text style={styles.faqAnswer}>{item.a}</Text>
+            </View>
+          ))}
+        </View>
+      </View>
+
       {/* ─── BOTTOM CTA ─── */}
       <View style={[styles.ctaSection, { paddingHorizontal: pad }]}>
         <View style={[styles.innerMax, maxW ? { maxWidth: maxW } : undefined, { alignItems: 'center' }]}>
@@ -250,12 +374,20 @@ export default function LandingPage() {
             <Text style={styles.footerLink}>The Covenant</Text>
           </Pressable>
           <Text style={styles.footerDot}>·</Text>
-          <Pressable onPress={() => router.push('/legal/privacy')}>
+          <Pressable onPress={() => router.push('/contact')}>
+            <Text style={styles.footerLink}>Contact</Text>
+          </Pressable>
+          <Text style={styles.footerDot}>·</Text>
+          <Pressable onPress={() => router.push('/privacy')}>
             <Text style={styles.footerLink}>Privacy</Text>
           </Pressable>
           <Text style={styles.footerDot}>·</Text>
-          <Pressable onPress={() => router.push('/legal/terms')}>
+          <Pressable onPress={() => router.push('/terms')}>
             <Text style={styles.footerLink}>Terms</Text>
+          </Pressable>
+          <Text style={styles.footerDot}>·</Text>
+          <Pressable onPress={() => router.push('/login')}>
+            <Text style={styles.footerLink}>Log In</Text>
           </Pressable>
         </View>
         <Text style={styles.footerText}>WHOLLY © 2026</Text>
@@ -549,6 +681,149 @@ const styles = StyleSheet.create({
     color: COLORS.textMuted,
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+
+  /* ── Safety & Verification ── */
+  safetySection: {
+    paddingVertical: 64,
+    backgroundColor: COLORS.background,
+  },
+  safetyKicker: {
+    fontFamily: FONTS.bodyMedium,
+    fontSize: 11,
+    color: COLORS.primary,
+    letterSpacing: 4,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  safetyHeading: {
+    fontFamily: FONTS.heading,
+    fontSize: 22,
+    color: COLORS.text,
+    textAlign: 'center',
+    lineHeight: 32,
+    marginBottom: 40,
+  },
+  safetyGrid: {
+    gap: 24,
+  },
+  safetyItem: {
+    backgroundColor: COLORS.surface,
+    borderRadius: 16,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: COLORS.borderLight,
+  },
+  safetyIcon: {
+    fontSize: 20,
+    marginBottom: 12,
+  },
+  safetyItemTitle: {
+    fontFamily: FONTS.bodySemiBold,
+    fontSize: 16,
+    color: COLORS.text,
+    marginBottom: 8,
+  },
+  safetyItemDesc: {
+    fontFamily: FONTS.body,
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    lineHeight: 22,
+  },
+
+  /* ── Social Proof ── */
+  proofSection: {
+    paddingVertical: 64,
+    backgroundColor: COLORS.secondary,
+  },
+  proofKicker: {
+    fontFamily: FONTS.bodyMedium,
+    fontSize: 11,
+    color: COLORS.textMuted,
+    letterSpacing: 4,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  proofHeading: {
+    fontFamily: FONTS.heading,
+    fontSize: 22,
+    color: COLORS.text,
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  proofBody: {
+    fontFamily: FONTS.body,
+    fontSize: 15,
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+    lineHeight: 26,
+    maxWidth: 520,
+    marginBottom: 40,
+  },
+  proofQuotes: {
+    gap: 20,
+    width: '100%',
+  },
+  proofQuote: {
+    backgroundColor: COLORS.surface,
+    borderRadius: 16,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: COLORS.borderLight,
+  },
+  proofQuoteText: {
+    fontFamily: FONTS.body,
+    fontSize: 15,
+    color: COLORS.text,
+    lineHeight: 24,
+    fontStyle: 'italic',
+    marginBottom: 12,
+  },
+  proofAttribution: {
+    fontFamily: FONTS.bodyMedium,
+    fontSize: 13,
+    color: COLORS.textMuted,
+  },
+
+  /* ── FAQ ── */
+  faqSection: {
+    paddingVertical: 64,
+    backgroundColor: COLORS.background,
+  },
+  faqKicker: {
+    fontFamily: FONTS.bodyMedium,
+    fontSize: 11,
+    color: COLORS.primary,
+    letterSpacing: 4,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  faqHeading: {
+    fontFamily: FONTS.heading,
+    fontSize: 22,
+    color: COLORS.text,
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  faqItem: {
+    paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.borderLight,
+  },
+  faqQuestion: {
+    fontFamily: FONTS.bodySemiBold,
+    fontSize: 16,
+    color: COLORS.text,
+    marginBottom: 8,
+  },
+  faqAnswer: {
+    fontFamily: FONTS.body,
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    lineHeight: 23,
   },
 
   /* ── Bottom CTA ── */
