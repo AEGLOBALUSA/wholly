@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
 });
 

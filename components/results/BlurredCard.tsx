@@ -98,7 +98,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
                     fontWeight: '600',
                     color: colors.text,
                     marginBottom: 2,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}
                 >
                   {name}, {age}
@@ -107,7 +107,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
                   style={{
                     fontSize: 13,
                     color: colors.textMuted,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}
                 >
                   {city}
@@ -129,7 +129,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
                     fontWeight: '600',
                     color: tierColor,
                     letterSpacing: 0.3,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}
                 >
                   {getTierLabel(tier)}
@@ -153,7 +153,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
                   fontSize: 11,
                   fontWeight: '500',
                   color: colors.textSecondary,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}
               >
                 {denomination}
@@ -171,7 +171,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
             marginBottom: 16,
             opacity: 0.5,
             fontStyle: 'italic',
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}
         >
           Bio hidden — upgrade to see full profiles
@@ -194,7 +194,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
               fontSize: 13,
               fontWeight: '500',
               color: colors.textSecondary,
-              ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+              ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
             }}
           >
             Compatibility
@@ -205,7 +205,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
               fontWeight: '300',
               color: colors.accent,
               letterSpacing: -0.5,
-              ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+              ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
             }}
           >
             {overallScore}%
@@ -227,7 +227,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
             fontSize: 12,
             color: colors.textSecondary,
             flex: 1,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             Photos are hidden on Discover. Upgrade to see thumbnails or full photos.
           </Text>
@@ -246,7 +246,7 @@ export default function BlurredCard({ profileId, name, age, city, tier, overallS
             color: colors.textMuted,
             marginTop: 8,
             textAlign: 'center',
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}
         >
           Connect from $14.99/mo • Intentional from $22.99/mo

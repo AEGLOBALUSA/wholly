@@ -63,7 +63,7 @@ export default function Step3() {
           fontSize: 13,
           lineHeight: 20,
           color: colors.textSecondary,
-          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+          ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
         }}>
           {JARGON_DESCRIPTION}
         </Text>
@@ -82,7 +82,7 @@ export default function Step3() {
             letterSpacing: 0.5,
             marginBottom: 6,
             textTransform: 'uppercase',
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             Answer Honestly
           </Text>
@@ -90,7 +90,7 @@ export default function Step3() {
             fontSize: 13,
             lineHeight: 19,
             color: colors.textMuted,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             Your responses here generate a Community Familiarity score that is displayed on your profile for potential matches to see. Selecting terms you're not genuinely familiar with will lower your score — so be honest, and let your real experience speak for itself.
           </Text>

@@ -81,6 +81,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
 });

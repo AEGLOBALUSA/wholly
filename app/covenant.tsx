@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: 3,
     marginBottom: 24,
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
   header: {
     marginBottom: 32,
@@ -240,13 +240,13 @@ const styles = StyleSheet.create({
     lineHeight: 44,
     letterSpacing: -0.5,
     marginBottom: 16,
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
   subtitle: {
     fontSize: 16,
     fontWeight: '400',
     lineHeight: 26,
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
   divider: {
     height: StyleSheet.hairlineWidth,
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: 2,
     marginBottom: 14,
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
   itemsContainer: {
     gap: 12,
@@ -309,14 +309,14 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 23,
     flex: 1,
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
   progressText: {
     fontSize: 12,
     letterSpacing: 1,
     textAlign: 'center',
     marginBottom: 24,
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
   ctaButton: {
     flexDirection: 'row',
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     letterSpacing: 1.5,
     textTransform: 'uppercase',
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
   ctaArrow: {
     fontSize: 15,
@@ -350,6 +350,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
     marginTop: 16,
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
 });

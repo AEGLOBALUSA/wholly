@@ -92,7 +92,7 @@ export default function SubscriptionPage() {
                   fontSize: 18,
                   fontWeight: '600',
                   color: colors.text,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}
               >
                 {tierData.name}
@@ -102,7 +102,7 @@ export default function SubscriptionPage() {
                   fontSize: 12,
                   color: colors.textMuted,
                   marginTop: 2,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}
               >
                 {tierData.subtitle}
@@ -122,7 +122,7 @@ export default function SubscriptionPage() {
                     fontSize: 11,
                     fontWeight: '600',
                     color: '#ffffff',
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}
                 >
                   CURRENT PLAN
@@ -142,7 +142,7 @@ export default function SubscriptionPage() {
                   fontWeight: '300',
                   color: colors.accent,
                   letterSpacing: -0.5,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}
               >
                 ${getTierPrice(tierId).toFixed(2)}
@@ -152,7 +152,7 @@ export default function SubscriptionPage() {
                   fontSize: 13,
                   color: colors.textSecondary,
                   marginLeft: 4,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}
               >
                 /{billingMode === 'monthly' ? 'month' : 'month'}
@@ -181,7 +181,7 @@ export default function SubscriptionPage() {
                     fontSize: 13,
                     color: hasAccess ? colors.text : colors.textMuted,
                     flex: 1,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}
                 >
                   {label}
@@ -209,7 +209,7 @@ export default function SubscriptionPage() {
                 fontSize: 14,
                 fontWeight: '600',
                 color: colors.textSecondary,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}
             >
               Active Plan
@@ -251,7 +251,7 @@ export default function SubscriptionPage() {
             color: colors.text,
             flex: 1,
             letterSpacing: -0.5,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}
         >
           Subscription
@@ -266,7 +266,7 @@ export default function SubscriptionPage() {
             fontWeight: '600',
             color: colors.textSecondary,
             marginBottom: 8,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}
         >
           Billing Period
@@ -287,7 +287,7 @@ export default function SubscriptionPage() {
                 fontSize: 13,
                 fontWeight: '600',
                 color: billingMode === 'monthly' ? '#ffffff' : colors.textSecondary,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}
             >
               Monthly
@@ -308,7 +308,7 @@ export default function SubscriptionPage() {
                 fontSize: 13,
                 fontWeight: '600',
                 color: billingMode === 'annual' ? '#ffffff' : colors.textSecondary,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}
             >
               Annual (Save 25%)
@@ -331,7 +331,7 @@ export default function SubscriptionPage() {
             fontSize: 13,
             color: colors.textSecondary,
             lineHeight: 20,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}
         >
           You can change your subscription plan at any time. Changes will take effect at the start of your next billing cycle.

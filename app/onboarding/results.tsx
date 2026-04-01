@@ -228,7 +228,7 @@ export default function ResultsPage() {
                 fontSize: 13,
                 fontWeight: isActive ? '600' : '400',
                 color: isActive ? '#ffffff' : colors.textSecondary,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}>
                 {btn.label}
               </Text>
@@ -252,7 +252,7 @@ export default function ResultsPage() {
           fontSize: 13,
           fontWeight: '500',
           color: colors.textSecondary,
-          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+          ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
         }}>
           {showFilters ? 'Hide Filters' : 'Advanced Filters'}
         </Text>
@@ -273,7 +273,7 @@ export default function ResultsPage() {
         }}>
           {/* Age Range */}
           <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-            <Text style={{ fontSize: 13, color: colors.textSecondary, width: 80, ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}) }}>
+            <Text style={{ fontSize: 13, color: colors.textSecondary, width: 80, ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}) }}>
               Age
             </Text>
             <TextInput
@@ -282,7 +282,7 @@ export default function ResultsPage() {
                 backgroundColor: colors.background, color: colors.text,
                 borderWidth: 1, borderColor: colors.surfaceBorder,
                 fontSize: 14, textAlign: 'center',
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}
               value={ageMin}
               onChangeText={setAgeMin}
@@ -297,7 +297,7 @@ export default function ResultsPage() {
                 backgroundColor: colors.background, color: colors.text,
                 borderWidth: 1, borderColor: colors.surfaceBorder,
                 fontSize: 14, textAlign: 'center',
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}
               value={ageMax}
               onChangeText={setAgeMax}
@@ -309,7 +309,7 @@ export default function ResultsPage() {
 
           {/* City */}
           <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-            <Text style={{ fontSize: 13, color: colors.textSecondary, width: 80, ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}) }}>
+            <Text style={{ fontSize: 13, color: colors.textSecondary, width: 80, ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}) }}>
               City
             </Text>
             <TextInput
@@ -318,7 +318,7 @@ export default function ResultsPage() {
                 backgroundColor: colors.background, color: colors.text,
                 borderWidth: 1, borderColor: colors.surfaceBorder,
                 fontSize: 14,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}
               value={cityFilter}
               onChangeText={setCityFilter}
@@ -329,7 +329,7 @@ export default function ResultsPage() {
 
           {/* Denomination */}
           <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-            <Text style={{ fontSize: 13, color: colors.textSecondary, width: 80, ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}) }}>
+            <Text style={{ fontSize: 13, color: colors.textSecondary, width: 80, ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}) }}>
               Church
             </Text>
             <View style={{ flex: 1, flexDirection: 'row', gap: 6 }}>
@@ -351,7 +351,7 @@ export default function ResultsPage() {
                   <Text style={{
                     fontSize: 11, fontWeight: denomFilter === d.key ? '600' : '400',
                     color: denomFilter === d.key ? '#fff' : colors.textSecondary,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}>
                     {d.label}
                   </Text>
@@ -362,7 +362,7 @@ export default function ResultsPage() {
 
           {/* Sort By */}
           <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-            <Text style={{ fontSize: 13, color: colors.textSecondary, width: 80, ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}) }}>
+            <Text style={{ fontSize: 13, color: colors.textSecondary, width: 80, ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}) }}>
               Sort by
             </Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 6 }}>
@@ -386,7 +386,7 @@ export default function ResultsPage() {
                   <Text style={{
                     fontSize: 11, fontWeight: sortBy === s.key ? '600' : '400',
                     color: sortBy === s.key ? '#fff' : colors.textSecondary,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}>
                     {s.label}
                   </Text>
@@ -400,7 +400,7 @@ export default function ResultsPage() {
       {/* Results Count */}
       <Text style={{
         fontSize: 12, color: colors.textMuted, marginBottom: 12,
-        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
       }}>
         {filteredProfiles.length} match{filteredProfiles.length !== 1 ? 'es' : ''}
       </Text>
@@ -457,7 +457,7 @@ export default function ResultsPage() {
                       fontWeight: '600',
                       color: familiarity.color,
                       letterSpacing: 0.2,
-                      ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                      ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                     }}>
                       {familiarity.level}
                     </Text>
@@ -473,14 +473,14 @@ export default function ResultsPage() {
                         fontWeight: '600',
                         color: colors.text,
                         marginBottom: 2,
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}>
                         {displayName}, {profile.age}
                       </Text>
                       <Text style={{
                         fontSize: 13,
                         color: colors.textMuted,
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}>
                         {profile.city}
                       </Text>
@@ -498,7 +498,7 @@ export default function ResultsPage() {
                         fontWeight: '600',
                         color: tierColor,
                         letterSpacing: 0.3,
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}>
                         {getTierLabel(profile.tier)}
                       </Text>
@@ -518,7 +518,7 @@ export default function ResultsPage() {
                       fontSize: 11,
                       fontWeight: '500',
                       color: colors.textSecondary,
-                      ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                      ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                     }}>
                       {denominationLabel(profile.denomination)}
                     </Text>
@@ -532,7 +532,7 @@ export default function ResultsPage() {
                 lineHeight: 22,
                 color: colors.textSecondary,
                 marginBottom: 16,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}>
                 {profile.bio}
               </Text>
@@ -551,7 +551,7 @@ export default function ResultsPage() {
                   fontSize: 13,
                   fontWeight: '500',
                   color: colors.textSecondary,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}>
                   Compatibility
                 </Text>
@@ -560,7 +560,7 @@ export default function ResultsPage() {
                   fontWeight: '300',
                   color: colors.accent,
                   letterSpacing: -0.5,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}>
                   {profile.overallScore || profile.scores?.overall || 0}%
                 </Text>
@@ -580,7 +580,7 @@ export default function ResultsPage() {
                         <Text style={{
                           fontSize: 13,
                           color: colors.textSecondary,
-                          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                          ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                         }}>
                           {item.label}
                         </Text>
@@ -588,7 +588,7 @@ export default function ResultsPage() {
                           fontSize: 13,
                           fontWeight: '500',
                           color: colors.text,
-                          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                          ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                         }}>
                           {item.score}%
                         </Text>
@@ -624,7 +624,7 @@ export default function ResultsPage() {
                         fontSize: 14,
                         fontWeight: '600',
                         color: '#4CAF7D',
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}>
                         Interest Expressed
                       </Text>
@@ -641,7 +641,7 @@ export default function ResultsPage() {
                         fontSize: 14,
                         fontWeight: '500',
                         color: colors.textMuted,
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}>
                         Passed
                       </Text>
@@ -664,7 +664,7 @@ export default function ResultsPage() {
                           fontSize: 14,
                           fontWeight: '500',
                           color: colors.textSecondary,
-                          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                          ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                         }}>
                           Pass
                         </Text>
@@ -683,7 +683,7 @@ export default function ResultsPage() {
                           fontSize: 14,
                           fontWeight: '600',
                           color: '#ffffff',
-                          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                          ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                         }}>
                           I'm Interested
                         </Text>
@@ -696,7 +696,7 @@ export default function ResultsPage() {
                     color: colors.textMuted,
                     marginTop: 6,
                     textAlign: 'center',
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}>
                     Photos revealed after mutual interest
                   </Text>
@@ -709,7 +709,7 @@ export default function ResultsPage() {
                   color: colors.textMuted,
                   textAlign: 'center',
                   marginTop: 8,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}>
                   Tap to see score breakdown
                 </Text>
@@ -762,7 +762,7 @@ const styles = StyleSheet.create({
     lineHeight: 26,
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
   card: {
     borderRadius: 16,

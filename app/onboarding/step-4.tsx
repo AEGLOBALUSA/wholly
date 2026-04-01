@@ -62,8 +62,8 @@ export default function Step4() {
                   fontSize: 16,
                   fontWeight: '600',
                   marginBottom: 12,
-                  color: '#f0f0f0',
-                  ...(Platform.OS === 'web' ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  color: '#2D2D2D',
+                  ...(Platform.OS === 'web' ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}>
                   {question.text}
                 </Text>

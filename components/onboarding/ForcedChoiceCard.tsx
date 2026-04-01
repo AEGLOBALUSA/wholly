@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
   choicesContainer: {
     gap: 0,

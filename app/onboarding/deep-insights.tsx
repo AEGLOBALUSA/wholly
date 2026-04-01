@@ -113,14 +113,14 @@ export default function DeepInsightsPage() {
                       fontSize: 14,
                       fontWeight: '600',
                       color: colors.text,
-                      ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                      ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                     }}>
                       {sec.title}
                     </Text>
                     <Text style={{
                       fontSize: 12,
                       color: colors.textMuted,
-                      ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                      ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                     }}>
                       {answered}/{sec.questions.length} answered
                     </Text>
@@ -129,7 +129,7 @@ export default function DeepInsightsPage() {
                     fontSize: 13,
                     fontWeight: '600',
                     color: '#4CAF7D',
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}>
                     {'✓'}
                   </Text>
@@ -150,7 +150,7 @@ export default function DeepInsightsPage() {
             color: colors.text,
             lineHeight: 20,
             textAlign: 'center',
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             Your compatibility scores will now include attachment compatibility, emotional regulation alignment, and love language matching.
           </Text>
@@ -173,7 +173,7 @@ export default function DeepInsightsPage() {
     >
       {/* Header */}
       <View style={styles.header}>
-        <Text style={{ fontSize: 14, color: colors.textMuted, marginBottom: 4, letterSpacing: 1, ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}) }}>
+        <Text style={{ fontSize: 14, color: colors.textMuted, marginBottom: 4, letterSpacing: 1, ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}) }}>
           OPTIONAL DEEP DIVE
         </Text>
         <Text style={[styles.title, { color: colors.text }, isWeb && styles.webFont]}>
@@ -200,7 +200,7 @@ export default function DeepInsightsPage() {
             color: colors.accent,
             letterSpacing: 0.5,
             marginBottom: 4,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             THE SCIENCE
           </Text>
@@ -208,7 +208,7 @@ export default function DeepInsightsPage() {
             fontSize: 12,
             color: colors.textSecondary,
             lineHeight: 18,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             {(section as any).science}
           </Text>
@@ -222,14 +222,14 @@ export default function DeepInsightsPage() {
             fontSize: 12,
             fontWeight: '600',
             color: colors.textSecondary,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             Section {currentSection + 1} of {DEEP_INSIGHTS_SECTIONS.length}
           </Text>
           <Text style={{
             fontSize: 12,
             color: colors.textMuted,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             {totalAnswered}/{TOTAL_DEEP_QUESTIONS} total
           </Text>
@@ -272,7 +272,7 @@ export default function DeepInsightsPage() {
                   fontSize: 11,
                   fontWeight: '600',
                   color: isCurrent ? '#ffffff' : secDone ? '#4CAF7D' : colors.textMuted,
-                  ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                  ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                 }}>
                   {sec.icon} {secDone ? '✓' : `${secAnswered}/${sec.questions.length}`}
                 </Text>
@@ -292,7 +292,7 @@ export default function DeepInsightsPage() {
               color: colors.textMuted,
               letterSpacing: 0.5,
               marginBottom: 8,
-              ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+              ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
             }}>
               Q{qIndex + 1}
             </Text>
@@ -302,7 +302,7 @@ export default function DeepInsightsPage() {
               color: colors.text,
               lineHeight: 22,
               marginBottom: 14,
-              ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+              ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
             }}>
               {question.text}
             </Text>
@@ -328,7 +328,7 @@ export default function DeepInsightsPage() {
                       color: isSelected ? colors.accent : colors.textSecondary,
                       fontWeight: isSelected ? '600' : '400',
                       lineHeight: 20,
-                      ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                      ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                     }}>
                       {option.label}
                     </Text>
@@ -360,7 +360,7 @@ export default function DeepInsightsPage() {
           color: colors.textMuted,
           textAlign: 'center',
           marginTop: 4,
-          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+          ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
         }}>
           This is completely optional. Your progress is saved automatically.
         </Text>
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
   questionCard: {
     borderRadius: 14,

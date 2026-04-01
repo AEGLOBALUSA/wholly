@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     color: '#3B82F6',
     fontWeight: '600',
     letterSpacing: 0.3,
-    fontFamily: isWeb ? 'Inter, sans-serif' : undefined,
+    fontFamily: isWeb ? 'DM Sans, sans-serif' : undefined,
   },
 });
 

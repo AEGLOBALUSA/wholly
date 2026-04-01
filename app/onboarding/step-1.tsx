@@ -78,7 +78,7 @@ export default function Step1() {
             fontSize: 14,
             fontWeight: '500',
             color: colors.text,
-            ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+            ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
           }}>
             I am
           </Text>

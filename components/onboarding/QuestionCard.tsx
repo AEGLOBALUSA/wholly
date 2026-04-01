@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     lineHeight: 28,
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
   inputContainer: {
     marginBottom: 16,

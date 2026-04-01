@@ -10,10 +10,10 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ children, style, testID }) => {
   const styles = StyleSheet.create({
     card: {
-      backgroundColor: '#141416',
+      backgroundColor: '#FFFFFF',
       borderRadius: 12,
       borderWidth: 1,
-      borderColor: 'rgba(255,255,255,0.06)',
+      borderColor: '#E8E0DC',
       padding: 16,
     },
   });

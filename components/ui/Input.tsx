@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
   inputContainer: {
     borderRadius: 8,

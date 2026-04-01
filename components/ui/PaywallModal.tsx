@@ -66,7 +66,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
           color: hasFeature ? colors.text : colors.textMuted,
           flex: 1,
           fontWeight: highlight ? '600' : '400',
-          ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+          ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
         }}
       >
         {label}
@@ -107,7 +107,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                 fontSize: 13,
                 color: colors.textSecondary,
                 marginTop: 4,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}>
                 Photos come last. Character comes first.
               </Text>
@@ -140,7 +140,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                     fontWeight: '600',
                     color:
                       billingMode === 'monthly' ? '#ffffff' : colors.textSecondary,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}
                 >
                   Monthly
@@ -163,7 +163,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                     fontWeight: '600',
                     color:
                       billingMode === 'annual' ? '#ffffff' : colors.textSecondary,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}
                 >
                   Annual
@@ -184,7 +184,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                     fontSize: 12,
                     fontWeight: '600',
                     color: colors.accent,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}
                 >
                   Save up to 23% with annual billing
@@ -199,7 +199,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                 fontWeight: '600',
                 color: colors.text,
                 marginBottom: 4,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}>
                 Free (Discover)
               </Text>
@@ -207,7 +207,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                 fontSize: 12,
                 color: colors.textMuted,
                 lineHeight: 18,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}>
                 Onboarding + blurred results • No photos • Blue Tick eligible (free, renews every 6 months)
               </Text>
@@ -241,7 +241,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                       color: colors.textMuted,
                       marginTop: 2,
                       letterSpacing: 1,
-                      ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                      ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                     }}
                   >
                     STANDARD
@@ -265,7 +265,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                         fontSize: 13,
                         color: colors.textSecondary,
                         marginLeft: 4,
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}
                     >
                       /month
@@ -278,7 +278,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                         color: colors.accent,
                         fontWeight: '500',
                         marginTop: 4,
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}
                     >
                       {getAnnualSavings('standard')}
@@ -334,7 +334,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                       fontWeight: '600',
                       color: '#ffffff',
                       letterSpacing: 0.3,
-                      ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                      ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                     }}
                   >
                     MOST POPULAR
@@ -357,7 +357,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                       color: colors.textMuted,
                       marginTop: 2,
                       letterSpacing: 1,
-                      ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                      ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                     }}
                   >
                     PREMIUM
@@ -381,7 +381,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                         fontSize: 13,
                         color: colors.textSecondary,
                         marginLeft: 4,
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}
                     >
                       /month
@@ -394,7 +394,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                         color: '#C4973B',
                         fontWeight: '500',
                         marginTop: 4,
-                        ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                        ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                       }}
                     >
                       {getAnnualSavings('premium')}
@@ -431,7 +431,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                 fontWeight: '600',
                 color: colors.text,
                 marginBottom: 8,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}>
                 Pastoral Verification
               </Text>
@@ -443,9 +443,9 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                     color: colors.textSecondary,
                     flex: 1,
                     lineHeight: 18,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}>
-                    <Text style={{ fontWeight: '600', color: '#6366f1' }}>Blue Tick</Text> — Free for all tiers. Your pastor confirms church membership. Renews every 6 months.
+                    <Text style={{ fontWeight: '600', color: '#E8615A' }}>Blue Tick</Text> — Free for all tiers. Your pastor confirms church membership. Renews every 6 months.
                   </Text>
                 </View>
                 <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start' }}>
@@ -455,7 +455,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                     color: colors.textSecondary,
                     flex: 1,
                     lineHeight: 18,
-                    ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                    ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
                   }}>
                     <Text style={{ fontWeight: '600', color: '#C4973B' }}>Gold Tick</Text> — Premium only. Includes a 150-character endorsement from your pastor displayed on your profile.
                   </Text>
@@ -470,7 +470,7 @@ export default function PaywallModal({ visible, onClose, onSelectTier }: Paywall
                 color: colors.textMuted,
                 textAlign: 'center',
                 marginTop: 16,
-                ...(isWeb ? { fontFamily: 'Inter, sans-serif' } : {}),
+                ...(isWeb ? { fontFamily: 'DM Sans, sans-serif' } : {}),
               }}
             >
               Cancel anytime. No long-term commitments.
@@ -585,6 +585,6 @@ const styles = StyleSheet.create({
     borderTopColor: 'rgba(255,255,255,0.06)',
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
 });

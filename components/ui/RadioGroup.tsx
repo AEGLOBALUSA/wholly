@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
   disabled: {
     opacity: 0.5,

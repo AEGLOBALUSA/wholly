@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   webFont: {
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'DM Sans, sans-serif',
   },
   childrenContainer: {
     gap: 16,
