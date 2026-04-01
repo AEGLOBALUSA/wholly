@@ -1,20 +1,32 @@
 /**
- * WHOLLY — Web Push Notifications Service
+ * WHOLLY — Push Notifications Service
  *
- * Handles browser push notification permission, subscription storage,
- * and sending notifications for matches and messages.
+ * Handles browser push notification permission, service worker push
+ * subscription, and local notification fallbacks.
  */
 
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { Platform } from 'react-native';
 
 const isWeb = Platform.OS === 'web';
+const VAPID_PUBLIC_KEY = process.env.EXPO_PUBLIC_VAPID_KEY || '';
 
 /**
  * Check if notifications are supported
  */
 export function isNotificationSupported(): boolean {
   return isWeb && typeof window !== 'undefined' && 'Notification' in window;
+}
+
+/**
+ * Check if service worker push is supported
+ */
+export function isPushSupported(): boolean {
+  return (
+    isNotificationSupported() &&
+    'serviceWorker' in navigator &&
+    'PushManager' in window
+  );
 }
 
 /**
@@ -36,7 +48,72 @@ export function getNotificationPermission(): NotificationPermission | 'unsupport
 }
 
 /**
- * Show a local browser notification
+ * Subscribe to push notifications via service worker.
+ * Registers the subscription with the backend so server-side
+ * notifications can be sent.
+ */
+export async function subscribeToPush(profileId: string): Promise<boolean> {
+  if (!isPushSupported() || !VAPID_PUBLIC_KEY || !isSupabaseConfigured) return false;
+
+  try {
+    const permission = await requestNotificationPermission();
+    if (!permission) return false;
+
+    const registration = await navigator.serviceWorker.ready;
+
+    // Check for existing subscription
+    let subscription = await registration.pushManager.getSubscription();
+
+    if (!subscription) {
+      // Convert VAPID key to Uint8Array
+      const vapidKeyBytes = urlBase64ToUint8Array(VAPID_PUBLIC_KEY);
+
+      subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: vapidKeyBytes,
+      });
+    }
+
+    // Register with backend
+    const { error } = await supabase.functions.invoke('register-push', {
+      body: { subscription: subscription.toJSON() },
+    });
+
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Unsubscribe from push notifications
+ */
+export async function unsubscribePush(): Promise<boolean> {
+  if (!isPushSupported()) return false;
+
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+
+    if (subscription) {
+      // Remove from backend
+      await supabase.functions.invoke('register-push', {
+        method: 'DELETE',
+        body: { endpoint: subscription.endpoint },
+      });
+
+      // Unsubscribe locally
+      await subscription.unsubscribe();
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Show a local browser notification (foreground fallback)
  */
 export function showNotification(
   title: string,
@@ -46,8 +123,8 @@ export function showNotification(
   if (Notification.permission !== 'granted') return;
 
   new Notification(title, {
-    icon: '/assets/assets/images/icon.png',
-    badge: '/assets/assets/images/icon.png',
+    icon: '/icon-192.png',
+    badge: '/icon-192.png',
     ...options,
   });
 }
@@ -83,18 +160,11 @@ export function notifyHighMatch(matchName: string, score: number): void {
 }
 
 /**
- * Save push subscription to user profile for future server-side notifications
+ * Convert a base64url-encoded VAPID key to Uint8Array
  */
-export async function savePushSubscription(
-  profileId: string,
-  subscription: PushSubscription,
-): Promise<boolean> {
-  if (!isSupabaseConfigured) return false;
-
-  const { error } = await supabase
-    .from('profiles')
-    .update({ push_subscription: subscription.toJSON() })
-    .eq('id', profileId);
-
-  return !error;
+function urlBase64ToUint8Array(base64String: string): Uint8Array {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = atob(base64);
+  return new Uint8Array([...rawData].map((char) => char.charCodeAt(0)));
 }

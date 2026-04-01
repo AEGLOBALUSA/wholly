@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import Head from 'expo-router/head';
 import { useOnboarding } from '../context/OnboardingContext';
 import { useTheme } from '../context/ThemeContext';
 import { analytics } from '../context/AnalyticsContext';
@@ -50,6 +51,11 @@ export default function CovenantScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <Head>
+        <title>The Covenant — WHOLLY</title>
+        <meta property="og:title" content="The WHOLLY Covenant" />
+        <meta property="og:url" content="https://whollydate.com/covenant" />
+      </Head>
       {/* Back Header */}
       <View style={[styles.backHeader, { borderBottomColor: colors.surfaceBorder }]}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>

@@ -1,11 +1,11 @@
 [build]
-  command = "mkdir -p dist/assets/carousel && cp landing.html dist/index.html && cp assets/carousel/*.jpg dist/assets/carousel/ && cp robots.txt dist/robots.txt && cp sitemap.xml dist/sitemap.xml && cp assets/images/wholly-og-share.png dist/wholly-og-share.png 2>/dev/null || true"
+  command = "npm install && npx expo export --platform web"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
 
-# Serve robots.txt and sitemap.xml directly (before SPA catch-all)
+# Static files served directly (before SPA catch-all)
 [[redirects]]
   from = "/robots.txt"
   to = "/robots.txt"
@@ -16,6 +16,17 @@
   to = "/sitemap.xml"
   status = 200
 
+[[redirects]]
+  from = "/manifest.json"
+  to = "/manifest.json"
+  status = 200
+
+[[redirects]]
+  from = "/sw.js"
+  to = "/sw.js"
+  status = 200
+
+# SPA catch-all for client-side routing
 [[redirects]]
   from = "/*"
   to = "/index.html"

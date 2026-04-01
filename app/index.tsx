@@ -10,6 +10,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import Head from 'expo-router/head';
 import { COLORS, FONTS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../styles/tokens';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -33,6 +34,15 @@ export default function LandingPage() {
       contentContainerStyle={styles.scrollContent}
       showsVerticalScrollIndicator={false}
     >
+      <Head>
+        <title>WHOLLY — Premium Faith-First Matchmaking</title>
+        <meta name="description" content="A dating experience built around depth. WHOLLY matches Spirit-filled Christians on emotional health, values, life vision, and intellectual compatibility — before you ever see a photo." />
+        <meta property="og:title" content="WHOLLY — Premium Faith-First Matchmaking" />
+        <meta property="og:description" content="Matched on what actually matters. A dating experience built around depth — not just a photo." />
+        <meta property="og:url" content="https://whollydate.com/" />
+        <meta name="twitter:title" content="WHOLLY — Premium Faith-First Matchmaking" />
+        <meta name="twitter:description" content="Matched on what actually matters. A dating experience built around depth — not just a photo." />
+      </Head>
       {/* ─── HERO ─── */}
       <ImageBackground
         source={HERO_IMAGE}
@@ -231,6 +241,23 @@ export default function LandingPage() {
 
       {/* ─── FOOTER ─── */}
       <View style={styles.footer}>
+        <View style={styles.footerLinks}>
+          <Pressable onPress={() => router.push('/about')}>
+            <Text style={styles.footerLink}>About</Text>
+          </Pressable>
+          <Text style={styles.footerDot}>·</Text>
+          <Pressable onPress={() => router.push('/covenant')}>
+            <Text style={styles.footerLink}>The Covenant</Text>
+          </Pressable>
+          <Text style={styles.footerDot}>·</Text>
+          <Pressable onPress={() => router.push('/legal/privacy')}>
+            <Text style={styles.footerLink}>Privacy</Text>
+          </Pressable>
+          <Text style={styles.footerDot}>·</Text>
+          <Pressable onPress={() => router.push('/legal/terms')}>
+            <Text style={styles.footerLink}>Terms</Text>
+          </Pressable>
+        </View>
         <Text style={styles.footerText}>WHOLLY © 2026</Text>
       </View>
     </ScrollView>
@@ -559,6 +586,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#0a0a0c',
     borderTopWidth: 1,
     borderTopColor: 'rgba(255,255,255,0.06)',
+  },
+  footerLinks: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 16,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  footerLink: {
+    fontFamily: FONTS.body,
+    fontSize: 12,
+    color: '#9ca3af',
+    ...(isWeb ? { cursor: 'pointer' } : {}),
+  },
+  footerDot: {
+    fontFamily: FONTS.body,
+    fontSize: 12,
+    color: '#52525b',
   },
   footerText: {
     fontFamily: FONTS.body,

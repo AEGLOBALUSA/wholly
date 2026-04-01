@@ -1,10 +1,16 @@
 import React from 'react';
 import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import Head from 'expo-router/head';
 import { COLORS, FONTS, SPACING, FONT_SIZES } from '../../styles/tokens';
 
 export default function TermsOfService() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <Head>
+        <title>Terms of Service — WHOLLY</title>
+        <meta property="og:title" content="Terms of Service — WHOLLY" />
+        <meta property="og:url" content="https://whollydate.com/legal/terms" />
+      </Head>
       <Text style={styles.title}>Terms of Service</Text>
       <Text style={styles.updated}>Last updated: March 2026</Text>
 

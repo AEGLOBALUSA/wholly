@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Platform, Pressable } from 'react-native';
 import { useRouter, Link } from 'expo-router';
+import Head from 'expo-router/head';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { analytics } from '../../context/AnalyticsContext';
@@ -76,6 +77,11 @@ export default function SignUp() {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={styles.content}>
+      <Head>
+        <title>Sign Up — WHOLLY</title>
+        <meta property="og:title" content="Sign Up — WHOLLY" />
+        <meta property="og:url" content="https://whollydate.com/auth/sign-up" />
+      </Head>
       <View style={styles.header}>
         <Text style={[styles.logo, { color: colors.accent }]}>WHOLLY</Text>
         <Text style={[styles.title, { color: colors.text }]}>Create Account</Text>

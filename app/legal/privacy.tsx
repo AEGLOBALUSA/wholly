@@ -1,10 +1,16 @@
 import React from 'react';
 import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import Head from 'expo-router/head';
 import { COLORS, FONTS, SPACING, FONT_SIZES } from '../../styles/tokens';
 
 export default function PrivacyPolicy() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <Head>
+        <title>Privacy Policy — WHOLLY</title>
+        <meta property="og:title" content="Privacy Policy — WHOLLY" />
+        <meta property="og:url" content="https://whollydate.com/legal/privacy" />
+      </Head>
       <Text style={styles.title}>Privacy Policy</Text>
       <Text style={styles.updated}>Last updated: March 2026</Text>
 
