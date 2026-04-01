@@ -26,7 +26,7 @@ function InnerLayout() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#6366f1" />
+        <meta name="theme-color" content="#E8615A" />
         <meta name="description" content="WHOLLY is a premium faith-first dating platform that matches Spirit-filled Christians on emotional health, values, life vision, and intellectual compatibility — before you ever see a photo." />
         <meta property="og:site_name" content="WHOLLY" />
         <meta property="og:type" content="website" />

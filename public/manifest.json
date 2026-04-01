@@ -4,8 +4,8 @@
   "description": "A premium dating experience that matches Spirit-filled Christians on emotional health, values, life vision, and intellectual compatibility.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0c",
-  "theme_color": "#6366f1",
+  "background_color": "#FFFAF7",
+  "theme_color": "#E8615A",
   "orientation": "portrait",
   "icons": [
     {

@@ -268,7 +268,7 @@ export default function LandingPage() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#0a0a0c',
+    backgroundColor: COLORS.background,
   },
   scrollContent: {},
 
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   hairline: {
     width: 40,
     height: 1,
-    backgroundColor: '#6366f1',
+    backgroundColor: COLORS.primary,
     marginBottom: 24,
     alignSelf: 'center',
     opacity: 0.5,
@@ -353,12 +353,12 @@ const styles = StyleSheet.create({
   /* ── Editorial Intro ── */
   editorialSection: {
     paddingVertical: 64,
-    backgroundColor: '#0a0a0c',
+    backgroundColor: COLORS.background,
   },
   editorialKicker: {
     fontFamily: FONTS.bodyMedium,
     fontSize: 11,
-    color: '#6366f1',
+    color: COLORS.primary,
     letterSpacing: 4,
     textTransform: 'uppercase',
     textAlign: 'center',
@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
   editorialQuote: {
     fontFamily: FONTS.heading,
     fontSize: 22,
-    color: '#f0f0f0',
+    color: COLORS.text,
     textAlign: 'center',
     lineHeight: 34,
     marginBottom: 20,
@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
   editorialBody: {
     fontFamily: FONTS.body,
     fontSize: 15,
-    color: '#9ca3af',
+    color: COLORS.textSecondary,
     lineHeight: 26,
     textAlign: 'center',
     alignSelf: 'center',
@@ -385,12 +385,12 @@ const styles = StyleSheet.create({
   /* ── How It Works ── */
   howSection: {
     paddingVertical: 56,
-    backgroundColor: '#141416',
+    backgroundColor: COLORS.secondary,
   },
   howKicker: {
     fontFamily: FONTS.bodyMedium,
     fontSize: 11,
-    color: '#52525b',
+    color: COLORS.textMuted,
     letterSpacing: 4,
     textTransform: 'uppercase',
     textAlign: 'center',
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
   howNum: {
     fontFamily: FONTS.body,
     fontSize: 13,
-    color: '#6366f1',
+    color: COLORS.primary,
     letterSpacing: 2,
     marginBottom: 10,
     opacity: 0.5,
@@ -413,26 +413,26 @@ const styles = StyleSheet.create({
   howTitle: {
     fontFamily: FONTS.bodySemiBold,
     fontSize: 17,
-    color: '#f0f0f0',
+    color: COLORS.text,
     marginBottom: 8,
     lineHeight: 24,
   },
   howDesc: {
     fontFamily: FONTS.body,
     fontSize: 14,
-    color: '#9ca3af',
+    color: COLORS.textSecondary,
     lineHeight: 22,
   },
 
   /* ── Layers ── */
   layersSection: {
     paddingVertical: 64,
-    backgroundColor: '#0a0a0c',
+    backgroundColor: COLORS.background,
   },
   layersKicker: {
     fontFamily: FONTS.bodyMedium,
     fontSize: 11,
-    color: '#6366f1',
+    color: COLORS.primary,
     letterSpacing: 4,
     textTransform: 'uppercase',
     textAlign: 'center',
@@ -441,7 +441,7 @@ const styles = StyleSheet.create({
   layersHeading: {
     fontFamily: FONTS.heading,
     fontSize: 22,
-    color: '#f0f0f0',
+    color: COLORS.text,
     textAlign: 'center',
     lineHeight: 32,
     marginBottom: 40,
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
   },
   layerItemBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.06)',
+    borderBottomColor: COLORS.borderLight,
   },
   layerTop: {
     flexDirection: 'row',
@@ -465,29 +465,29 @@ const styles = StyleSheet.create({
   layerLabel: {
     fontFamily: FONTS.bodySemiBold,
     fontSize: 16,
-    color: '#f0f0f0',
+    color: COLORS.text,
   },
   layerWeight: {
     fontFamily: FONTS.body,
     fontSize: 13,
-    color: '#6366f1',
+    color: COLORS.primary,
   },
   layerDesc: {
     fontFamily: FONTS.body,
     fontSize: 14,
-    color: '#9ca3af',
+    color: COLORS.textSecondary,
     lineHeight: 22,
   },
 
   /* ── Pricing ── */
   priceSection: {
     paddingVertical: 64,
-    backgroundColor: '#141416',
+    backgroundColor: COLORS.secondary,
   },
   priceKicker: {
     fontFamily: FONTS.bodyMedium,
     fontSize: 11,
-    color: '#52525b',
+    color: COLORS.textMuted,
     letterSpacing: 4,
     textTransform: 'uppercase',
     textAlign: 'center',
@@ -501,24 +501,24 @@ const styles = StyleSheet.create({
   priceHeading: {
     fontFamily: FONTS.heading,
     fontSize: 24,
-    color: '#f0f0f0',
+    color: COLORS.text,
     marginBottom: 8,
   },
   priceAmount: {
     fontFamily: FONTS.heading,
     fontSize: 36,
-    color: '#6366f1',
+    color: COLORS.primary,
     marginBottom: 6,
   },
   pricePer: {
     fontFamily: FONTS.body,
     fontSize: 15,
-    color: '#52525b',
+    color: COLORS.textMuted,
   },
   priceLock: {
     fontFamily: FONTS.body,
     fontSize: 14,
-    color: '#D4A853',
+    color: COLORS.gold,
     fontStyle: 'italic',
     marginBottom: 8,
   },
@@ -533,20 +533,20 @@ const styles = StyleSheet.create({
   priceFeatDash: {
     fontFamily: FONTS.body,
     fontSize: 14,
-    color: '#6366f1',
+    color: COLORS.primary,
     marginTop: 1,
   },
   priceFeatText: {
     fontFamily: FONTS.body,
     fontSize: 15,
-    color: '#9ca3af',
+    color: COLORS.textSecondary,
     lineHeight: 22,
     flex: 1,
   },
   priceFree: {
     fontFamily: FONTS.body,
     fontSize: 13,
-    color: '#52525b',
+    color: COLORS.textMuted,
     textAlign: 'center',
     fontStyle: 'italic',
   },
@@ -554,18 +554,18 @@ const styles = StyleSheet.create({
   /* ── Bottom CTA ── */
   ctaSection: {
     paddingVertical: 72,
-    backgroundColor: '#141416',
+    backgroundColor: COLORS.secondary,
   },
   ctaHeading: {
     fontFamily: FONTS.heading,
     fontSize: 26,
-    color: '#f0f0f0',
+    color: COLORS.text,
     textAlign: 'center',
     lineHeight: 36,
     marginBottom: 32,
   },
   ctaBtn: {
-    backgroundColor: '#6366f1',
+    backgroundColor: COLORS.primary,
     paddingVertical: 16,
     paddingHorizontal: 48,
     borderRadius: BORDER_RADIUS.full,
@@ -583,9 +583,9 @@ const styles = StyleSheet.create({
   footer: {
     paddingVertical: 32,
     alignItems: 'center',
-    backgroundColor: '#0a0a0c',
+    backgroundColor: COLORS.footerBg,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.06)',
+    borderTopColor: 'rgba(255,255,255,0.08)',
   },
   footerLinks: {
     flexDirection: 'row',
@@ -598,18 +598,18 @@ const styles = StyleSheet.create({
   footerLink: {
     fontFamily: FONTS.body,
     fontSize: 12,
-    color: '#9ca3af',
+    color: COLORS.primary,
     ...(isWeb ? { cursor: 'pointer' } : {}),
   },
   footerDot: {
     fontFamily: FONTS.body,
     fontSize: 12,
-    color: '#52525b',
+    color: 'rgba(255,255,255,0.35)',
   },
   footerText: {
     fontFamily: FONTS.body,
     fontSize: 11,
-    color: '#52525b',
+    color: 'rgba(255,255,255,0.45)',
     letterSpacing: 2,
   },
 });

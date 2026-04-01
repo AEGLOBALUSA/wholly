@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import Head from 'expo-router/head';
-import { FONTS, BORDER_RADIUS } from '../styles/tokens';
+import { FONTS, BORDER_RADIUS, COLORS } from '../styles/tokens';
 
 const isWeb = Platform.OS === 'web';
 
@@ -120,7 +120,7 @@ export default function AboutPage() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#0a0a0c',
+    backgroundColor: COLORS.background,
   },
   scrollContent: {},
   innerMax: {
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   section: {
     paddingVertical: 64,
-    backgroundColor: '#0a0a0c',
+    backgroundColor: COLORS.background,
   },
   backLink: {
     marginBottom: 32,
@@ -138,19 +138,19 @@ const styles = StyleSheet.create({
   backText: {
     fontFamily: FONTS.body,
     fontSize: 14,
-    color: '#9ca3af',
+    color: COLORS.textSecondary,
   },
   hairline: {
     width: 40,
     height: 1,
-    backgroundColor: '#6366f1',
+    backgroundColor: COLORS.primary,
     marginBottom: 24,
     opacity: 0.5,
   },
   kicker: {
     fontFamily: FONTS.bodyMedium,
     fontSize: 11,
-    color: '#6366f1',
+    color: COLORS.primary,
     letterSpacing: 4,
     textTransform: 'uppercase',
     marginBottom: 20,
@@ -158,14 +158,14 @@ const styles = StyleSheet.create({
   heading: {
     fontFamily: FONTS.heading,
     fontSize: 28,
-    color: '#f0f0f0',
+    color: COLORS.text,
     lineHeight: 38,
     marginBottom: 24,
   },
   subheading: {
     fontFamily: FONTS.heading,
     fontSize: 20,
-    color: '#f0f0f0',
+    color: COLORS.text,
     lineHeight: 28,
     marginTop: 40,
     marginBottom: 16,
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   body: {
     fontFamily: FONTS.body,
     fontSize: 15,
-    color: '#9ca3af',
+    color: COLORS.textSecondary,
     lineHeight: 26,
     marginBottom: 16,
   },
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   stepNum: {
     fontFamily: FONTS.body,
     fontSize: 13,
-    color: '#6366f1',
+    color: COLORS.primary,
     letterSpacing: 2,
     opacity: 0.5,
     marginTop: 2,
@@ -199,13 +199,13 @@ const styles = StyleSheet.create({
   stepTitle: {
     fontFamily: FONTS.bodySemiBold,
     fontSize: 16,
-    color: '#f0f0f0',
+    color: COLORS.text,
     marginBottom: 4,
   },
   stepDesc: {
     fontFamily: FONTS.body,
     fontSize: 14,
-    color: '#9ca3af',
+    color: COLORS.textSecondary,
     lineHeight: 22,
   },
   ctaBlock: {
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     marginTop: 48,
   },
   ctaBtn: {
-    backgroundColor: '#6366f1',
+    backgroundColor: COLORS.primary,
     paddingVertical: 16,
     paddingHorizontal: 48,
     borderRadius: BORDER_RADIUS.full,
@@ -222,21 +222,21 @@ const styles = StyleSheet.create({
   ctaBtnText: {
     fontFamily: FONTS.bodyMedium,
     fontSize: 12,
-    color: '#FFFFFF',
+    color: COLORS.white,
     letterSpacing: 2,
     textTransform: 'uppercase',
   },
   footer: {
     paddingVertical: 32,
     alignItems: 'center',
-    backgroundColor: '#0a0a0c',
+    backgroundColor: COLORS.footerBg,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.06)',
+    borderTopColor: 'rgba(255,255,255,0.08)',
   },
   footerText: {
     fontFamily: FONTS.body,
     fontSize: 11,
-    color: '#52525b',
+    color: 'rgba(255,255,255,0.45)',
     letterSpacing: 2,
   },
 });

@@ -17,34 +17,34 @@ export interface ThemeColors {
 }
 
 const darkColors: ThemeColors = {
-  background: '#0a0a0c',
-  surface: '#141416',
-  surfaceBorder: 'rgba(255,255,255,0.06)',
+  background: '#1A1A1A',
+  surface: '#2A2A2A',
+  surfaceBorder: 'rgba(255,255,255,0.08)',
   text: '#f0f0f0',
   textSecondary: '#9ca3af',
-  textMuted: '#52525b',
-  accent: '#6366f1',
-  accentSubtle: 'rgba(99,102,241,0.12)',
-  accentBorder: 'rgba(99,102,241,0.4)',
-  inputBg: '#141416',
-  inputBorder: 'rgba(255,255,255,0.06)',
-  inputBorderFocus: 'rgba(99,102,241,0.3)',
-  footerBorder: 'rgba(255,255,255,0.06)',
+  textMuted: '#6B6B6B',
+  accent: '#E8615A',
+  accentSubtle: 'rgba(232,97,90,0.12)',
+  accentBorder: 'rgba(232,97,90,0.4)',
+  inputBg: '#2A2A2A',
+  inputBorder: 'rgba(255,255,255,0.08)',
+  inputBorderFocus: 'rgba(212,114,106,0.3)',
+  footerBorder: 'rgba(255,255,255,0.08)',
 };
 
 const lightColors: ThemeColors = {
-  background: '#FFFAF7',
+  background: '#FFF8F6',
   surface: '#FFFFFF',
   surfaceBorder: '#E8E0DC',
-  text: '#1A1A1A',
+  text: '#2D2D2D',
   textSecondary: '#5C5C5C',
   textMuted: '#9CA3AF',
-  accent: '#6366f1',
-  accentSubtle: 'rgba(99,102,241,0.08)',
-  accentBorder: 'rgba(99,102,241,0.3)',
+  accent: '#E8615A',
+  accentSubtle: 'rgba(232,97,90,0.08)',
+  accentBorder: 'rgba(232,97,90,0.3)',
   inputBg: '#FFFFFF',
   inputBorder: '#E8E0DC',
-  inputBorderFocus: 'rgba(99,102,241,0.4)',
+  inputBorderFocus: 'rgba(232,97,90,0.4)',
   footerBorder: '#E8E0DC',
 };
 
@@ -56,14 +56,14 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  mode: 'dark',
-  colors: darkColors,
+  mode: 'light',
+  colors: lightColors,
   toggleTheme: () => {},
-  isDark: true,
+  isDark: false,
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [mode, setMode] = useState<'dark' | 'light'>('dark');
+  const [mode, setMode] = useState<'dark' | 'light'>('light');
   const isInitializedRef = useRef(false);
 
   const toggleTheme = useCallback(() => {
